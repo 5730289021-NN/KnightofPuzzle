@@ -23,8 +23,8 @@ public class RenderableHolder {
 		Collections.sort(entities,new Comparator<Renderable>(){
 
 			@Override
-			public int compare(Renderable arg0, Renderable arg1) {
-				// TODO Auto-generated method stub
+			public int compare(Renderable r1, Renderable r2) {
+				if(r1.getZ() > r2.getZ()) return 1;
 				return 0;
 			}
 		

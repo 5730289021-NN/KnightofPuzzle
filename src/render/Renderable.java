@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 public interface Renderable {
 	public void draw(Graphics2D g);
 	public boolean isVisible();
+	public int getZ();
+	public void update();
+	public int getX();
+	public int getY();
 
 
 }

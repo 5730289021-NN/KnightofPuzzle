@@ -10,7 +10,7 @@ public class Main {
 		JFrame frame = new JFrame();
 		GameScreen g = new GameScreen();
 		frame.add(g);
-		frame.setPreferredSize(new Dimension(1600, 900));
+		frame.setPreferredSize(new Dimension(1400, 800));
 		frame.pack();
 		frame.setVisible(true);
 		while(true){
