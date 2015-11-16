@@ -2,12 +2,13 @@ package render;
 
 import java.awt.image.BufferedImage;
 
-public class GIFBufferImage {
+public class ImageData {
 	private int offsetX,offsetY;
 	private BufferedImage img;
 	
-	public GIFBufferImage(BufferedImage img){
+	public ImageData(BufferedImage img){
 		this.img = img;
+		this.offsetX = this.offsetY = 0;
 	}
 	public void setOffset(int x,int y){
 		this.offsetX = x;

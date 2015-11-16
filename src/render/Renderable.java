@@ -9,6 +9,4 @@ public interface Renderable {
 	public void update();
 	public int getX();
 	public int getY();
-
-
 }
