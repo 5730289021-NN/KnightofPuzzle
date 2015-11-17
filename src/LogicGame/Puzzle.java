@@ -9,7 +9,7 @@ public class Puzzle {
 	
 	private final int sp = 1;
 	private final int lp = 2;
-	private final int s = 3;
+	private final int sw = 3;
 	private final int sh = 4;
 	
 	public Puzzle(){

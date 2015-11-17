@@ -29,25 +29,27 @@ public class Maxwell extends Monster {
 				this.at = 260;
 				check = true;
 				count = 0;
-			}
-		} else if (this.hp <= 2500) {
-			count = 0;
-			check = false;
-			this.at = 500;
-			count++;
-			if (count == 1) {
-				this.at = 260;
-				check = true;
+			} else if (this.hp <= 2500) {
+				count = 0;
+				check = false;
+				this.at = 500;
+				count++;
+				if (count == 1) {
+					this.at = 260;
+					check = true;
 
-			}
-		} else if (this.hp <= 3500) {
-			count = 0;
-			check = false;
-			this.def = 500;
-			count++;
-			if (count == 4) {
-				this.def = 250;
-				check = true;
+				}
+
+				else if (this.hp <= 3500) {
+					count = 0;
+					check = false;
+					this.def = 500;
+					count++;
+					if (count == 4) {
+						this.def = 250;
+						check = true;
+					}
+				}
 			}
 
 		}
