@@ -6,17 +6,19 @@ import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
 
+import res.Resource;
 import frame.Frame;
 import frame.GameFrame;
 
 public class GameScreen extends JComponent {
 	
 	public final static int WIDTH = 1024;
-	public final static int HEIGHT = 768;
+	public final static int HEIGHT = 768 + 40;
 	
 	private Frame game;
 	
 	public GameScreen() {
+		new Resource();
 		game = new GameFrame();
 	}
 	

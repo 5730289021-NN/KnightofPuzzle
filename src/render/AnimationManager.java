@@ -1,6 +1,7 @@
 package render;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 public class AnimationManager {
 	private boolean isPlay;
@@ -33,6 +34,9 @@ public class AnimationManager {
 				frame = 0;
 			}
 		}
+	}
+	public BufferedImage getCurrentBufferedImage() {
+		return img[frame].getImg();
 	}
 	public void draw(Graphics2D g2,int x,int y){
 		if(isPlay || isLoop){

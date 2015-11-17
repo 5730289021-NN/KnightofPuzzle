@@ -1,28 +1,32 @@
 
 package LogicGame;
 
-import java.util.Random;
-
 import Random.Randomul;
 
 public class Puzzle {
-	private int[][] a = new int[5][5];
+	private static Puzzle instance;
+	private int[][] table = new int[5][5];
 	
 	private final static int sp = 1;
 	private final static int lp = 2;
 	private final static int sw = 3;
 	private final static int sh = 4;
 	
-	public Puzzle(){
+	public static Puzzle getInstance() {
+		if(instance == null) instance = new Puzzle();
+		return instance;
+	}
+	
+	private Puzzle(){
 		for (int i=0; i<5;i++){
 			for(int j=0; j<5;j++){
-				a[i][j] = Randomul.rand(1, 4);
+				table[i][j] = Randomul.rand(1, 4);
 			}
 		}
 	}
 	
 	public int[][] getTable() {
-		return a;
+		return table;
 	}
 
 }
