@@ -10,7 +10,7 @@ public class Puzzle {
 	
 	private final static int sp = 1;
 	private final static int lp = 2;
-	private final static int s = 3;
+	private final static int sw = 3;
 	private final static int sh = 4;
 	
 	public Puzzle(){
