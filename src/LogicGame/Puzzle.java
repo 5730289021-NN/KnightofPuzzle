@@ -23,6 +23,7 @@ public class Puzzle {
 				table[i][j] = Randomul.rand(1, 4);
 			}
 		}
+		table[4][4] = 0;
 	}
 	
 	public int[][] getTable() {
