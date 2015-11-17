@@ -13,7 +13,7 @@ public class MiniMaxwell extends Monster {
 		mnmw = Resource.get("minimaxwell");
 		amnmw = Resource.get("attackminimaxwell");
 		stand = true;
-		if(this.hp <= 0){
+		if (this.hp <= 0) {
 			stand = false;
 		}
 	}
