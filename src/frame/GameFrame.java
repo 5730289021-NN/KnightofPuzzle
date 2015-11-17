@@ -40,6 +40,7 @@ public class GameFrame implements Frame {
 		
 		for(int i=0; i<h; i++) {
 			for(int j=0; j<w; j++) {
+				if(data[i][j] == 0) continue;
 				g.drawImage(
 					puzzleItem[data[i][j] - 1].getCurrentBufferedImage(), 
 					x + size / w * j, 
