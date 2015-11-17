@@ -22,6 +22,11 @@ public class Resource {
 		rs.put("shiled2" , read("pic/anime/shiled2.png"));
 		rs.put("bin", read("pic/anime/bin.png"));
 		
+		rs.put("earthbg", read("pic/anime/earthbg.jpg"));
+		rs.put("heavenbg", read("pic/anime/heavenbg.jpg"));
+		rs.put("underwaterbg", read("pic/anime/underwaterbg.jpg"));
+		rs.put("deemobg", read("pic/anime/deemobg.jpg"));
+		
 		rs.put("burny", read("pic/anime/burny.gif"));
 		rs.put("attackburny", read("pic/anime/attackburny.gif"));
 		rs.put("kingburny", read("pic/anime/KingBurny.gif"));
