@@ -20,7 +20,7 @@ public class Main {
 		frame.setVisible(true);
 		while(true){
 			try{
-				Thread.sleep(50);
+				Thread.sleep(20);
 			}catch (Exception e){
 				
 			}

@@ -9,9 +9,11 @@ public class AnimationManager {
 	private int frame;
 	private ImageData[] img;
 	private int width, height;
+	private int speed;
 
 	public AnimationManager(ImageData[] img) {
 		frame = 0;
+		speed = 0;
 		isPlay = false;
 		this.img = img;
 		for (int i = 0; i < img.length; i++) {
@@ -44,6 +46,8 @@ public class AnimationManager {
 	}
 
 	public void update() {
+		if(++speed < 4) return ;
+		speed = 0;
 		if (isLoop || isPlay) {
 			frame++;
 			if (frame >= img.length) {
