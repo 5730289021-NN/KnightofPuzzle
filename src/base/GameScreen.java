@@ -27,6 +27,7 @@ public class GameScreen extends JComponent {
 		super.paintComponent(g);
 		g.setColor(Color.RED);
 		
+		game.update();
 		game.draw((Graphics2D) g);
 	}
 
