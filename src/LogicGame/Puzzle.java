@@ -1,11 +1,10 @@
 
 package LogicGame;
 
-import java.util.Random;
-
 import Random.Randomul;
 
 public class Puzzle {
+	private static Puzzle instance;
 	private int[][] table = new int[5][5];
 	
 	private final static int sp = 1;
@@ -13,7 +12,12 @@ public class Puzzle {
 	private final static int sw = 3;
 	private final static int sh = 4;
 	
-	public Puzzle(){
+	public static Puzzle getInstance() {
+		if(instance == null) instance = new Puzzle();
+		return instance;
+	}
+	
+	private Puzzle(){
 		for (int i=0; i<5;i++){
 			for(int j=0; j<5;j++){
 				table[i][j] = Randomul.rand(1, 4);

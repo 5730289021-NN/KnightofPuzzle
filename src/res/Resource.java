@@ -17,9 +17,9 @@ public class Resource {
 		rs.put("sword", read("pic/anime/sword.png"));
 		rs.put("sword1" , read("pic/anime/sword1.png"));
 		rs.put("sword2" , read("pic/anime/sword2.png"));
-		rs.put("shiled" ,read("pic/anime/shiled.png"));
-		rs.put("shiled1", read("pic/anime/shiled1.png"));
-		rs.put("shiled2" , read("pic/anime/shiled2.png"));
+		rs.put("shield" ,read("pic/anime/shield.png"));
+		rs.put("shield1", read("pic/anime/shield1.png"));
+		rs.put("shield2" , read("pic/anime/shield2.png"));
 		rs.put("bin", read("pic/anime/bin.png"));
 		
 		rs.put("earthbg", read("pic/anime/earthbg.jpg"));
@@ -52,9 +52,15 @@ public class Resource {
 		rs.put("me", read("pic/anime/me.gif"));
 		rs.put("attackme", read("pic/anime/attackme.gif"));
 		
+		rs.put("smallpotion", read("pic/anime/smallpotion.png"));
+		rs.put("largepotion", read("pic/anime/largepotion.png"));
+		
 	}
 	
 	public static AnimationManager get(String key) {
-		return rs.get(key);
+		if(rs.containsKey(key)) {
+			return rs.get(key);
+		}
+		throw new RuntimeException("Key is incorrect");
 	}
 }
