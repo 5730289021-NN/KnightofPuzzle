@@ -19,5 +19,9 @@ public class Puzzle {
 			}
 		}
 	}
+	
+	public int[][] getTable() {
+		return a;
+	}
 
 }
