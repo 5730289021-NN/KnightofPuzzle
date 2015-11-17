@@ -15,30 +15,11 @@ public class Maxwell extends Monster{
 		mw = Resource.get("maxwell");
 		amw = Resource.get("attackmaxwell");
 		stand = true;
+		if(this.hp <=0) stand = false;
 		
 		if(this.hp <=0) stand =false;
 		
-		if(this.hp <= 3500){
-			check = false;
-			this.def = 500;
-					count++;
-					if(count==4){
-						this.def =250;
-						check = true;
-						count = 0;
-					}
-		}
-		else if(this.hp <=2500){
-			check = false;
-			this.at = 500;
-			count ++ ;
-			if(count==1){
-				this.at= 260;
-				check = true;
-				count =0;
-			}
-		}
-		else if (this.hp <= 500){
+		 if (this.hp <= 500){
 			check = false;
 			this.at = 1500;
 			count ++;
@@ -47,6 +28,29 @@ public class Maxwell extends Monster{
 				check = true;
 				count =0;
 			}
+			else if(this.hp <=2500){
+				count =0;
+				check = false;
+				this.at = 500;
+				count ++ ;
+				if(count==1){
+					this.at= 260;
+					check = true;
+					
+				}
+		
+			else if(this.hp <= 3500){
+				count=0;
+			check = false;
+			this.def = 500;
+					count++;
+					if(count==4){
+						this.def =250;
+						check = true;
+					}
+		}
+		}
+	
 		}
 		
 		
