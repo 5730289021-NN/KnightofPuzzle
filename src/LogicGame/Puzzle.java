@@ -20,6 +20,7 @@ public class Puzzle {
 		}
 	}
 	
+	//test merge
 	public int[][] getTable() {
 		return a;
 	}
