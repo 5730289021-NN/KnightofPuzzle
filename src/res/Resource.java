@@ -27,6 +27,7 @@ public class Resource {
 		rs.put("underwaterbg", read("pic/anime/underwaterbg.jpg"));
 		rs.put("deemobg", read("pic/anime/deemobg.jpg"));
 		rs.put("introbg", read("pic/anime/introbg.gif"));
+		rs.put("starbg", read("pic/anime/starbg.png"));
 		rs.put("titleicon", read("pic/anime/titleIcon.jpg"));
 		
 		rs.put("burny", read("pic/anime/burny.gif"));
@@ -45,7 +46,7 @@ public class Resource {
 		rs.put("attackgunner2", read("pic/anime/attackgunner2.gif"));
 		rs.put("tilith", read("pic/anime/tilith.gif"));
 		rs.put("attacktilith", read("pic/anime/attacktilith.gif"));
-		rs.put("minimaxwell", read("pic/anime/attackminimaxwell.gif"));
+		rs.put("minimaxwell", read("pic/anime/minimaxwell.gif"));
 		rs.put("attackminimaxwell", read("pic/anime/attackminimaxwell.gif"));
 		rs.put("maxwell", read("pic/anime/maxwell.gif"));
 		rs.put("attackmaxwell", read("pic/anime/attackmaxwell.gif"));
