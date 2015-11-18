@@ -11,7 +11,7 @@ import base.GameScreen;
 public class GameFrame implements Frame {
 
 	AnimationManager[] puzzleItem = new AnimationManager[4];
-	AnimationManager bg, me, burny;
+	AnimationManager bg, me, megaburny;
 	
 	public GameFrame() {
 		puzzleItem[0] = Resource.get("smallpotion");
@@ -22,14 +22,14 @@ public class GameFrame implements Frame {
 		bg = Resource.get("underwaterbg");
 		me = Resource.get("me");
 		me.loop();
-		burny = Resource.get("burny");
-		burny.loop();
+		megaburny = Resource.get("megaburny");
+		megaburny.loop();
 	}
 	
 	@Override
 	public void update() {
 		me.update();
-		burny.update();
+		megaburny.update();
 	}
 	
 	@Override
@@ -51,15 +51,15 @@ public class GameFrame implements Frame {
 		
 		g.drawImage(
 			me.getCurrentBufferedImage(),
-			50, 50,
-			me.getWidth()*4, me.getHeight()*4,
+			50, 150,
+			me.getWidth()*2, me.getHeight()*2,
 			null
 		);
 		
 		g.drawImage(
-			burny.getCurrentBufferedImage(),
+			megaburny.getCurrentBufferedImage(),
 			800, 150,
-			burny.getWidth()*4, burny.getHeight()*4,
+			megaburny.getWidth(), megaburny.getHeight(),
 			null
 		);
 	}
