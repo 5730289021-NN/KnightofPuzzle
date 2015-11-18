@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import base.GameScreen;
 import base.IntroScreen;
+import base.SelectLevelScreen;
 import res.Resource;
 
 public class Main {
@@ -13,10 +14,13 @@ public class Main {
 	public static void main(String[] args) {
 		new Resource();
 		JFrame frame = new JFrame();
+		frame.setTitle("Knight of Puzzle");
 		//GameScreen g = new GameScreen();
 		//frame.add(g);
-		IntroScreen i = new IntroScreen();
-		frame.add(i);
+		//IntroScreen i = new IntroScreen();
+		//frame.add(i);
+		SelectLevelScreen sls = new SelectLevelScreen();
+		frame.add(sls);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
 			GameScreen.HEIGHT
@@ -29,7 +33,7 @@ public class Main {
 			}catch (Exception e){
 				
 			}
-			i.repaint();
+			sls.repaint();
 		}
 
 	}
