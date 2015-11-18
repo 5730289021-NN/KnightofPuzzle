@@ -5,13 +5,18 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import base.GameScreen;
+import base.IntroScreen;
+import res.Resource;
 
 public class Main {
 
 	public static void main(String[] args) {
+		new Resource();
 		JFrame frame = new JFrame();
-		GameScreen g = new GameScreen();
-		frame.add(g);
+		//GameScreen g = new GameScreen();
+		//frame.add(g);
+		IntroScreen i = new IntroScreen();
+		frame.add(i);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
 			GameScreen.HEIGHT
@@ -24,7 +29,7 @@ public class Main {
 			}catch (Exception e){
 				
 			}
-			g.repaint();
+			i.repaint();
 		}
 
 	}

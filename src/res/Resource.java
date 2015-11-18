@@ -27,6 +27,7 @@ public class Resource {
 		rs.put("underwaterbg", read("pic/anime/underwaterbg.jpg"));
 		rs.put("deemobg", read("pic/anime/deemobg.jpg"));
 		rs.put("introbg", read("pic/anime/introbg.gif"));
+		rs.put("titleicon", read("pic/anime/titleIcon.jpg"));
 		
 		rs.put("burny", read("pic/anime/burny.gif"));
 		rs.put("attackburny", read("pic/anime/attackburny.gif"));
