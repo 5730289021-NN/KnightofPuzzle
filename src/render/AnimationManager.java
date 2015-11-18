@@ -8,42 +8,57 @@ public class AnimationManager {
 	private boolean isLoop;
 	private int frame;
 	private ImageData[] img;
-	
-	public AnimationManager(ImageData[] img){
-		frame =0;
+	private int width, height;
+	private int speed;
+
+	public AnimationManager(ImageData[] img) {
+		frame = 0;
+		speed = 0;
 		isPlay = false;
 		this.img = img;
+		for (int i = 0; i < img.length; i++) {
+			width = Math.max(width, img[i].getWidth());
+			height = Math.max(height, img[i].getHeight());
+		}
 	}
-	public void play(){
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void play() {
 		isPlay = true;
 		isLoop = false;
 	}
-	public void loop(){
+
+	public void loop() {
 		isPlay = false;
 		isLoop = true;
 	}
-	public void stop(){
+
+	public void stop() {
 		isPlay = false;
 		isLoop = false;
 	}
-	public void update(){
-		if(isLoop || isPlay){
+
+	public void update() {
+		if(++speed < 4) return ;
+		speed = 0;
+		if (isLoop || isPlay) {
 			frame++;
-			if(frame >= img.length){
+			if (frame >= img.length) {
 				isPlay = false;
 				frame = 0;
 			}
 		}
 	}
+
 	public BufferedImage getCurrentBufferedImage() {
 		return img[frame].getImg();
 	}
-	public void draw(Graphics2D g2,int x,int y){
-		if(isPlay || isLoop){
-			ImageData gif = img[frame];
-			g2.drawImage(gif.getImg(),x+gif.getOffsetX(),y+gif.getOffsetY(),null);
-		}
-	}
-	
 
 }
