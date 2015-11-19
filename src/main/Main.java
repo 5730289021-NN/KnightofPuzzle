@@ -17,10 +17,10 @@ public class Main {
 		frame.setTitle("Knight of Puzzle");
 		//GameScreen g = new GameScreen();
 		//frame.add(g);
-		//IntroScreen i = new IntroScreen();
-		//frame.add(i);
-		SelectLevelScreen sls = new SelectLevelScreen();
-		frame.add(sls);
+		IntroScreen i = new IntroScreen();
+		frame.add(i);
+		//SelectLevelScreen sls = new SelectLevelScreen();
+		//frame.add(sls);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
 			GameScreen.HEIGHT
@@ -33,7 +33,7 @@ public class Main {
 			}catch (Exception e){
 				
 			}
-			sls.repaint();
+			i.repaint();
 		}
 
 	}

@@ -63,7 +63,8 @@ public class IntroScreen extends JComponent{
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		g.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
-		//introbg.update();
+		introbg.update();
+		g.drawImage(introbg.getCurrentBufferedImage(0),0,0,GameScreen.WIDTH,GameScreen.HEIGHT,null);
 		g.drawImage(introbg.getCurrentBufferedImage(),0,0,GameScreen.WIDTH,GameScreen.HEIGHT,null);
 	}
 	
