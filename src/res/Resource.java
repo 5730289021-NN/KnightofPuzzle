@@ -20,7 +20,11 @@ public class Resource {
 		rs.put("shield" ,read("pic/acc/shield.png"));
 		rs.put("shield1", read("pic/acc/shield1.png"));
 		rs.put("shield2" , read("pic/acc/shield2.png"));
-		rs.put("bin", read("pic/acc/bin.png"));
+		rs.put("smallpotion", read("pic/acc/smallpotion.png"));
+		rs.put("largepotion", read("pic/acc/largepotion.png"));
+		
+		
+		rs.put("bin", read("pic/etc/bin.png"));
 		
 		rs.put("earthbg", read("pic/bg/earthbg.jpg"));
 		rs.put("heavenbg", read("pic/bg/heavenbg.jpg"));
@@ -59,8 +63,7 @@ public class Resource {
 		rs.put("me", read("pic/anime/me.gif"));
 		rs.put("attackme", read("pic/anime/attackme.gif"));
 		
-		rs.put("smallpotion", read("pic/anime/smallpotion.png"));
-		rs.put("largepotion", read("pic/anime/largepotion.png"));
+
 		
 		
 		
