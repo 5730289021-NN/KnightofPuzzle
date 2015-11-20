@@ -17,15 +17,18 @@ public class Main {
 	public static final int SELECTSCREEN = 2;
 	public static final int GAMESCREEN = 5;
 	
-	private static IntroScreen i = new IntroScreen();
-	private static SelectLevelScreen sls = new SelectLevelScreen();
-	private static GameScreen g = new GameScreen();
+	private static IntroScreen i;
+	private static SelectLevelScreen sls;
+	private static GameScreen g;
 	
 	public static void main(String[] args) {
 		new Resource();
+		i = new IntroScreen();
+		sls = new SelectLevelScreen();
+		g = new GameScreen();
 		JFrame frame = new JFrame();
 		frame.setTitle("Knight of Puzzle");
-		changeGameScreen(INTROSCREEN);
+		changeGameScreen(GAMESCREEN);
 		frame.add(currentScreen);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,

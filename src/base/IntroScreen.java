@@ -31,7 +31,7 @@ public class IntroScreen extends JComponent{
 		setVisible(true);
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
-		introbg = Resource.get("introbg");
+		introbg = Resource.get("starbg");
 		introbg.loop();
 		playButton = new JButton("PLAY");
 		playButton.addActionListener(new ActionListener() {
@@ -40,18 +40,18 @@ public class IntroScreen extends JComponent{
 				showDialog(NEWPLAYCHOICE);
 			}
 		});
-		exitButton = new JButton("EXIT");
-		exitButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
 		continueButton = new JButton("CONTINUE");
 		continueButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				showDialog(CONTINUECHOICE);
+			}
+		});
+		exitButton = new JButton("EXIT");
+		exitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		add(playButton);

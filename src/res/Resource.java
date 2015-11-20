@@ -32,7 +32,6 @@ public class Resource {
 		rs.put("deemobg", read("pic/bg/deemobg.jpg"));
 		rs.put("introbg", read("pic/bg/introbg.gif"));
 		rs.put("introbg2", read("pic/bg/introbg2.gif"));
-		//rs.put("introbg", read("pic/bg/introbg.gif"));
 		rs.put("starbg", read("pic/bg/starbg.png"));
 		
 		
@@ -73,6 +72,6 @@ public class Resource {
 		if(rs.containsKey(key)) {
 			return rs.get(key);
 		}
-		throw new RuntimeException("Key is incorrect");
+		throw new RuntimeException("Key is incorrect : " + key);
 	}
 }
