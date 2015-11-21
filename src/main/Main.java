@@ -24,12 +24,11 @@ public class Main {
 	private static SelectLevelScreen sls;
 	private static GameScreen g;
 	private static JFrame frame;
-	static AudioClip bgSound = Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/thebeat.wav"));
+	static AudioClip bgSound = Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/bird.wav"));
 	
 	public static void main(String[] args) {
 		new Resource();
 		new InfoManager();
-		//hello
 		i = new IntroScreen();
 		sls = new SelectLevelScreen();
 		g = new GameScreen();
