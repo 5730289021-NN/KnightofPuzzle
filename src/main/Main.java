@@ -28,7 +28,7 @@ public class Main {
 		g = new GameScreen();
 		JFrame frame = new JFrame();
 		frame.setTitle("Knight of Puzzle");
-		changeGameScreen(GAMESCREEN);
+		changeGameScreen(INTROSCREEN);
 		frame.add(currentScreen);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,

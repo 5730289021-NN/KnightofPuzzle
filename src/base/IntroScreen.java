@@ -31,7 +31,7 @@ public class IntroScreen extends JComponent{
 		setVisible(true);
 		setBackground(Color.WHITE);
 		setDoubleBuffered(true);
-		introbg = Resource.get("starbg");
+		introbg = Resource.get("introbg");
 		introbg.loop();
 		playButton = new JButton("PLAY");
 		playButton.addActionListener(new ActionListener() {
