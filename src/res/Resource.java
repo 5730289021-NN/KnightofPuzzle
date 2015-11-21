@@ -20,13 +20,24 @@ public class Resource {
 		rs.put("shield" ,read("pic/anime/shield.png"));
 		rs.put("shield1", read("pic/anime/shield1.png"));
 		rs.put("shield2" , read("pic/anime/shield2.png"));
+		rs.put("smallpotion", read("pic/anime/smallpotion.png"));
+		rs.put("largepotion", read("pic/anime/largepotion.png"));
+		
+
+		rs.put("earthbg", read("pic/anime/earthbg.jpg"));
+		rs.put("heavenbg", read("pic/anime/heavenbg.jpg"));
+		rs.put("underwaterbg", read("pic/anime/underwaterbg.jpg"));
+		rs.put("deemobg", read("pic/anime/deemobg.jpg"));
+
+		
 		rs.put("bin", read("pic/anime/bin.png"));
 		
 		rs.put("earthbg", read("pic/anime/earthbg.jpg"));
 		rs.put("heavenbg", read("pic/anime/heavenbg.jpg"));
 		rs.put("underwaterbg", read("pic/anime/underwaterbg.jpg"));
 		rs.put("deemobg", read("pic/anime/deemobg.jpg"));
-		
+		rs.put("introbg", read("pic/anime/introbg.gif"));
+	
 		rs.put("burny", read("pic/anime/burny.gif"));
 		rs.put("attackburny", read("pic/anime/attackburny.gif"));
 		rs.put("kingburny", read("pic/anime/KingBurny.gif"));
@@ -52,8 +63,7 @@ public class Resource {
 		rs.put("me", read("pic/anime/me.gif"));
 		rs.put("attackme", read("pic/anime/attackme.gif"));
 		
-		rs.put("smallpotion", read("pic/anime/smallpotion.png"));
-		rs.put("largepotion", read("pic/anime/largepotion.png"));
+
 		
 		
 		
@@ -63,6 +73,6 @@ public class Resource {
 		if(rs.containsKey(key)) {
 			return rs.get(key);
 		}
-		throw new RuntimeException("Key is incorrect");
+		throw new RuntimeException("Key is incorrect : " + key);
 	}
 }
