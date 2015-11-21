@@ -1,50 +1,57 @@
 package Data;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StreamCorruptedException;
-import java.net.URISyntaxException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import com.sun.corba.se.impl.protocol.InfoOnlyServantCacheLocalCRDImpl;
-
 public class InfoManager {
 	
-	private static final int MAXSLOT = 3;
-	private static int AMOUNT_USED_SLOT;
-	private static int SELECTED_SLOT;
-	private static int[] LEVEL_WEAPON = new int[MAXSLOT];
-	private static int[] LEVEL_ARMOR = new int[MAXSLOT];
-	private static int[] LEVEL_POTION = new int[MAXSLOT];
-	private static int[] LEVEL_OVERALL = new int[MAXSLOT];
-	private static int[] MAX_LEVEL_COMPLETE = new int[MAXSLOT];
-	private static int[] MAXHP = new int[MAXSLOT];
-
+	private static final int EMPTYSAVE = 0;
+	private static final int NORMALSAVE = 1;
+	public static final int MAXSLOT = 3;
+	public static int SELECTED_SLOT; //array 0,1,2 but display 1,2,3
+	public static int[] LEVEL_WEAPON = new int[MAXSLOT];
+	public static int[] LEVEL_ARMOR = new int[MAXSLOT];
+	public static int[] LEVEL_POTION = new int[MAXSLOT];
+	public static int[] LEVEL_OVERALL = new int[MAXSLOT];
+	public static int[] MAX_LEVEL_COMPLETE = new int[MAXSLOT];
+	public static int[] MAXHP = new int[MAXSLOT];
+	private static File file;
 	static
 	{
 		Scanner in = null;
-		try
-		{
-			InputStream is = InfoManager.class.getResourceAsStream("kop.dat");
-			in = new Scanner(is);
-		}catch(Exception e)
-		{
-			JOptionPane.showMessageDialog(null, "ERROR Contact me");
+		try {
+			FileInputStream fis = new FileInputStream("C:\\KnightofPuzzle\\kop.dat");
+			in = new Scanner(fis);
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null,"Save game not found creating new save file..., Click to \"OK\" to continue.");			
+			file = new File("C:\\KnightofPuzzle\\kop.dat");
+			try {
+				file.createNewFile();
+				saveGame(EMPTYSAVE);
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null,"Please create a folder called KnightofPuzzle in C:\\ ");
+				e1.printStackTrace();
+			}
+			
 		}
-		AMOUNT_USED_SLOT = in.nextInt();
-		for(int i=0;i<AMOUNT_USED_SLOT;i++)
+		for(int i=0;i<MAXSLOT;i++)
 		{
+			
+			//System.out.println("D");
 			LEVEL_WEAPON[i] = in.nextInt();
 			LEVEL_ARMOR[i] = in.nextInt();
 			LEVEL_POTION[i] = in.nextInt();
 			MAX_LEVEL_COMPLETE[i] = in.nextInt();
 			recalculateStat(i);
 		}
+		in.close();
 	}
 	
 	public static void recalculateStat(int slot){
@@ -52,8 +59,37 @@ public class InfoManager {
 		MAXHP[slot] =  100 * (int) Math.pow(2, MAX_LEVEL_COMPLETE[slot]);
 	}
 	
-	public static void saveGame(){
-		//OutputStream out = InfoManager.class.getResourceAsStream("kop.dat");
+	public static void saveGame(int mode){
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(file, "UTF-8");
+			if(mode == EMPTYSAVE)
+			{
+				for(int i = 0;i<12;i++)
+				{
+					writer.write("0");
+					if(i != 11)
+					{
+						writer.write(" ");
+					}
+				}
+				
+			} else if(mode == NORMALSAVE)
+			{
+				for(int i=0;i<MAXSLOT;i++)
+				{
+					writer.write(LEVEL_WEAPON[i]);
+					writer.write(LEVEL_ARMOR[i]);
+					writer.write(LEVEL_POTION[i]);
+					writer.write(MAX_LEVEL_COMPLETE[i]);
+				}
+			}
+			writer.flush();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 	}
 	
