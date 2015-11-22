@@ -41,7 +41,7 @@ public class Main {
 		frame.setTitle("Knight of Puzzle");
 		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
-		changeGameScreen(INTROSCREEN);
+		changeGameScreen(GAMESCREEN);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
 			GameScreen.HEIGHT
