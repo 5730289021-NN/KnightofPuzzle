@@ -5,12 +5,17 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import input.InputUtility;
+import main.Main;
 import render.AnimationManager;
 import res.Resource;
 
@@ -20,6 +25,9 @@ public class SelectLevelScreen extends JComponent{
 	private static int[] xpos_ = new int[5];
 	private static int[] ypos_ = new int[5];
 	private int meXPos, meYPos, meLocation;
+	private JButton playButton;
+	private JButton shopButton;
+	private JButton backButton;
 	
 	
 	private AnimationManager me;
@@ -44,6 +52,30 @@ public class SelectLevelScreen extends JComponent{
 		meLocation = 0;
 		meXPos = xpos_[meLocation] - me.getWidth()/2;
 		meYPos = ypos_[meLocation] - me.getHeight();
+		playButton = new JButton("Fight Level : " + (meLocation + 1));
+		playButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.changeGameScreen(Main.GAMESCREEN);
+			}
+		});
+		shopButton = new JButton("Inventory/Shop");
+		shopButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.changeGameScreen(Main.SHOPSCREEN);
+			}
+		});
+		backButton = new JButton("Back");
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.changeGameScreen(Main.INTROSCREEN);
+			}
+		});
+		add(playButton);
+		add(shopButton);
+		add(backButton);
 		
 		addKeyListener(new KeyListener() {
 			@Override
@@ -76,7 +108,6 @@ public class SelectLevelScreen extends JComponent{
 						{
 							direction = 1;
 						}
-						InputUtility.postUpdate();
 					}
 					if(InputUtility.getKeyPressed(KeyEvent.VK_LEFT))
 					{
@@ -84,7 +115,13 @@ public class SelectLevelScreen extends JComponent{
 						{
 							direction = -1;
 						}
-						InputUtility.postUpdate();
+					}
+					if(InputUtility.getKeyPressed(KeyEvent.VK_ENTER))
+					{
+//						synchronized(this)
+//						{
+//							JOptionPane.showMessageDialog(getContext(), "You are going to play Level " + (meLocation +1));
+//						}
 					}
 					if(direction != 0)
 					{
@@ -115,6 +152,9 @@ public class SelectLevelScreen extends JComponent{
 							}
 							meXPos = xpos_[meLocation] - me.getWidth()/2;
 							meYPos = ypos_[meLocation] - me.getHeight();
+							playButton.setText("Fight Level : " + (meLocation + 1));
+							if(meLocation == 4)
+								playButton.setText("FIGHT THE BOSS");
 							direction = 0;
 							percent = 0;
 							}
@@ -125,8 +165,10 @@ public class SelectLevelScreen extends JComponent{
 							meLocation = 0;
 							meXPos = xpos_[meLocation] - me.getWidth()/2;
 							meYPos = ypos_[meLocation] - me.getHeight();
+							playButton.setText("Fight Level : " + (meLocation + 1));
 						}
 					}
+					InputUtility.postUpdate();
 				}
 				
 			}
@@ -162,6 +204,10 @@ public class SelectLevelScreen extends JComponent{
 				maxwell.getWidth(), maxwell.getHeight(),
 				null
 			);
+	}
+	public SelectLevelScreen getContext()
+	{
+		return this;
 	}
 	
 }

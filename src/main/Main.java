@@ -11,6 +11,7 @@ import Data.InfoManager;
 import base.GameScreen;
 import base.IntroScreen;
 import base.SelectLevelScreen;
+import base.ShopScreen;
 import input.InputUtility;
 import res.Resource;
 
@@ -19,10 +20,12 @@ public class Main {
 	
 	public static final int INTROSCREEN = 1;
 	public static final int SELECTSCREEN = 2;
+	public static final int SHOPSCREEN = 3;
 	public static final int GAMESCREEN = 5;
 	
 	private static IntroScreen i;
 	private static SelectLevelScreen sls;
+	private static ShopScreen ss;
 	private static GameScreen g;
 	private static JFrame frame;
 	private static AudioClip bgm;
@@ -41,7 +44,7 @@ public class Main {
 		frame.setTitle("Knight of Puzzle");
 		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
-		changeGameScreen(GAMESCREEN);
+		changeGameScreen(INTROSCREEN);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
 			GameScreen.HEIGHT
@@ -55,6 +58,7 @@ public class Main {
 			}catch (Exception e){
 				
 			}
+			InputUtility.postUpdate();
 			currentScreen.repaint();
 			currentScreen.requestFocus();
 		}
@@ -81,6 +85,14 @@ public class Main {
 				System.out.println("Select");
 				currentScreen = sls;
 				bgm = Resource.getAudio("thebeat");
+				bgm.play();
+				break;
+			}
+			case SHOPSCREEN:
+			{
+				System.out.println("Shop");
+				currentScreen = ss;
+				bgm = Resource.getAudio("doorbell");
 				bgm.play();
 				break;
 			}
