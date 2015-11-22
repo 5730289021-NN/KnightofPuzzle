@@ -11,6 +11,7 @@ import Data.InfoManager;
 import base.GameScreen;
 import base.IntroScreen;
 import base.SelectLevelScreen;
+import input.InputUtility;
 import res.Resource;
 
 public class Main {
@@ -55,6 +56,7 @@ public class Main {
 				
 			}
 			currentScreen.repaint();
+			InputUtility.postUpdate();
 		}
 
 	}

@@ -5,9 +5,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JComponent;
 
+import input.InputUtility;
 import render.AnimationManager;
 import res.Resource;
 
@@ -16,6 +19,9 @@ public class SelectLevelScreen extends JComponent{
 	private static final double[] ypos = {0.5,0.66,0.44,0.77,0.17};
 	private static int[] xpos_ = new int[5];
 	private static int[] ypos_ = new int[5];
+	private int meXPos, meYPos;
+	
+	
 	private AnimationManager me;
 	private AnimationManager maxwell;
 	static{
@@ -35,6 +41,44 @@ public class SelectLevelScreen extends JComponent{
 		maxwell = Resource.get("minimaxwell");
 		me.loop();
 		maxwell.loop();
+		meXPos = xpos_[0] - me.getWidth()/2;
+		meYPos = ypos_[0] - me.getHeight();
+		addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+				InputUtility.setKeyPressed(e.getKeyCode(), false);
+			}
+			public void keyPressed(KeyEvent e) {
+				InputUtility.setKeyPressed(e.getKeyCode(), true);
+				InputUtility.setKeyTriggered(e.getKeyCode(), true);
+			}
+		});
+		
+		Thread meThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				int count = 0;
+				while(true)
+				{
+					try {
+						Thread.sleep(20);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					if(InputUtility.getKeyPressed(KeyEvent.VK_RIGHT))
+					{
+						if(count == 100)
+						{
+							count = 0;
+						}
+						//meXPos = xpos_[0] * - me.getWidth()/2;
+					}
+				}
+				
+			}
+		});
+		meThread.start();
 		
 	}
 	protected void paintComponent(Graphics g){
@@ -55,7 +99,7 @@ public class SelectLevelScreen extends JComponent{
 		maxwell.update();
 		g2.drawImage(
 				me.getCurrentBufferedImage(),
-				xpos_[0] - me.getWidth()/2, ypos_[0] - me.getHeight(),
+				meXPos, meYPos,
 				me.getWidth(), me.getHeight(),
 				null
 			);
