@@ -14,29 +14,29 @@ public class Resource {
 	}
 	public Resource(){
 		
-		rs.put("sword", read("pic/anime/sword.png"));
-		rs.put("sword1" , read("pic/anime/sword1.png"));
-		rs.put("sword2" , read("pic/anime/sword2.png"));
-		rs.put("shield" ,read("pic/anime/shield.png"));
-		rs.put("shield1", read("pic/anime/shield1.png"));
-		rs.put("shield2" , read("pic/anime/shield2.png"));
-		rs.put("smallpotion", read("pic/anime/smallpotion.png"));
-		rs.put("largepotion", read("pic/anime/largepotion.png"));
+		rs.put("sword", read("pic/acc/sword.png"));
+		rs.put("sword1" , read("pic/acc/sword1.png"));
+		rs.put("sword2" , read("pic/acc/sword2.png"));
+		rs.put("shield" ,read("pic/acc/shield.png"));
+		rs.put("shield1", read("pic/acc/shield1.png"));
+		rs.put("shield2" , read("pic/acc/shield2.png"));
+		rs.put("smallpotion", read("pic/acc/smallpotion.png"));
+		rs.put("largepotion", read("pic/acc/largepotion.png"));
 		
 
-		rs.put("earthbg", read("pic/anime/earthbg.jpg"));
-		rs.put("heavenbg", read("pic/anime/heavenbg.jpg"));
-		rs.put("underwaterbg", read("pic/anime/underwaterbg.jpg"));
-		rs.put("deemobg", read("pic/anime/deemobg.jpg"));
+		rs.put("earthbg", read("pic/bg/earthbg.jpg"));
+		rs.put("heavenbg", read("pic/bg/heavenbg.jpg"));
+		rs.put("underwaterbg", read("pic/bg/underwaterbg.jpg"));
+		rs.put("deemobg", read("pic/bg/deemobg.jpg"));
 
 		
-		rs.put("bin", read("pic/anime/bin.png"));
+		rs.put("bin", read("pic/etc/bin.png"));
 		
-		rs.put("earthbg", read("pic/anime/earthbg.jpg"));
-		rs.put("heavenbg", read("pic/anime/heavenbg.jpg"));
-		rs.put("underwaterbg", read("pic/anime/underwaterbg.jpg"));
-		rs.put("deemobg", read("pic/anime/deemobg.jpg"));
-		rs.put("introbg", read("pic/anime/introbg.gif"));
+		rs.put("introbg", read("pic/bg/introbg.gif"));
+		rs.put("introbg2", read("pic/bg/introbg2.gif"));
+		rs.put("starbg", read("pic/bg/starbg.png"));
+		
+		rs.put("titleIcon", read("pic/label/titleIcon.jpg"));
 	
 		rs.put("burny", read("pic/anime/burny.gif"));
 		rs.put("attackburny", read("pic/anime/attackburny.gif"));
