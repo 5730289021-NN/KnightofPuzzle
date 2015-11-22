@@ -19,7 +19,7 @@ public class SelectLevelScreen extends JComponent{
 	private static final double[] ypos = {0.5,0.66,0.44,0.77,0.17};
 	private static int[] xpos_ = new int[5];
 	private static int[] ypos_ = new int[5];
-	private int meXPos, meYPos;
+	private int meXPos, meYPos, meLocation;
 	
 	
 	private AnimationManager me;
@@ -41,8 +41,10 @@ public class SelectLevelScreen extends JComponent{
 		maxwell = Resource.get("minimaxwell");
 		me.loop();
 		maxwell.loop();
-		meXPos = xpos_[0] - me.getWidth()/2;
-		meYPos = ypos_[0] - me.getHeight();
+		meLocation = 0;
+		meXPos = xpos_[meLocation] - me.getWidth()/2;
+		meYPos = ypos_[meLocation] - me.getHeight();
+		
 		addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {}
@@ -52,13 +54,15 @@ public class SelectLevelScreen extends JComponent{
 			public void keyPressed(KeyEvent e) {
 				InputUtility.setKeyPressed(e.getKeyCode(), true);
 				InputUtility.setKeyTriggered(e.getKeyCode(), true);
+				//System.out.println(e.getKeyCode());
 			}
 		});
 		
 		Thread meThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				int count = 0;
+				double percent = 0;
+				int direction = 0;
 				while(true)
 				{
 					try {
@@ -68,11 +72,53 @@ public class SelectLevelScreen extends JComponent{
 					}
 					if(InputUtility.getKeyPressed(KeyEvent.VK_RIGHT))
 					{
-						if(count == 100)
+						synchronized(this)
 						{
-							count = 0;
+							direction = 1;
 						}
-						//meXPos = xpos_[0] * - me.getWidth()/2;
+						InputUtility.postUpdate();
+					}
+					if(InputUtility.getKeyPressed(KeyEvent.VK_LEFT))
+					{
+						synchronized(this)
+						{
+							direction = -1;
+						}
+						InputUtility.postUpdate();
+					}
+					if(direction != 0)
+					{
+						try{
+						percent = percent + 0.01;
+						System.out.println(percent);
+						if(!(direction == -1 && meLocation == 0) || !(direction == 1 && meLocation == 4))
+						{
+							meXPos = (int) (xpos_[meLocation] * (1 - percent) + (xpos_[meLocation + direction] * percent) - me.getWidth()/2);
+							meYPos = (int) (ypos_[meLocation] * (1 - percent) + (ypos_[meLocation + direction] * percent) - me.getHeight());
+						}
+						if(percent >= 1)
+						{
+							synchronized (this) {
+							System.out.println("direction=" + direction + "meLocation=" + meLocation);
+							if(!(direction != -1 && meLocation == 0) || !(direction == 1 && meLocation == 4))
+							{
+								System.out.println(meLocation + " 1");
+								meLocation += direction;
+								System.out.println(meLocation + " 2");
+							}
+							meXPos = xpos_[meLocation] - me.getWidth()/2;
+							meYPos = ypos_[meLocation] - me.getHeight();
+							direction = 0;
+							percent = 0;
+							}
+						}
+						}
+						catch(ArrayIndexOutOfBoundsException e)
+						{
+							meLocation = 0;
+							meXPos = xpos_[meLocation] - me.getWidth()/2;
+							meYPos = ypos_[meLocation] - me.getHeight();
+						}
 					}
 				}
 				
@@ -105,7 +151,7 @@ public class SelectLevelScreen extends JComponent{
 			);
 		g2.drawImage(
 				maxwell.getCurrentBufferedImage(),
-				xpos_[4] - maxwell.getWidth()/2, ypos_[4] - maxwell.getHeight(),
+				xpos_[4], ypos_[4] - maxwell.getHeight(),
 				maxwell.getWidth(), maxwell.getHeight(),
 				null
 			);
