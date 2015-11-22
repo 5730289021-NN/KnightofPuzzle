@@ -1,18 +1,26 @@
 package res;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.util.HashMap;
 
+import base.IntroScreen;
 import render.AnimationManager;
 import render.ImageData;
 import render.ImageReader;
 
 public class Resource {
 	private static HashMap<String,AnimationManager> rs = new HashMap<>();
+	private static HashMap<String,AudioClip> audio = new HashMap<>();
 	
 	public AnimationManager read(String url){
 		return new AnimationManager(ImageReader.get(url));
 	}
 	public Resource(){
+		audio.put("birdSound", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/bird.wav")));
+		audio.put("thebeat", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/thebeat.wav")));
+		
+		
 		
 		rs.put("sword", read("pic/acc/sword.png"));
 		rs.put("sword1" , read("pic/acc/sword1.png"));
@@ -74,5 +82,12 @@ public class Resource {
 			return rs.get(key);
 		}
 		throw new RuntimeException("Key is incorrect : " + key);
+	}
+	
+	public static AudioClip getAudio(String key) {
+		if(audio.containsKey(key)) {
+			return audio.get(key);
+		}
+		throw new RuntimeException("Audio Key is incorrect : " + key);
 	}
 }

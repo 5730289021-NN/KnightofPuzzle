@@ -19,12 +19,14 @@ public class Main {
 	public static final int INTROSCREEN = 1;
 	public static final int SELECTSCREEN = 2;
 	public static final int GAMESCREEN = 5;
-	//
+	
 	private static IntroScreen i;
 	private static SelectLevelScreen sls;
 	private static GameScreen g;
 	private static JFrame frame;
-	static AudioClip bgSound = Applet.newAudioClip(Main.class.getClassLoader().getResource("sound/bird.mp3"));
+	private static AudioClip bgm;
+
+
 	
 	public static void main(String[] args) {
 		new Resource();
@@ -34,14 +36,9 @@ public class Main {
 		i = new IntroScreen(frame);
 		sls = new SelectLevelScreen();
 		g = new GameScreen();
-		
-		Thread t = new Thread(new Runnable() {
-			public void run() {
-				bgSound.play();
-			}
-		});
-		t.start();
+		frame = new JFrame();
 		frame.setTitle("Knight of Puzzle");
+		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
 		changeGameScreen(INTROSCREEN);
 		frame.setPreferredSize(new Dimension(
@@ -64,6 +61,7 @@ public class Main {
 	
 	public static void changeGameScreen(int Screen)
 	{
+		bgm.stop();
 		frame.remove(currentScreen);
 		System.out.print("Change game screen to ");
 		switch(Screen)
@@ -72,12 +70,16 @@ public class Main {
 			{
 				System.out.println("Intro");
 				currentScreen = i;
+				bgm = Resource.getAudio("birdSound");
+				bgm.play();
 				break;
 			}
 			case SELECTSCREEN:
 			{
 				System.out.println("Select");
 				currentScreen = sls;
+				bgm = Resource.getAudio("thebeat");
+				bgm.play();
 				break;
 			}
 			case GAMESCREEN:
