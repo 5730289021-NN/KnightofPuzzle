@@ -1,22 +1,22 @@
 package base;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import Data.InfoManager;
 import main.Main;
 import render.AnimationManager;
 import res.Resource;
+import Data.InfoManager;
 
 public class IntroScreen extends JComponent{
 	
@@ -27,7 +27,7 @@ public class IntroScreen extends JComponent{
 	private JButton exitButton;
 	private AnimationManager introbg;
 
-	public IntroScreen(){
+	public IntroScreen(JFrame frame){
 		super();
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(GameScreen.WIDTH, GameScreen.HEIGHT));
@@ -50,11 +50,14 @@ public class IntroScreen extends JComponent{
 				showDialog(CONTINUECHOICE);
 			}
 		});
+		
+		final JFrame closeFrame = frame;
 		exitButton = new JButton("EXIT");
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				//Close the window
+				closeFrame.dispatchEvent(new WindowEvent(closeFrame, WindowEvent.WINDOW_CLOSING));
 			}
 		});
 		add(playButton);
