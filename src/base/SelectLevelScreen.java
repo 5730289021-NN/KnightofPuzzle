@@ -90,21 +90,28 @@ public class SelectLevelScreen extends JComponent{
 					{
 						try{
 						percent = percent + 0.01;
-						System.out.println(percent);
+						//System.out.println(percent);
 						if(!(direction == -1 && meLocation == 0) || !(direction == 1 && meLocation == 4))
 						{
 							meXPos = (int) (xpos_[meLocation] * (1 - percent) + (xpos_[meLocation + direction] * percent) - me.getWidth()/2);
 							meYPos = (int) (ypos_[meLocation] * (1 - percent) + (ypos_[meLocation + direction] * percent) - me.getHeight());
+							if(percent >= 0.7)
+							{
+								me = Resource.get("attackme");
+								me.loop();
+								me.update();
+							}
 						}
 						if(percent >= 1)
 						{
+							me = Resource.get("me");
 							synchronized (this) {
-							System.out.println("direction=" + direction + "meLocation=" + meLocation);
+							//System.out.println("direction=" + direction + "meLocation=" + meLocation);
 							if(!(direction != -1 && meLocation == 0) || !(direction == 1 && meLocation == 4))
 							{
-								System.out.println(meLocation + " 1");
+								//System.out.println(meLocation + " 1");
 								meLocation += direction;
-								System.out.println(meLocation + " 2");
+								//System.out.println(meLocation + " 2");
 							}
 							meXPos = xpos_[meLocation] - me.getWidth()/2;
 							meYPos = ypos_[meLocation] - me.getHeight();
