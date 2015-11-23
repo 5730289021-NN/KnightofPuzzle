@@ -1,6 +1,5 @@
 package main;
 
-import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Dimension;
 
@@ -12,6 +11,7 @@ import base.GameScreen;
 import base.IntroScreen;
 import base.SelectLevelScreen;
 import base.ShopScreen;
+import frame.GameFrame;
 import input.InputUtility;
 import res.Resource;
 
@@ -26,7 +26,7 @@ public class Main {
 	private static IntroScreen i;
 	private static SelectLevelScreen sls;
 	private static ShopScreen ss;
-	private static GameScreen g;
+	private static GameFrame g;
 	private static JFrame frame;
 	private static AudioClip bgm;
 
@@ -39,15 +39,15 @@ public class Main {
 		
 		i = new IntroScreen(frame);
 		sls = new SelectLevelScreen();
-		g = new GameScreen();
+		g = new GameFrame();
 		frame = new JFrame();
 		frame.setTitle("Knight of Puzzle");
 		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
-		changeGameScreen(INTROSCREEN);
+		changeGameScreen(GAMESCREEN);
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
-			GameScreen.HEIGHT
+			GameScreen.HEIGHT+45
 		));
 		frame.pack();
 		frame.setVisible(true);
