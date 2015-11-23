@@ -39,6 +39,7 @@ public class Main {
 		
 		i = new IntroScreen(frame);
 		sls = new SelectLevelScreen();
+		ss = new ShopScreen();
 		g = new GameFrame();
 		frame = new JFrame();
 		frame.setTitle("Knight of Puzzle");

@@ -19,7 +19,7 @@ public class Resource {
 	public Resource(){
 		audio.put("birdSound", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/bird.wav")));
 		audio.put("thebeat", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/thebeat.wav")));
-		audio.put("doorbell", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/doorbell.wav")));
+		audio.put("doorbell", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/doorbell2.wav")));
 		
 		
 		rs.put("sword", read("pic/acc/sword.png"));
