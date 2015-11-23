@@ -5,29 +5,39 @@ import java.awt.image.BufferedImage;
 
 import render.AnimationManager;
 
-public class Moveable { 
+public class BoxSlider { 
 	private AnimationManager am;
 	private boolean start=false;
 	private boolean end = false;
 	private int x,y,sx,sy,ex,ey;
 	private int frame=0 ;
 	
-	public Moveable(int x,int y,int sx,int sy,int ex,int ey,AnimationManager am){
-		this.x= x;
-		this.y=y;
+	private int frameCount = 50;
+	
+	public BoxSlider(int sx,int sy,int ex,int ey,AnimationManager am){
 		this.sx=sx;
 		this.sy=sy;
 		this.am = am;
 		this.ex= ex;
 		this.ey= ey;
-		
-		
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public boolean isFinish() {
+		return frame >= frameCount;
 	}
 	
 	public void update(Graphics g){
 		BufferedImage img = am.getCurrentBufferedImage();
-		x =(ex-sx)*frame/50 + sx;
-		y = (ey-sy)*frame/50 + sy;
+		x =(ex-sx)*frame/frameCount + sx;
+		y = (ey-sy)*frame/frameCount + sy;
 		g.drawImage(img,x,y,am.getWidth(),am.getHeight(),null);
 		frame++;
 		

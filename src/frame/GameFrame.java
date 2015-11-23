@@ -18,6 +18,8 @@ public class GameFrame extends JComponent {
 	AnimationManager bg, me, megaburny;
 	int seperateHeight = 368;
 	
+	Puzzle puzzle;
+	
 	public GameFrame() {
 		puzzleItem[0] = Resource.get("smallpotion");
 		puzzleItem[1] = Resource.get("largepotion");
@@ -29,6 +31,8 @@ public class GameFrame extends JComponent {
 		me.loop();
 		megaburny = Resource.get("megaburny");
 		megaburny.loop();
+		
+		puzzle = new Puzzle(puzzleItem);
 	}
 	
 	public void update() {
@@ -44,6 +48,8 @@ public class GameFrame extends JComponent {
 		drawStage(g2, seperateHeight);
 		drawPuzzle(g2, seperateHeight, 400);
 		drawBlood(g2);
+		
+		update();
 	}
 	
 	private void drawLineStatus(Graphics2D g, Color color, String name, int x, int y) {
@@ -88,28 +94,6 @@ public class GameFrame extends JComponent {
 	}
 	
 	public void drawPuzzle(Graphics2D g, int y, int size) {
-		
-		int x = (GameScreen.WIDTH - size) / 2;
-		
-		g.setColor(new Color(20, 20, 20));
-		g.fillRect(x, y, size, size);
-		
-		int[][] data = Puzzle.getInstance().getTable();
-		int h = data.length;
-		int w = data[0].length;
-		
-		for(int i=0; i<h; i++) {
-			for(int j=0; j<w; j++) {
-				if(data[i][j] == 0) continue;
-				g.drawImage(
-					puzzleItem[data[i][j] - 1].getCurrentBufferedImage(), 
-					x + size / w * j, 
-					y + size / h * i, 
-					size / w, 
-					size / h, 
-					null
-				);
-			}
-		}
+		puzzle.draw(g, (GameScreen.WIDTH - size) / 2, y, size);
 	}
 }
