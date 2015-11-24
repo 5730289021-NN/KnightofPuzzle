@@ -2,6 +2,8 @@ package main;
 
 import java.applet.AudioClip;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -46,6 +48,9 @@ public class Main {
 		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
 		changeGameScreen(INTROSCREEN);
+		
+		addListener(frame);
+		
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
 			GameScreen.HEIGHT+45
@@ -62,8 +67,29 @@ public class Main {
 			InputUtility.postUpdate();
 			currentScreen.repaint();
 			currentScreen.requestFocus();
+			frame.requestFocus();
 		}
 
+	}
+	
+	private static void addListener(JFrame frame) {
+		frame.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				InputUtility.setKeyPressed(e.getKeyCode(), false);
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				InputUtility.setKeyPressed(e.getKeyCode(), true);
+				InputUtility.setKeyTriggered(e.getKeyCode(), true);
+			}
+		});
+		frame.setFocusable(true);
 	}
 	
 	public static void changeGameScreen(int Screen)
