@@ -2,7 +2,16 @@ package res;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import base.IntroScreen;
 import render.AnimationManager;
@@ -12,10 +21,12 @@ import render.ImageReader;
 public class Resource {
 	private static HashMap<String,AnimationManager> rs = new HashMap<>();
 	private static HashMap<String,AudioClip> audio = new HashMap<>();
+	private static GraphicsEnvironment ge;
 	
 	public AnimationManager read(String url){
 		return new AnimationManager(ImageReader.get(url));
 	}
+	
 	public Resource(){
 		audio.put("birdSound", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/bird.wav")));
 		audio.put("thebeat", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/thebeat.wav")));
@@ -71,7 +82,18 @@ public class Resource {
 		rs.put("attacksniper", read("pic/anime/attacksniper.gif"));
 		rs.put("me", read("pic/anime/me.gif"));
 		rs.put("attackme", read("pic/anime/attackme.gif"));
-		
+		Font f = null;
+//		try {
+//			f = Font.createFont(Font.TRUETYPE_FONT, new File(Resource.class.getResource("font/osaka-re.ttf"));
+//		     ge.registerFont(f);
+//		} catch (IOException|FontFormatException e) {
+//			if(ge != null)
+//		     JOptionPane.showMessageDialog(null, "Unable to load Custom Font");
+//			else
+//			{
+//				JOptionPane.showMessageDialog(null, "No Font" + f.getName());
+//			}
+//		}
 
 		
 		
