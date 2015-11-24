@@ -24,7 +24,6 @@ public class Main {
 	public static final int SELECTSCREEN = 2;
 	public static final int SHOPSCREEN = 3;
 	public static final int GAMESCREEN = 5;
-	
 	private static IntroScreen i;
 	private static SelectLevelScreen sls;
 	private static ShopScreen ss;
