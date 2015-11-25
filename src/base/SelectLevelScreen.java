@@ -45,6 +45,8 @@ public class SelectLevelScreen extends JComponent{
 		setLayout(new FlowLayout());
 		setPreferredSize(new Dimension(GameScreen.WIDTH, GameScreen.HEIGHT));
 		setVisible(true);
+		setFocusable(true);
+		requestFocus();
 		me = Resource.get("me");
 		maxwell = Resource.get("minimaxwell");
 		me.loop();
@@ -169,7 +171,9 @@ public class SelectLevelScreen extends JComponent{
 						}
 					}
 					InputUtility.postUpdate();
+				
 				}
+				
 				
 			}
 		});

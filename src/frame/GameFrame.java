@@ -1,14 +1,20 @@
 	package frame;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import LogicGame.Puzzle;
 import base.GameScreen;
+import main.Main;
 import render.AnimationManager;
 import res.Resource;
 
@@ -19,6 +25,8 @@ public class GameFrame extends JComponent {
 	int seperateHeight = 368;
 	
 	Puzzle puzzle;
+	private JButton menuButton;
+	
 	
 	public GameFrame() {
 		puzzleItem[0] = Resource.get("smallpotion");
@@ -33,8 +41,64 @@ public class GameFrame extends JComponent {
 		burny.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
+		
+		setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		menuButton = new JButton("Menu");
+		menuButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				showOptionDialog();
+			}
+		});
+		
+		add(menuButton);
+		
 	}
 	
+	private void showOptionDialog() {
+		//TODO pause?
+		String[] options = {"Resume","Restart","Quit"};
+		int choice = JOptionPane.showOptionDialog(this, "Choose your choice", "Menu", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		System.out.println(options[choice]);
+		switch(choice)
+		{
+			case 0:
+			{
+				return;
+			}
+			case 1:
+			{
+				if(JOptionPane.showConfirmDialog(this,"Are you sure?","Restart",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE) == 0)
+				{
+					restart();
+				}else
+				{
+					return;
+				}
+				break;
+			}
+			case 2:
+			{
+				if(JOptionPane.showConfirmDialog(this,"Are you sure?","Quit",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE) == 0)
+				{
+					Main.changeGameScreen(Main.SELECTSCREEN);
+				}else
+				{
+					return;
+				}
+				break;
+			}
+		}
+		
+		
+	}
+
+	private void restart() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void update() {
 		me.update();
 		burny.update();
@@ -95,5 +159,10 @@ public class GameFrame extends JComponent {
 	
 	public void drawPuzzle(Graphics2D g, int y, int size) {
 		puzzle.draw(g, (GameScreen.WIDTH - size) / 2, y, size);
+	}
+	
+	public static void showDialog()
+	{
+		
 	}
 }
