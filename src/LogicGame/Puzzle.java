@@ -84,27 +84,28 @@ public class Puzzle {
 					table[slideY][slideX] = 0;
 					emptyX = slideX;
 					emptyY = slideY;
+					slideX = slideY = -1;
 					isSliding = false;
 				} else {
 					slider.update(g);
+				}
 					
-					for(int i=0; i<h; i++) {
-						for(int j=0; j<w; j++) {
-							if(i == emptyY && j == emptyX) continue;
-							if(i == slideY && j == slideX) continue;
-							if(data[i][j] == 0) continue;
-							g.drawImage(
-								img[data[i][j] - 1].getCurrentBufferedImage(), 
-								x + size / w * j, 
-								y + size / h * i, 
-								size / w, 
-								size / h, 
-								null
-							);
-							imgSize = size / w;
-							xPos[i][j] = x + size / w * j;
-							yPos[i][j] = y + size / h * i;
-						}
+				for(int i=0; i<h; i++) {
+					for(int j=0; j<w; j++) {
+						if(i == emptyY && j == emptyX) continue;
+						if(i == slideY && j == slideX) continue;
+						if(data[i][j] == 0) continue;
+						g.drawImage(
+							img[data[i][j] - 1].getCurrentBufferedImage(), 
+							x + size / w * j, 
+							y + size / h * i, 
+							size / w, 
+							size / h, 
+							null
+						);
+						imgSize = size / w;
+						xPos[i][j] = x + size / w * j;
+						yPos[i][j] = y + size / h * i;
 					}
 				}
 			}
