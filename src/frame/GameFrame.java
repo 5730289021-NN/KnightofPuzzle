@@ -57,8 +57,9 @@ public class GameFrame extends JComponent {
 	}
 	
 	private void showOptionDialog() {
+		//TODO pause?
 		String[] options = {"Resume","Restart","Quit"};
-		int choice = JOptionPane.showOptionDialog(this, "Choose your choice", "Menu", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
+		int choice = JOptionPane.showOptionDialog(this, "Choose your choice", "Menu", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 		System.out.println(options[choice]);
 		switch(choice)
 		{
@@ -68,12 +69,24 @@ public class GameFrame extends JComponent {
 			}
 			case 1:
 			{
-				restart();
+				if(JOptionPane.showConfirmDialog(this,"Are you sure?","Restart",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE) == 0)
+				{
+					restart();
+				}else
+				{
+					return;
+				}
 				break;
 			}
 			case 2:
 			{
-				Main.changeGameScreen(Main.SELECTSCREEN);
+				if(JOptionPane.showConfirmDialog(this,"Are you sure?","Quit",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE) == 0)
+				{
+					Main.changeGameScreen(Main.SELECTSCREEN);
+				}else
+				{
+					return;
+				}
 				break;
 			}
 		}
