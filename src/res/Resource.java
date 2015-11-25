@@ -82,21 +82,11 @@ public class Resource {
 		rs.put("attacksniper", read("pic/anime/attacksniper.gif"));
 		rs.put("me", read("pic/anime/me.gif"));
 		rs.put("attackme", read("pic/anime/attackme.gif"));
-		Font f = null;
-//		try {
-//			f = Font.createFont(Font.TRUETYPE_FONT, new File(Resource.class.getResource("font/osaka-re.ttf"));
-//		     ge.registerFont(f);
-//		} catch (IOException|FontFormatException e) {
-//			if(ge != null)
-//		     JOptionPane.showMessageDialog(null, "Unable to load Custom Font");
-//			else
-//			{
-//				JOptionPane.showMessageDialog(null, "No Font" + f.getName());
-//			}
-//		}
 
 		
-		
+		rs.put("goldentag", read("pic/etc/goldtag.png"));
+		rs.put("silvertag", read("pic/etc/silvertag.png"));
+		rs.put("coppertag", read("pic/etc/coppertag.png"));
 		
 	}
 	

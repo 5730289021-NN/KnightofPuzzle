@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -20,14 +21,21 @@ import main.Main;
 import res.Resource;
 
 public class ShopScreen extends JComponent{
-	private static final double[] xpos = {0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875};
-	private static final double[] ypos = {0, 0.2, 0.4, 0.6, 0.8};
+	private static final double[] xpos = {0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50
+										 ,0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95};
+	private static final double[] ypos = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
 	private static int[] xpos_ = new int[xpos.length];
 	private static int[] ypos_ = new int[ypos.length];
+	private static int deltax;
+	private static int deltay;
+	private static BufferedImage coppertag = Resource.get("coppertag").getCurrentBufferedImage();
+	private static BufferedImage silvertag = Resource.get("silvertag").getCurrentBufferedImage();
+	private static BufferedImage goldentag = Resource.get("goldentag").getCurrentBufferedImage();
+	
 	private static JButton backButton;
 	private static final Font boldfont = new Font("Tahoma", Font.BOLD, 30);
 	private static final Font font = new Font("Tahoma", Font.PLAIN, 25);
-	private static String[] label = {"Shop", "Inventory", "Sword", "Shield", "Large Potion", "Small Potion"};
+	//private static String[] label = {"Shop", "Inventory", "Sword", "Shield", "Large Potion", "Small Potion"};
 	private static FontMetrics fm = new FontMetrics(font) {};
 	static{
 		for(int i = 0;i<xpos_.length;i++)
@@ -38,7 +46,8 @@ public class ShopScreen extends JComponent{
 		{
 			ypos_[i] = (int) (GameScreen.HEIGHT * ypos[i]);
 		}
-		
+		deltax = xpos_[1] - xpos_[0];
+		deltay = ypos_[1] - ypos_[0];
 	}
 	
 	public ShopScreen(){
@@ -72,18 +81,26 @@ public class ShopScreen extends JComponent{
 		
 		
 		g2.setFont(boldfont);
-		g2.setColor(Color.GRAY);
 		
-		g2.drawString(label[0], xpos_[1], (int) (ypos_[0] + fm.getHeight()));
-		g2.drawString(label[1], xpos_[5], (int) (ypos_[0] + fm.getHeight()));
+		drawWord("Shop",3,1,g2);
+		drawWord("Inventory",12,1,g2);
+		drawWord("Sword",0,2,g2);
+		drawWord("Sword",8,2,g2);
+		drawWord("Shield",0,5,g2);
+		drawWord("Shield", 8, 5, g2);
 		
 		
-		g2.setFont(font);
-		g2.drawString(label[2], xpos_[0], (int) (ypos_[1] + fm.getHeight()));
-		g2.drawString(label[3], xpos_[0], (int) (ypos_[2] + fm.getHeight()));
-		g2.drawString(label[2], xpos_[4], (int) (ypos_[1] + fm.getHeight()));
-		g2.drawString(label[3], xpos_[4], (int) (ypos_[2] + fm.getHeight()));
-		g2.drawString(label[4], xpos_[4], (int) (ypos_[3] + fm.getHeight()));
-		g2.drawString(label[5], xpos_[4], (int) (ypos_[4] + fm.getHeight()));
+		
+		drawTag(silvertag, 0, 1, g2);
+	}
+	
+	private void drawTag(BufferedImage tag,int xpo,int ypo,Graphics2D g2)
+	{
+		g2.drawImage(tag, xpos_[xpo], ypos_[ypo], deltax, tag.getHeight() * deltax/tag.getWidth(), null);
+	}
+	
+	private void drawWord(String word,int xpo,int ypo,Graphics2D g2)
+	{
+		g2.drawString(word, xpos_[xpo], ypos_[ypo]);
 	}
 }
