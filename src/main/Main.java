@@ -46,7 +46,7 @@ public class Main {
 		frame.setTitle("Knight of Puzzle");
 		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
-		changeGameScreen(SHOPSCREEN);
+		changeGameScreen(GAMESCREEN);
 		
 		addListener(frame);
 		
