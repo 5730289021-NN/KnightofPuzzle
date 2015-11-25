@@ -76,7 +76,6 @@ public class Puzzle {
 				}
 			}
 		} else {
-			System.out.println(444);
 			if(slider != null) {
 				if(slider.isFinish()) {
 					slider = null;

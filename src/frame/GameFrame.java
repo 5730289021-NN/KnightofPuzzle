@@ -15,7 +15,7 @@ import res.Resource;
 public class GameFrame extends JComponent {
 
 	AnimationManager[] puzzleItem = new AnimationManager[4];
-	AnimationManager bg, me, megaburny;
+	AnimationManager bg, me, burny;
 	int seperateHeight = 368;
 	
 	Puzzle puzzle;
@@ -29,15 +29,15 @@ public class GameFrame extends JComponent {
 		bg = Resource.get("underwaterbg");
 		me = Resource.get("me");
 		me.loop();
-		megaburny = Resource.get("megaburny");
-		megaburny.loop();
+		burny = Resource.get("burny");
+		burny.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
 	}
 	
 	public void update() {
 		me.update();
-		megaburny.update();
+		burny.update();
 	}
 	
 	@Override
@@ -86,9 +86,9 @@ public class GameFrame extends JComponent {
 		);
 		
 		g.drawImage(
-			megaburny.getCurrentBufferedImage(),
-			800, 150,
-			megaburny.getWidth(), megaburny.getHeight(),
+			burny.getCurrentBufferedImage(),
+			800, 200,
+			burny.getWidth()*2, burny.getHeight()*2,
 			null
 		);
 	}
