@@ -47,10 +47,7 @@ public class Puzzle {
 		return table;
 	}
 	
-	public void draw(Graphics2D g, int x, int y, int size) {
-		g.setColor(new Color(20, 20, 20));
-		g.fillRect(x, y, size, size);
-		
+	public void draw(Graphics2D g, int x, int y, int size) {		
 		
 		int[][] data = table;
 		int h = data.length;

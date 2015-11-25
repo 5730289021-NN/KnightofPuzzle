@@ -12,25 +12,36 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import LogicGame.Puzzle;
-import base.GameScreen;
 import main.Main;
 import render.AnimationManager;
 import res.Resource;
+import LogicGame.PlayLogic;
+import LogicGame.Puzzle;
+import base.GameScreen;
 
 public class PlayFrame extends JComponent {
 
-	AnimationManager[] puzzleItem = new AnimationManager[4];
-	AnimationManager bg, me, burny;
-	int seperateHeight = 368;
+	private static final int START_STATE = 0;
+	private static final int PLAY_STATE = 1;
+	private static final int MINI_FINISH = 2;
 	
-	private int timeStamp = 0;
+	private AnimationManager[] puzzleItem = new AnimationManager[4];
+	private AnimationManager bg, me, burny;
+	private int state;
+	private int seperateHeight = 368;
+	private PlayLogic logic;
+	
+	private int currentMiniPosY = 0;
 	
 	Puzzle puzzle;
 	private JButton menuButton;
 	
 	
 	public PlayFrame() {
+		logic = new PlayLogic(this);
+		
+		state = START_STATE;
+		
 		puzzleItem[0] = Resource.get("smallpotion");
 		puzzleItem[1] = Resource.get("largepotion");
 		puzzleItem[2] = Resource.get("sword");
@@ -43,6 +54,7 @@ public class PlayFrame extends JComponent {
 		burny.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
+		currentMiniPosY = 0;
 		
 		setLayout(new FlowLayout(FlowLayout.LEFT));
 		
@@ -95,6 +107,10 @@ public class PlayFrame extends JComponent {
 		
 		
 	}
+	
+	public void miniGameComplete() {
+		puzzle = new Puzzle(puzzleItem);
+	}
 
 	private void restart() {
 		// TODO Auto-generated method stub
@@ -110,19 +126,30 @@ public class PlayFrame extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		timeStamp += Main.SleepTime;
+		logic.updateTimeStamp();
 		
 		Graphics2D g2 = (Graphics2D) g;
+		
+		g.setColor(new Color(20, 20, 20));
+		g.fillRect((GameScreen.WIDTH - 400) / 2, seperateHeight, 400, 400);
+		
+		if(state == START_STATE) {
+			if(currentMiniPosY >= seperateHeight) {
+				currentMiniPosY = seperateHeight;
+				state = PLAY_STATE;
+			}
+			drawPuzzle(g2, currentMiniPosY, 400);
+			currentMiniPosY += 5;
+		} else {
+			drawPuzzle(g2, seperateHeight, 400);
+		}
+		
+		
 		drawStage(g2, seperateHeight);
-		drawPuzzle(g2, seperateHeight, 400);
-		drawTime(g2, 50);
+		drawTime(g2, logic.getTimeCounter());
 		drawBlood(g2);
 		
 		update();
-	}
-	
-	public int getTimeStamp() {
-		return timeStamp;
 	}
 	
 	private void drawLineStatus(Graphics2D g, Color color, String name, int x, int y, int percent) {
