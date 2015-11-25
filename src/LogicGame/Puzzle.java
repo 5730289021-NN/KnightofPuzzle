@@ -51,6 +51,7 @@ public class Puzzle {
 		g.setColor(new Color(20, 20, 20));
 		g.fillRect(x, y, size, size);
 		
+		
 		int[][] data = table;
 		int h = data.length;
 		int w = data[0].length;
