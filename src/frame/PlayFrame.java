@@ -18,17 +18,19 @@ import main.Main;
 import render.AnimationManager;
 import res.Resource;
 
-public class GameFrame extends JComponent {
+public class PlayFrame extends JComponent {
 
 	AnimationManager[] puzzleItem = new AnimationManager[4];
 	AnimationManager bg, me, burny;
 	int seperateHeight = 368;
 	
+	private int timeStamp = 0;
+	
 	Puzzle puzzle;
 	private JButton menuButton;
 	
 	
-	public GameFrame() {
+	public PlayFrame() {
 		puzzleItem[0] = Resource.get("smallpotion");
 		puzzleItem[1] = Resource.get("largepotion");
 		puzzleItem[2] = Resource.get("sword");
@@ -108,27 +110,42 @@ public class GameFrame extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		timeStamp += Main.SleepTime;
+		
 		Graphics2D g2 = (Graphics2D) g;
 		drawStage(g2, seperateHeight);
 		drawPuzzle(g2, seperateHeight, 400);
+		drawTime(g2, 50);
 		drawBlood(g2);
 		
 		update();
 	}
 	
-	private void drawLineStatus(Graphics2D g, Color color, String name, int x, int y) {
+	public int getTimeStamp() {
+		return timeStamp;
+	}
+	
+	private void drawLineStatus(Graphics2D g, Color color, String name, int x, int y, int percent) {
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		g.drawString(name, x, y + 20);
 		
 		g.setColor(color);
-		g.fillRect(x + 50, y, 220, 20);
+		g.fillRect(x + 50, y, 220 * percent / 100, 20);
 	}
 	
 	public void drawBlood(Graphics2D g){
-		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10);
-		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50);
-		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10);
+		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, 100);
+		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, 100);
+		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, 100);
+	}
+	
+	public void drawTime(Graphics2D g, int time) {
+		String txt = time + "";
+		g.setColor(Color.YELLOW);
+		g.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		int width = g.getFontMetrics().stringWidth(txt);
+		g.drawString(txt, (GameScreen.WIDTH - width)/2, 50);
 	}
 	
 	public void drawStage(Graphics2D g, int height) {

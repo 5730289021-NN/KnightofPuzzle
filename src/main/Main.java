@@ -13,12 +13,14 @@ import base.GameScreen;
 import base.IntroScreen;
 import base.SelectLevelScreen;
 import base.ShopScreen;
-import frame.GameFrame;
+import frame.PlayFrame;
 import input.InputUtility;
 import res.Resource;
 
 public class Main {
 	private static JComponent currentScreen;
+	
+	public static final int SleepTime = 20;
 	
 	public static final int INTROSCREEN = 1;
 	public static final int SELECTSCREEN = 2;
@@ -27,7 +29,7 @@ public class Main {
 	private static IntroScreen i;
 	private static SelectLevelScreen sls;
 	private static ShopScreen ss;
-	private static GameFrame g;
+	private static PlayFrame g;
 	private static JFrame frame;
 	private static AudioClip bgm;
 
@@ -41,12 +43,12 @@ public class Main {
 		i = new IntroScreen(frame);
 		sls = new SelectLevelScreen();
 		ss = new ShopScreen();
-		g = new GameFrame();
+		g = new PlayFrame();
 		frame = new JFrame();
 		frame.setTitle("Knight of Puzzle");
 		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
-		changeGameScreen(SHOPSCREEN);
+		changeGameScreen(GAMESCREEN);
 		
 		addListener(frame);
 		
@@ -59,7 +61,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		while(true){
 			try{
-				Thread.sleep(20);
+				Thread.sleep(SleepTime);
 			}catch (Exception e){
 				
 			}
