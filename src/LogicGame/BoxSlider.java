@@ -13,7 +13,7 @@ public class BoxSlider {
 	private int imgSize;
 	private int frame=0 ;
 	
-	private int frameCount = 10;
+	private int frameCount = 7;
 	
 	public BoxSlider(int sx,int sy,int ex,int ey,int imgSize,AnimationManager am){
 		this.sx=sx;

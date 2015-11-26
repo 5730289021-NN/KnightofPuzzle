@@ -5,7 +5,7 @@ import frame.PlayFrame;
 
 public class PlayLogic {
 	
-	private static final int GAME_TIME_DURATION = 25;
+	private static final int GAME_TIME_DURATION = 5;
 	
 	private int timeCounter;
 	private int timeStamp = 0;

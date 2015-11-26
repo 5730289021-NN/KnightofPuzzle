@@ -107,11 +107,9 @@ public class Puzzle {
 				}
 			}
 		}
-		
-		update();
 	}
 	
-	private void update() {
+	public void update() {
 		if(InputUtility.getKeyPressed(KeyEvent.VK_UP)) {
 			if(emptyY < tableSize - 1) {
 				slide(emptyX, emptyY + 1);

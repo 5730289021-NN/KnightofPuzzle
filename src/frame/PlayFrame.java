@@ -1,4 +1,4 @@
-	package frame;
+package frame;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import main.Main;
 import render.AnimationManager;
+import render.RenderHelper;
 import res.Resource;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
@@ -26,7 +27,7 @@ public class PlayFrame extends JComponent {
 	private static final int MINI_FINISH = 2;
 	
 	private AnimationManager[] puzzleItem = new AnimationManager[4];
-	private AnimationManager bg, me, burny;
+	private AnimationManager bg, me, burny, attackme;
 	private int state;
 	private int seperateHeight = 368;
 	private PlayLogic logic;
@@ -52,6 +53,7 @@ public class PlayFrame extends JComponent {
 		me.loop();
 		burny = Resource.get("burny");
 		burny.loop();
+		attackme = Resource.get("attackme");
 		
 		puzzle = new Puzzle(puzzleItem);
 		currentMiniPosY = 0;
@@ -109,7 +111,9 @@ public class PlayFrame extends JComponent {
 	}
 	
 	public void miniGameComplete() {
-		puzzle = new Puzzle(puzzleItem);
+		currentMiniPosY = seperateHeight;
+		state = MINI_FINISH;
+		attackme.play();
 	}
 
 	private void restart() {
@@ -118,6 +122,13 @@ public class PlayFrame extends JComponent {
 	}
 
 	public void update() {
+		
+		if(state == PLAY_STATE) {
+			puzzle.update();
+		} else if(state == MINI_FINISH) {
+			attackme.update();
+		}
+		
 		me.update();
 		burny.update();
 	}
@@ -125,8 +136,6 @@ public class PlayFrame extends JComponent {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		logic.updateTimeStamp();
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -139,9 +148,18 @@ public class PlayFrame extends JComponent {
 				state = PLAY_STATE;
 			}
 			drawPuzzle(g2, currentMiniPosY, 400);
-			currentMiniPosY += 5;
-		} else {
+			currentMiniPosY += 10;
+		} else if(state == PLAY_STATE) {
+			logic.updateTimeStamp();
 			drawPuzzle(g2, seperateHeight, 400);
+		} else if(state == MINI_FINISH) {
+			currentMiniPosY += 10;
+			drawPuzzle(g2, currentMiniPosY, 400);
+			if(currentMiniPosY >= GameScreen.HEIGHT) {
+				currentMiniPosY = 0;
+				puzzle = new Puzzle(puzzleItem);
+				state = START_STATE;
+			}
 		}
 		
 		
@@ -187,18 +205,29 @@ public class PlayFrame extends JComponent {
 		);
 		
 		g.drawImage(
-			me.getCurrentBufferedImage(),
-			50, 150,
-			me.getWidth()*2, me.getHeight()*2,
-			null
-		);
-		
-		g.drawImage(
 			burny.getCurrentBufferedImage(),
 			800, 200,
 			burny.getWidth()*2, burny.getHeight()*2,
 			null
 		);
+		
+		if(state == MINI_FINISH) {
+			RenderHelper.draw(
+				g, 
+				attackme.getCurrentBufferedImage(), 
+				150, 220, 
+				attackme.getWidth()*2, attackme.getHeight()*2, 
+				RenderHelper.LEFT | RenderHelper.BOTTOM
+			);
+		} else {
+			RenderHelper.draw(
+				g, 
+				me.getCurrentBufferedImage(), 
+				150, 220, 
+				me.getWidth()*2, me.getHeight()*2, 
+				RenderHelper.LEFT | RenderHelper.BOTTOM
+			);
+		}
 	}
 	
 	public void drawPuzzle(Graphics2D g, int y, int size) {
