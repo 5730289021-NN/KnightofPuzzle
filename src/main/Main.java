@@ -32,8 +32,6 @@ public class Main {
 	private static PlayFrame g;
 	private static JFrame frame;
 	private static AudioClip bgm;
-
-
 	
 	public static void main(String[] args) {
 		new Resource();
