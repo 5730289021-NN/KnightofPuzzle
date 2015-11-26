@@ -13,13 +13,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import main.Main;
+import render.InventoryTag;
+import render.ShopTag;
 import render.Tag;
 import res.Resource;
 
@@ -41,9 +42,6 @@ public class ShopScreen extends JComponent{
 	private static final Font font = new Font("Tahoma", Font.PLAIN, 25);
 	//private static String[] label = {"Shop", "Inventory", "Sword", "Shield", "Large Potion", "Small Potion"};
 	private static FontMetrics fm = new FontMetrics(font) {};
-	
-	
-	
 	
 	static{
 		for(int i = 0;i<xpos.length;i++)
@@ -71,29 +69,29 @@ public class ShopScreen extends JComponent{
 		
 		//SHOP
 		//SWORD
-		tags[0] = new Tag(Tag.SWORD,Tag.SILVER, 0, 4);
-		tags[1] = new Tag(Tag.SWORD,Tag.GOLD, 5, 4);
+		tags[0] = new ShopTag(Tag.SWORD,Tag.SILVER, 0, 4);
+		tags[1] = new ShopTag(Tag.SWORD,Tag.GOLD, 5, 4);
 		//SHIELD
-		tags[2] = new Tag(Tag.SHIELD,Tag.SILVER, 0, 7);
-		tags[3] = new Tag(Tag.SHIELD,Tag.GOLD, 5, 7);
+		tags[2] = new ShopTag(Tag.SHIELD,Tag.SILVER, 0, 7);
+		tags[3] = new ShopTag(Tag.SHIELD,Tag.GOLD, 5, 7);
 		
 		//INVENTORY
 		//SWORD
-		tags[4] = new Tag(Tag.SWORD,Tag.COPPER, 11, 4);
-		tags[5] = new Tag(Tag.SWORD,Tag.SILVER, 15, 4);
-		tags[6] = new Tag(Tag.SWORD,Tag.GOLD, 19, 4);
+		tags[4] = new InventoryTag(Tag.SWORD,Tag.COPPER, 11, 4);
+		tags[5] = new InventoryTag(Tag.SWORD,Tag.SILVER, 15, 4);
+		tags[6] = new InventoryTag(Tag.SWORD,Tag.GOLD, 19, 4);
 		//SHIELD
-		tags[7] = new Tag(Tag.SHIELD,Tag.COPPER, 11, 7);
-		tags[8] = new Tag(Tag.SHIELD,Tag.SILVER, 15, 7);
-		tags[9] = new Tag(Tag.SHIELD,Tag.GOLD, 19, 7);
+		tags[7] = new InventoryTag(Tag.SHIELD,Tag.COPPER, 11, 7);
+		tags[8] = new InventoryTag(Tag.SHIELD,Tag.SILVER, 15, 7);
+		tags[9] = new InventoryTag(Tag.SHIELD,Tag.GOLD, 19, 7);
 		//SMALL POTION
-		tags[10] = new Tag(Tag.SMALLPOTION,Tag.COPPER, 11, 10);
-		tags[11] = new Tag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
-		tags[12] = new Tag(Tag.SMALLPOTION,Tag.GOLD, 19, 10);
+		tags[10] = new InventoryTag(Tag.SMALLPOTION,Tag.COPPER, 11, 10);
+		tags[11] = new InventoryTag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
+		tags[12] = new InventoryTag(Tag.SMALLPOTION,Tag.GOLD, 19, 10);
 		//LARGE POTION
-		tags[13] = new Tag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
-		tags[14] = new Tag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
-		tags[15] = new Tag(Tag.LARGEPOTION,Tag.GOLD, 19, 13);
+		tags[13] = new InventoryTag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
+		tags[14] = new InventoryTag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
+		tags[15] = new InventoryTag(Tag.LARGEPOTION,Tag.GOLD, 19, 13);
 	}
 	
 	public ShopScreen(){
@@ -116,7 +114,13 @@ public class ShopScreen extends JComponent{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {}
 			@Override
-			public void mousePressed(MouseEvent arg0) {
+			public void mousePressed(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
 				System.out.println(arg0.getX()+ " " + arg0.getY());
 				for(Tag tag : tags)
 				{
@@ -125,18 +129,6 @@ public class ShopScreen extends JComponent{
 						System.out.println("Tag Type: " + tag.getType() + " Tag Rarity: " + tag.getRarity() + " is pointed.");
 					}
 				}
-			}
-			@Override
-			public void mouseExited(MouseEvent arg0) {}
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		
