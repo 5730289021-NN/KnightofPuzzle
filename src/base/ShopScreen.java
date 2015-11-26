@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
@@ -18,6 +20,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import main.Main;
+import render.Tag;
 import res.Resource;
 
 public class ShopScreen extends JComponent{
@@ -26,20 +29,22 @@ public class ShopScreen extends JComponent{
 	private static double deltax = (double) 1/24;
 	private static double deltay = (double) 1/18;
 	
-	private static int[] xpos_ = new int[xpos.length];
-	private static int[] ypos_ = new int[ypos.length];
-	private static int deltax_;
-	private static int deltay_;
+	public static int[] xpos_ = new int[xpos.length];
+	public static int[] ypos_ = new int[ypos.length];
+	public static int deltax_;
+	public static int deltay_;
 	
-	private static BufferedImage coppertag = Resource.get("coppertag").getCurrentBufferedImage();
-	private static BufferedImage silvertag = Resource.get("silvertag").getCurrentBufferedImage();
-	private static BufferedImage goldentag = Resource.get("goldentag").getCurrentBufferedImage();
+	private static Tag[] tags = new Tag[16];
 	
 	private static JButton backButton;
 	private static final Font boldfont = new Font("Tahoma", Font.BOLD, 30);
 	private static final Font font = new Font("Tahoma", Font.PLAIN, 25);
 	//private static String[] label = {"Shop", "Inventory", "Sword", "Shield", "Large Potion", "Small Potion"};
 	private static FontMetrics fm = new FontMetrics(font) {};
+	
+	
+	
+	
 	static{
 		for(int i = 0;i<xpos.length;i++)
 		{
@@ -63,6 +68,32 @@ public class ShopScreen extends JComponent{
 		
 		deltax_ = xpos_[1] - xpos_[0];
 		deltay_ = ypos_[1] - ypos_[0];
+		
+		//SHOP
+		//SWORD
+		tags[0] = new Tag(Tag.SWORD,Tag.SILVER, 0, 4);
+		tags[1] = new Tag(Tag.SWORD,Tag.GOLD, 5, 4);
+		//SHIELD
+		tags[2] = new Tag(Tag.SHIELD,Tag.SILVER, 0, 7);
+		tags[3] = new Tag(Tag.SHIELD,Tag.GOLD, 5, 7);
+		
+		//INVENTORY
+		//SWORD
+		tags[4] = new Tag(Tag.SWORD,Tag.COPPER, 11, 4);
+		tags[5] = new Tag(Tag.SWORD,Tag.SILVER, 15, 4);
+		tags[6] = new Tag(Tag.SWORD,Tag.GOLD, 19, 4);
+		//SHIELD
+		tags[7] = new Tag(Tag.SHIELD,Tag.COPPER, 11, 7);
+		tags[8] = new Tag(Tag.SHIELD,Tag.SILVER, 15, 7);
+		tags[9] = new Tag(Tag.SHIELD,Tag.GOLD, 19, 7);
+		//SMALL POTION
+		tags[10] = new Tag(Tag.SMALLPOTION,Tag.COPPER, 11, 10);
+		tags[11] = new Tag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
+		tags[12] = new Tag(Tag.SMALLPOTION,Tag.GOLD, 19, 10);
+		//LARGE POTION
+		tags[13] = new Tag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
+		tags[14] = new Tag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
+		tags[15] = new Tag(Tag.LARGEPOTION,Tag.GOLD, 19, 13);
 	}
 	
 	public ShopScreen(){
@@ -81,62 +112,72 @@ public class ShopScreen extends JComponent{
 		buttomPanel.add(backButton);
 		add(buttomPanel,BorderLayout.SOUTH);
 		setVisible(true);
+		addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				System.out.println(arg0.getX()+ " " + arg0.getY());
+				for(Tag tag : tags)
+				{
+					if(tag.isWithin(arg0.getX(), arg0.getY()))
+					{
+						System.out.println("Tag Type: " + tag.getType() + " Tag Rarity: " + tag.getRarity() + " is pointed.");
+					}
+				}
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		super.paintComponent(g);
-		g2.setColor(Color.WHITE);
+		g2.setColor(Color.GRAY);
 		g2.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		
 		g2.setComposite(AlphaComposite.SrcOver.derive(0.75f));
 		g2.drawImage(Resource.get("inventorybg").getCurrentBufferedImage(), 0, 0, GameScreen.WIDTH,GameScreen.HEIGHT,null);
 		g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 		
-		
+		g2.setColor(Color.WHITE);
 		g2.setFont(boldfont);
 		
 		drawWord("Shop",4,2,g2);
 		drawWord("Inventory",16,2,g2);
-		drawWord("Sword",1,4,g2);
+		
+		g2.setFont(font);
+		drawWord("Sword",0,4,g2);
 		drawWord("Sword",11,4,g2);
-		drawWord("Shield",1,7,g2);
+		drawWord("Shield",0,7,g2);
 		drawWord("Shield", 11, 7, g2);
 		drawWord("Potion", 11, 10, g2);
 		drawWord("Small", 9, 11, g2);
 		drawWord("Large", 9, 14, g2);
-		
-		//TODO
-		drawTag(silvertag, 1, 4, g2);
-		drawTag(goldentag, 5, 4, g2);
-		drawTag(silvertag, 1, 7, g2);
-		drawTag(goldentag, 5, 7, g2);
-		
-		drawTag(coppertag, 11, 4, g2);
-		drawTag(silvertag, 15, 4, g2);
-		drawTag(goldentag, 19, 4, g2);
-		
-		drawTag(coppertag, 11, 7, g2);
-		drawTag(silvertag, 15, 7, g2);
-		drawTag(goldentag, 19, 7, g2);
-		
-		drawTag(coppertag, 11, 10, g2);
-		drawTag(silvertag, 15, 10, g2);
-		drawTag(goldentag, 19, 10, g2);
-		
-		drawTag(coppertag, 11, 13, g2);
-		drawTag(silvertag, 15, 13, g2);
-		drawTag(goldentag, 19, 13, g2);
+
+		for(Tag tag : tags)
+		{
+			tag.drawTag(g2);
+		}
 	}
 	
-	private void drawTag(BufferedImage tag,int xpo,int ypo,Graphics2D g2)
-	{
-		g2.drawImage(tag, xpos_[xpo], ypos_[ypo], 4 * deltax_, tag.getHeight() * 4 * deltax_/tag.getWidth(), null);
-	}
+
 	
 	private void drawWord(String word,int xpo,int ypo,Graphics2D g2)
 	{
-		g2.drawString(word, xpos_[xpo], ypos_[ypo]);
+		g2.drawString(word, xpos_[xpo], ypos_[ypo] - fm.getDescent());
 	}
 }
