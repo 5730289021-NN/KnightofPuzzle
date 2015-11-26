@@ -11,7 +11,22 @@ public abstract class Monster {
 		this.at = at;
 		this.def = def;
 		this.gold = gold;
-		
+	}
+	
+	public int getHp() {
+		return hp;
+	}
+	
+	public int getAt() {
+		return at;
+	}
+	
+	public int getDef() {
+		return def;
+	}
+	
+	public int getGold() {
+		return gold;
 	}
 	
 	public abstract void increseStat(int level);
