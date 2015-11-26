@@ -19,10 +19,10 @@ public class Puzzle {
 	private int[][] xPos = new int[tableSize][tableSize];
 	private int[][] yPos = new int[tableSize][tableSize];
 	private int timecount = 10;
-	private final static int sp = 1;
-	private final static int lp = 2;
-	private final static int sw = 3;
-	private final static int sh = 4;
+	public final static int sp = 1;
+	public final static int lp = 2;
+	public final static int sw = 3;
+	public final static int sh = 4;
 	
 	private AnimationManager[] img;
 	private int emptyX, emptyY;
@@ -33,33 +33,54 @@ public class Puzzle {
 	private BoxSlider slider;
 	
 	public Puzzle(AnimationManager[] img){
-		int[][] dir = {{1,0},{0,1},{-1,0},{0,-1}};
-		int[] near = {0,0,0,0,0};
-		for (int i=0; i<5;i++){
-			for(int j=0; j<5;j++){
-				for(int k=0; k<4; k++) {
-					near[k] = 0;
-				}
-				for(int k=0; k<4; k++) {
-					int x = i + dir[k][0];
-					int y = j + dir[k][1];
-					if(x >= 0 && x < 5 && y >= 0 && y < 5) {
-						near[table[y][x]] = 1;
-					}
-				}
-				int rand = Randomul.rand(1, 4);
-				if(near[1] + near[2] + near[3] + near[4] != 4) {	
-					while(near[rand] == 1) {
-						rand = Randomul.rand(1,4);
-					}
-				}
-				table[i][j] = rand;
+		
+		int d = tableSize*tableSize - 1;
+		
+		int[] rand = new int[d+1];
+		
+		for(int i=0; i<d; i++) rand[i] = i/(d/4) + 1; 
+		for(int i=0; i<100; i++) {
+			int a = Randomul.rand(0, d-1);
+			int b = Randomul.rand(0, d-1);
+			int tmp = rand[a];
+			rand[a] = rand[b];
+			rand[b] = tmp;
+		}
+		
+		for (int i=0; i<tableSize;i++){
+			for(int j=0; j<tableSize;j++){
+				table[i][j] = rand[i*tableSize+j];
 			}
 		}
 		emptyX = tableSize - 1;
 		emptyY = tableSize - 1;
 		table[emptyY][emptyX] = 0;
 		this.img = img;
+	}
+	
+	public int[] calculateCombineStat() {
+		int[] r = new int[5];
+		int[][] dir = {{0,1},{1,0},{-1,0},{0,-1}};
+		int size = tableSize;
+		
+		for(int i=0; i<size; i++) {
+			for(int j=0; j<size; j++) {
+				
+				for(int k=0; k<dir.length; k++) {
+					int x = j + dir[k][0];
+					int y = i + dir[k][1];
+					
+					
+					if(x < 0 || x >= size || y < 0 || y >= size) continue;
+					if(table[i][j] == table[y][x]) {
+						r[table[i][j]]++;
+						break;
+					}
+				}
+			}
+		}
+		
+		return r;
 	}
 	
 	public int[][] getTable() {

@@ -19,6 +19,7 @@ import render.AnimationManager;
 import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
+import Data.Burny;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
 import base.GameScreen;
@@ -46,6 +47,7 @@ public class PlayFrame extends JComponent {
 	private PlayLogic logic;
 	private JButton menuButton;
 	
+	private int[] combineStat;
 	
 	public PlayFrame() {
 		logic = new PlayLogic(this);
@@ -61,10 +63,13 @@ public class PlayFrame extends JComponent {
 		bg = Resource.get("underwaterbg");
 		me = Resource.get("me");
 		me.loop();
-		enemy = Resource.get("duel2");
-		enemy.loop();
 		attackme = Resource.get("attackme");
-		attackenemy = Resource.get("attackduel2");
+		
+		// Change these 3 lines for change monster
+		attackenemy = Resource.get("attackburny");
+		enemy = Resource.get("burny");
+		logic.setMonster(new Burny());
+		enemy.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
 		currentMiniPosY = 0;
@@ -128,6 +133,10 @@ public class PlayFrame extends JComponent {
 		state = MINI_FINISH;
 		attackme.play();
 		attackenemy.play();
+		combineStat = puzzle.calculateCombineStat();
+		System.out.println(combineStat[1]+" "+combineStat[2]+" "+combineStat[3]+" "+combineStat[4]);
+		System.out.println(logic.calculateDecreaseHpMonster(combineStat[Puzzle.sw], combineStat[Puzzle.sh]));
+		System.out.println(logic.calculateDecreaseHpMe(combineStat[Puzzle.sh]));
 	}
 
 	private void restart() {
@@ -185,10 +194,17 @@ public class PlayFrame extends JComponent {
 			currentMiniPosY = seperateHeight;
 			state = PLAYER_TURN;
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
-		
+			
 		} else if(state == PLAYER_TURN) {
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
-			if(attackme.isFinish()) state = MONSTER_TURN;
+			if(attackme.isFinish()) {
+				state = MONSTER_TURN;
+				logic.decreaseHpMonster(
+					combineStat[Puzzle.sw], 
+					combineStat[Puzzle.sh]
+				);
+				System.out.println("Monster hp :"+logic.getHpMonster());
+			}
 			
 		} else if(state == MONSTER_TURN) {
 			currentMiniPosY += 10;
@@ -200,6 +216,12 @@ public class PlayFrame extends JComponent {
 			if(attackenemy.isFinish() && currentMiniPosY >= GameScreen.HEIGHT) {
 				state = START_STATE;
 				currentMiniPosY = 0;
+				
+				logic.increaseFury();
+				logic.decreaseHpMe(combineStat[Puzzle.sh]);
+				System.out.println("Me hp :"+logic.getHpMe());
+				//logic.increaseHpMe(combineStat[Puzzle.lp], 1);
+				//logic.increaseHpMe(combineStat[Puzzle.sp], 2);
 			}
 		}
 		
@@ -226,9 +248,9 @@ public class PlayFrame extends JComponent {
 	}
 	
 	public void drawStatus(Graphics2D g){
-		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, 100);
-		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, 100);
-		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, 100);
+		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, logic.getHpMePercentage());
+		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, logic.getFuryPercentage());
+		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, logic.getHpMonsterPercentage());
 	}
 	
 	public void drawTime(Graphics2D g, int time) {
