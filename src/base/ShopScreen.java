@@ -21,13 +21,16 @@ import main.Main;
 import res.Resource;
 
 public class ShopScreen extends JComponent{
-	private static final double[] xpos = {0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50
-										 ,0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95};
-	private static final double[] ypos = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
+	private static double[] xpos = new double[24];
+	private static double[] ypos = new double[24];
+	private static double deltax = (double) 1/24;
+	private static double deltay = (double) 1/18;
+	
 	private static int[] xpos_ = new int[xpos.length];
 	private static int[] ypos_ = new int[ypos.length];
-	private static int deltax;
-	private static int deltay;
+	private static int deltax_;
+	private static int deltay_;
+	
 	private static BufferedImage coppertag = Resource.get("coppertag").getCurrentBufferedImage();
 	private static BufferedImage silvertag = Resource.get("silvertag").getCurrentBufferedImage();
 	private static BufferedImage goldentag = Resource.get("goldentag").getCurrentBufferedImage();
@@ -38,16 +41,28 @@ public class ShopScreen extends JComponent{
 	//private static String[] label = {"Shop", "Inventory", "Sword", "Shield", "Large Potion", "Small Potion"};
 	private static FontMetrics fm = new FontMetrics(font) {};
 	static{
+		for(int i = 0;i<xpos.length;i++)
+		{
+			xpos[i] = deltax * i;
+		}
+		
+		for(int i = 0;i<ypos.length;i++)
+		{
+			ypos[i] = deltay * i;
+		}
+		
 		for(int i = 0;i<xpos_.length;i++)
 		{
 			xpos_[i] = (int) (GameScreen.WIDTH * xpos[i]);
 		}
+		
 		for(int i = 0;i<ypos_.length;i++)
 		{
 			ypos_[i] = (int) (GameScreen.HEIGHT * ypos[i]);
 		}
-		deltax = xpos_[1] - xpos_[0];
-		deltay = ypos_[1] - ypos_[0];
+		
+		deltax_ = xpos_[1] - xpos_[0];
+		deltay_ = ypos_[1] - ypos_[0];
 	}
 	
 	public ShopScreen(){
@@ -82,21 +97,38 @@ public class ShopScreen extends JComponent{
 		
 		g2.setFont(boldfont);
 		
-		drawWord("Shop",3,1,g2);
-		drawWord("Inventory",12,1,g2);
-		drawWord("Sword",0,2,g2);
-		drawWord("Sword",8,2,g2);
-		drawWord("Shield",0,5,g2);
-		drawWord("Shield", 8, 5, g2);
+		drawWord("Shop",4,3,g2);
+		drawWord("Inventory",16,2,g2);
+		drawWord("Sword",1,4,g2);
+		drawWord("Sword",11,4,g2);
+		drawWord("Shield",1,7,g2);
+		drawWord("Shield", 11, 7, g2);
+		drawWord("Potion", 11, 10, g2);
+		drawWord("Small", 9, 11, g2);
+		drawWord("Large", 9, 14, g2);
 		
+		//TODO
+		drawTag(silvertag, 1, 2, g2);
+		drawTag(goldentag, 4, 2, g2);
+		drawTag(silvertag, 0, 5, g2);
+		drawTag(goldentag, 4, 5, g2);
 		
+		drawTag(coppertag, 8, 2, g2);
+		drawTag(silvertag, 12, 2, g2);
+		drawTag(goldentag, 16, 2, g2);
 		
-		drawTag(silvertag, 0, 1, g2);
+		drawTag(coppertag, 8, 5, g2);
+		drawTag(silvertag, 12, 5, g2);
+		drawTag(goldentag, 16, 5, g2);
+		
+		drawTag(coppertag, 8, 8, g2);
+		drawTag(silvertag, 12, 8, g2);
+		drawTag(goldentag, 16, 8, g2);
 	}
 	
 	private void drawTag(BufferedImage tag,int xpo,int ypo,Graphics2D g2)
 	{
-		g2.drawImage(tag, xpos_[xpo], ypos_[ypo], deltax, tag.getHeight() * deltax/tag.getWidth(), null);
+		g2.drawImage(tag, xpos_[xpo], ypos_[ypo], 4 * deltax_, tag.getHeight() * 4 * deltax_/tag.getWidth(), null);
 	}
 	
 	private void drawWord(String word,int xpo,int ypo,Graphics2D g2)
