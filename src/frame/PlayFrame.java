@@ -7,14 +7,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
-import javax.annotation.Generated;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import main.Main;
 import render.AnimationManager;
+import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
 import LogicGame.PlayLogic;
@@ -30,9 +31,10 @@ public class PlayFrame extends JComponent {
 	private static final int MONSTER_TURN = 4;
 	
 	private AnimationManager[] puzzleItem = new AnimationManager[4];
-	private AnimationManager bg, me, burny, attackme, attackburny;
+	private AnimationManager bg, me, enemy, attackme, attackenemy;
 	private int state;
 	private int seperateHeight = 368;
+	private int puzzleSize = 400;
 	private PlayLogic logic;
 	
 	private int currentMiniPosY = 0;
@@ -54,10 +56,10 @@ public class PlayFrame extends JComponent {
 		bg = Resource.get("underwaterbg");
 		me = Resource.get("me");
 		me.loop();
-		burny = Resource.get("burny");
-		burny.loop();
+		enemy = Resource.get("minimaxwell");
+		enemy.loop();
 		attackme = Resource.get("attackme");
-		attackburny = Resource.get("attackburny");
+		attackenemy = Resource.get("attackminimaxwell");
 		
 		puzzle = new Puzzle(puzzleItem);
 		currentMiniPosY = 0;
@@ -118,7 +120,7 @@ public class PlayFrame extends JComponent {
 		currentMiniPosY = seperateHeight;
 		state = MINI_FINISH;
 		attackme.play();
-		attackburny.play();
+		attackenemy.play();
 	}
 
 	private void restart() {
@@ -133,11 +135,11 @@ public class PlayFrame extends JComponent {
 		} else if(state == MINI_FINISH || state == PLAYER_TURN) {
 			attackme.update();
 		} else if(state == MONSTER_TURN) {
-			attackburny.update();
+			attackenemy.update();
 		}
 		
 		me.update();
-		burny.update();
+		enemy.update();
 	}
 	
 	@Override
@@ -147,45 +149,49 @@ public class PlayFrame extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		g.setColor(new Color(20, 20, 20));
-		g.fillRect((GameScreen.WIDTH - 400) / 2, seperateHeight, 400, 400);
+		g.fillRect((GameScreen.WIDTH - puzzleSize) / 2, seperateHeight, puzzleSize, puzzleSize);
 		
 		if(state == START_STATE) {
 			if(currentMiniPosY >= seperateHeight) {
 				currentMiniPosY = seperateHeight;
 				state = PLAY_STATE;
 			}
-			drawPuzzle(g2, currentMiniPosY, 400);
+			drawPuzzle(g2, currentMiniPosY, puzzleSize);
 			currentMiniPosY += 10;
 		
 		} else if(state == PLAY_STATE) {
 			logic.updateTimeStamp();
-			drawPuzzle(g2, seperateHeight, 400);
+			drawPuzzle(g2, seperateHeight, puzzleSize);
 		
 		} else if(state == MINI_FINISH) {
 			currentMiniPosY = seperateHeight;
 			state = PLAYER_TURN;
-			drawPuzzle(g2, currentMiniPosY, 400);
+			drawPuzzle(g2, currentMiniPosY, puzzleSize);
 		
 		} else if(state == PLAYER_TURN) {
-			drawPuzzle(g2, currentMiniPosY, 400);
+			drawPuzzle(g2, currentMiniPosY, puzzleSize);
 			if(attackme.isFinish()) state = MONSTER_TURN;
 			
 		} else if(state == MONSTER_TURN) {
 			currentMiniPosY += 10;
-			drawPuzzle(g2, currentMiniPosY, 400);
+			drawPuzzle(g2, currentMiniPosY, puzzleSize);
 			if(currentMiniPosY >= GameScreen.HEIGHT) {
 				currentMiniPosY = GameScreen.HEIGHT;
 				puzzle = new Puzzle(puzzleItem);
 			}
-			if(attackburny.isFinish() && currentMiniPosY >= GameScreen.HEIGHT) {
+			if(attackenemy.isFinish() && currentMiniPosY >= GameScreen.HEIGHT) {
 				state = START_STATE;
 				currentMiniPosY = 0;
 			}
 		}
 		
 		drawStage(g2, seperateHeight);
+		
+		g.setColor(Color.WHITE);
+		g.fillRect((GameScreen.WIDTH + puzzleSize) / 2, seperateHeight, GameScreen.WIDTH, GameScreen.HEIGHT);
+		
 		drawTime(g2, logic.getTimeCounter());
-		drawBlood(g2);
+		drawStatus(g2);
 		
 		update();
 	}
@@ -199,7 +205,7 @@ public class PlayFrame extends JComponent {
 		g.fillRect(x + 50, y, 220 * percent / 100, 20);
 	}
 	
-	public void drawBlood(Graphics2D g){
+	public void drawStatus(Graphics2D g){
 		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, 100);
 		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, 100);
 		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, 100);
@@ -244,19 +250,21 @@ public class PlayFrame extends JComponent {
 		}
 		
 		if(state == MONSTER_TURN) {
+			ImageData bf = attackenemy.getCurrentImageData();
 			RenderHelper.draw(
 				g,
-				attackburny.getCurrentBufferedImage(),
-				800, 220,
-				attackburny.getWidth()*2, attackburny.getHeight()*2,
+				bf.getImg(),
+				800 - bf.getOffsetX(), 220 - bf.getOffsetY(),
+				bf.getWidth()*2, bf.getHeight()*2,
 				RenderHelper.RIGHT | RenderHelper.BOTTOM
 			);
 		} else {		
+			BufferedImage bf = enemy.getCurrentBufferedImage();
 			RenderHelper.draw(
 				g,
-				burny.getCurrentBufferedImage(),
+				bf,
 				800, 220,
-				burny.getWidth()*2, burny.getHeight()*2,
+				bf.getWidth()*2, bf.getHeight()*2,
 				RenderHelper.RIGHT | RenderHelper.BOTTOM
 			);
 		}

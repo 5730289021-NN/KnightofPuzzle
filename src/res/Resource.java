@@ -53,7 +53,7 @@ public class Resource {
 		rs.put("bin", read("pic/etc/bin.png"));
 		
 		rs.put("introbg", read("pic/bg/introbg.gif"));
-		rs.put("introbg2", read("pic/bg/introbg2.gif"));
+		rs.put("introbg2", read("pic/bg/introbg2.jpg"));
 		rs.put("starbg", read("pic/bg/starbg.png"));
 		
 		rs.put("titleIcon", read("pic/label/titleIcon.jpg"));

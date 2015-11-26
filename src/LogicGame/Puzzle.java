@@ -1,14 +1,15 @@
 
 package LogicGame;
 
-import java.awt.Color;
+import input.InputUtility;
+
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+
+import render.AnimationManager;
+import Random.Randomul;
 
 import com.sun.glass.events.KeyEvent;
-
-import Random.Randomul;
-import input.InputUtility;
-import render.AnimationManager;
 
 public class Puzzle {
 	
@@ -32,9 +33,27 @@ public class Puzzle {
 	private BoxSlider slider;
 	
 	public Puzzle(AnimationManager[] img){
+		int[][] dir = {{1,0},{0,1},{-1,0},{0,-1}};
+		int[] near = {0,0,0,0,0};
 		for (int i=0; i<5;i++){
 			for(int j=0; j<5;j++){
-				table[i][j] = Randomul.rand(1, 4);
+				for(int k=0; k<4; k++) {
+					near[k] = 0;
+				}
+				for(int k=0; k<4; k++) {
+					int x = i + dir[k][0];
+					int y = j + dir[k][1];
+					if(x >= 0 && x < 5 && y >= 0 && y < 5) {
+						near[table[y][x]] = 1;
+					}
+				}
+				int rand = Randomul.rand(1, 4);
+				if(near[1] + near[2] + near[3] + near[4] != 4) {	
+					while(near[rand] == 1) {
+						rand = Randomul.rand(1,4);
+					}
+				}
+				table[i][j] = rand;
 			}
 		}
 		emptyX = tableSize - 1;

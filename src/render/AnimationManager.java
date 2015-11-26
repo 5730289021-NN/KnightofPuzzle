@@ -64,6 +64,10 @@ public class AnimationManager {
 			}
 		}
 	}
+	
+	public ImageData getCurrentImageData() {
+		return img[frame];
+	}
 
 	public BufferedImage getCurrentBufferedImage() {
 		return img[frame].getImg();

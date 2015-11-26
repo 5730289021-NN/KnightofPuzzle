@@ -52,7 +52,7 @@ public class Main {
 		
 		frame.setPreferredSize(new Dimension(
 			GameScreen.WIDTH,
-			GameScreen.HEIGHT +45
+			GameScreen.HEIGHT + 35
 		));
 		frame.pack();
 		frame.setVisible(true);
