@@ -97,7 +97,7 @@ public class ShopScreen extends JComponent{
 		
 		g2.setFont(boldfont);
 		
-		drawWord("Shop",4,3,g2);
+		drawWord("Shop",4,2,g2);
 		drawWord("Inventory",16,2,g2);
 		drawWord("Sword",1,4,g2);
 		drawWord("Sword",11,4,g2);
@@ -108,22 +108,26 @@ public class ShopScreen extends JComponent{
 		drawWord("Large", 9, 14, g2);
 		
 		//TODO
-		drawTag(silvertag, 1, 2, g2);
-		drawTag(goldentag, 4, 2, g2);
-		drawTag(silvertag, 0, 5, g2);
-		drawTag(goldentag, 4, 5, g2);
+		drawTag(silvertag, 1, 4, g2);
+		drawTag(goldentag, 5, 4, g2);
+		drawTag(silvertag, 1, 7, g2);
+		drawTag(goldentag, 5, 7, g2);
 		
-		drawTag(coppertag, 8, 2, g2);
-		drawTag(silvertag, 12, 2, g2);
-		drawTag(goldentag, 16, 2, g2);
+		drawTag(coppertag, 11, 4, g2);
+		drawTag(silvertag, 15, 4, g2);
+		drawTag(goldentag, 19, 4, g2);
 		
-		drawTag(coppertag, 8, 5, g2);
-		drawTag(silvertag, 12, 5, g2);
-		drawTag(goldentag, 16, 5, g2);
+		drawTag(coppertag, 11, 7, g2);
+		drawTag(silvertag, 15, 7, g2);
+		drawTag(goldentag, 19, 7, g2);
 		
-		drawTag(coppertag, 8, 8, g2);
-		drawTag(silvertag, 12, 8, g2);
-		drawTag(goldentag, 16, 8, g2);
+		drawTag(coppertag, 11, 10, g2);
+		drawTag(silvertag, 15, 10, g2);
+		drawTag(goldentag, 19, 10, g2);
+		
+		drawTag(coppertag, 11, 13, g2);
+		drawTag(silvertag, 15, 13, g2);
+		drawTag(goldentag, 19, 13, g2);
 	}
 	
 	private void drawTag(BufferedImage tag,int xpo,int ypo,Graphics2D g2)
