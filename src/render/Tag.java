@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import base.ShopScreen;
 import res.Resource;
 
-public class Tag {
+public abstract class Tag {
 	private static final BufferedImage coppertag = Resource.get("coppertag").getCurrentBufferedImage();
 	private static final BufferedImage silvertag = Resource.get("silvertag").getCurrentBufferedImage();
 	private static final BufferedImage goldentag = Resource.get("goldentag").getCurrentBufferedImage();
@@ -28,23 +28,19 @@ public class Tag {
 	public static final int SHIELD = 2;
 	public static final int SMALLPOTION = 3;
 	public static final int LARGEPOTION = 4;
-	private static int deltax = ShopScreen.deltax_;
+	protected static int deltax = ShopScreen.deltax_;
 	
 	
 	private int X;
 	private int Y;
-	private int realX;
-	private int realY;
+	protected int realX;
+	protected int realY;
 	private int type;
 	private int rarity;
-	private BufferedImage tagimg;
-	private BufferedImage accimg;
-	private int tagWidth;
-	private int tagHeight;
-	
-	private boolean isBought;
-	private boolean isSelected;
-	
+	protected BufferedImage tagimg;
+	protected BufferedImage accimg;
+	protected int tagWidth;
+	protected int tagHeight;
 	
 	public int getType() {
 		return type;
