@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import Data.InfoManager;
 import main.Main;
 import render.InventoryTag;
 import render.ShopTag;
@@ -67,31 +68,89 @@ public class ShopScreen extends JComponent{
 		deltax_ = xpos_[1] - xpos_[0];
 		deltay_ = ypos_[1] - ypos_[0];
 		
-		//SHOP
-		//SWORD
-		tags[0] = new ShopTag(Tag.SWORD,Tag.SILVER, 0, 4);
-		tags[1] = new ShopTag(Tag.SWORD,Tag.GOLD, 5, 4);
-		//SHIELD
-		tags[2] = new ShopTag(Tag.SHIELD,Tag.SILVER, 0, 7);
-		tags[3] = new ShopTag(Tag.SHIELD,Tag.GOLD, 5, 7);
-		
 		//INVENTORY
+		int rem;
 		//SWORD
 		tags[4] = new InventoryTag(Tag.SWORD,Tag.COPPER, 11, 4);
 		tags[5] = new InventoryTag(Tag.SWORD,Tag.SILVER, 15, 4);
 		tags[6] = new InventoryTag(Tag.SWORD,Tag.GOLD, 19, 4);
+		rem = InfoManager.LEVEL_WEAPON[InfoManager.SELECTED_SLOT];
+		for(int i = 4;i<7;i++)
+		{
+			if(rem%2 == 1)
+				((InventoryTag) tags[i]).unlock();
+			rem /= 2;
+		}
 		//SHIELD
 		tags[7] = new InventoryTag(Tag.SHIELD,Tag.COPPER, 11, 7);
 		tags[8] = new InventoryTag(Tag.SHIELD,Tag.SILVER, 15, 7);
 		tags[9] = new InventoryTag(Tag.SHIELD,Tag.GOLD, 19, 7);
+		rem = InfoManager.LEVEL_ARMOR[InfoManager.SELECTED_SLOT];
+		for(int i = 7;i<10;i++)
+		{
+			if(rem%2 == 1)
+				((InventoryTag) tags[i]).unlock();
+			rem /= 2;
+		}
 		//SMALL POTION
 		tags[10] = new InventoryTag(Tag.SMALLPOTION,Tag.COPPER, 11, 10);
 		tags[11] = new InventoryTag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
 		tags[12] = new InventoryTag(Tag.SMALLPOTION,Tag.GOLD, 19, 10);
+		switch(InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT])
+		{
+		case 1:
+			((InventoryTag) tags[10]).unlock();
+			break;
+		case 2:
+			((InventoryTag) tags[10]).unlock();
+			((InventoryTag) tags[11]).unlock();
+			break;
+		case 3:
+			((InventoryTag) tags[10]).unlock();
+			((InventoryTag) tags[11]).unlock();
+			((InventoryTag) tags[12]).unlock();
+			break;
+		}
 		//LARGE POTION
 		tags[13] = new InventoryTag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
 		tags[14] = new InventoryTag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
 		tags[15] = new InventoryTag(Tag.LARGEPOTION,Tag.GOLD, 19, 13);
+		switch(InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT])
+		{
+		case 1:
+			((InventoryTag) tags[13]).unlock();
+			break;
+		case 2:
+			((InventoryTag) tags[13]).unlock();
+			((InventoryTag) tags[14]).unlock();
+			break;
+		case 3:
+			((InventoryTag) tags[13]).unlock();
+			((InventoryTag) tags[14]).unlock();
+			((InventoryTag) tags[15]).unlock();
+			break;
+		}
+		//SHOP
+		//SWORD
+		tags[0] = new ShopTag(Tag.SWORD,Tag.SILVER, 0, 4, 800);
+		tags[1] = new ShopTag(Tag.SWORD,Tag.GOLD, 5, 4, 2700);
+		for(int i = 0; i <2;i++)
+		{
+			if(((InventoryTag) tags[i+5]).isUnlocked())
+			{
+				((ShopTag) tags[i]).setAlreadyBought();
+			}
+		}
+		//SHIELD
+		tags[2] = new ShopTag(Tag.SHIELD,Tag.SILVER, 0, 7, 400);
+		tags[3] = new ShopTag(Tag.SHIELD,Tag.GOLD, 5, 7, 1500);
+		for(int i = 0; i<2;i++)
+		{
+			if(((InventoryTag) tags[i+8]).isUnlocked())
+			{
+				((ShopTag) tags[i]).setAlreadyBought();
+			}
+		}
 	}
 	
 	public ShopScreen(){

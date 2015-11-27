@@ -4,19 +4,34 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import Data.InfoManager;
 import base.GameScreen;
 import res.Resource;
 
 public class ShopTag extends Tag{
 	private boolean isBuyable;
+	private int price;
 	
-	public ShopTag(int type, int rarity, int x, int y) {
+	public ShopTag(int type, int rarity, int x, int y, int price) {
 		super(type, rarity, x, y);
-		isBuyable = false;
+		isBuyable = true;
+		this.price = price;
 	}
 	
-	public void buyTag(){
+	public void setAlreadyBought()
+	{
 		this.isBuyable = false;
+	}
+	
+	public boolean buyTag(){
+		this.isBuyable = false;
+		if(InfoManager.MONEY[InfoManager.SELECTED_SLOT] >= price)
+		{
+			InfoManager.MONEY[InfoManager.SELECTED_SLOT] -= price;
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	@Override

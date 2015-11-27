@@ -33,5 +33,20 @@ public class InventoryTag extends Tag{
 		g2.drawImage(accimg, realX, realY, tagWidth/2, accimg.getHeight() * 2 * deltax/accimg.getWidth(), null);
 		g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	}
+	
+	public void unlock()
+	{
+		isUnlocked = true;
+		//TODO
+	}
+	public boolean isEquipped() {
+		return isEquipped;
+	}
+	public void setEquipped(boolean isEquipped) {
+		this.isEquipped = isEquipped;
+	}
+	public boolean isUnlocked() {
+		return isUnlocked;
+	}
 
 }
