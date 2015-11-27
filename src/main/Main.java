@@ -46,7 +46,7 @@ public class Main {
 		frame.setTitle("Knight of Puzzle");
 		bgm = Resource.getAudio("birdSound");
 		currentScreen = i;
-		changeGameScreen(SHOPSCREEN);
+		changeGameScreen(INTROSCREEN);
 		
 		addListener(frame);
 		
@@ -117,6 +117,7 @@ public class Main {
 			case SHOPSCREEN:
 			{
 				System.out.println("Shop");
+				ss.calculateData();
 				currentScreen = ss;
 				bgm = Resource.getAudio("doorbell");
 				bgm.play();

@@ -38,6 +38,7 @@ public class InfoManager {
 		Scanner in = null;
 		try {
 			FileInputStream fis = new FileInputStream("C:\\KnightofPuzzle\\kop.dat");
+			file = new File("C:\\KnightofPuzzle\\kop.dat");
 			in = new Scanner(fis);
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null,"Save game not found creating new save file..., Click to \"OK\" to continue.");			
@@ -68,6 +69,7 @@ public class InfoManager {
 			JOptionPane.showMessageDialog(null, "NoSuchElementException, Please delete the kop.dat in C://KnightofPuzzle and try again" );
 			System.exit(0);
 		}
+		in.close();
 	}
 	
 	public static void recalculateStat(int slot){
