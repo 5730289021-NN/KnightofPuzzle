@@ -7,9 +7,9 @@ import base.ShopScreen;
 import res.Resource;
 
 public abstract class Tag {
-	private static final BufferedImage coppertag = Resource.get("coppertag").getCurrentBufferedImage();
-	private static final BufferedImage silvertag = Resource.get("silvertag").getCurrentBufferedImage();
-	private static final BufferedImage goldentag = Resource.get("goldentag").getCurrentBufferedImage();
+	protected static final BufferedImage coppertag = Resource.get("coppertag").getCurrentBufferedImage();
+	protected static final BufferedImage silvertag = Resource.get("silvertag").getCurrentBufferedImage();
+	protected static final BufferedImage goldentag = Resource.get("goldentag").getCurrentBufferedImage();
 	
 	private static final BufferedImage swordimg = Resource.get("sword").getCurrentBufferedImage();
 	private static final BufferedImage sword1img = Resource.get("sword1").getCurrentBufferedImage();
@@ -29,14 +29,14 @@ public abstract class Tag {
 	public static final int SMALLPOTION = 3;
 	public static final int LARGEPOTION = 4;
 	protected static int deltax = ShopScreen.deltax_;
+	protected static int deltay = ShopScreen.deltay_;
 	
-	
-	private int X;
-	private int Y;
+	protected int X;
+	protected int Y;
 	protected int realX;
 	protected int realY;
-	private int type;
-	private int rarity;
+	protected int type;
+	protected int rarity;
 	protected BufferedImage tagimg;
 	protected BufferedImage accimg;
 	protected int tagWidth;

@@ -76,12 +76,12 @@ public class IntroScreen extends JComponent{
 	private void showDialog(boolean mode){
 		String s1 = "";
 		String[] slots = new String[InfoManager.MAXSLOT];
-		if(mode)
+		if(mode)//Continue
 		{
 			s1 = "Load";
 			for(int i = 0;i<InfoManager.MAXSLOT;i++)
 			{
-				if(InfoManager.MAX_LEVEL_COMPLETE[i] == 0)
+				if(InfoManager.LEVEL_WEAPON[i] == 0)
 				{
 					slots[i] = "Empty Slot";
 				}else
@@ -90,12 +90,12 @@ public class IntroScreen extends JComponent{
 				}
 			}
 		}
-		else
+		else//Play
 		{
 			s1 = "Play";
 			for(int i = 0;i<InfoManager.MAXSLOT;i++)
 			{
-				if(InfoManager.MAX_LEVEL_COMPLETE[i] == 0)
+				if(InfoManager.LEVEL_WEAPON[i] == 0)
 				{
 					slots[i] = "New Slot " + (i+1);;
 				}else
@@ -123,22 +123,22 @@ public class IntroScreen extends JComponent{
 			{
 				if(s.contains("New Slot"))
 				{
+					InfoManager.initialize(Integer.parseInt(s.substring(9,10)) - 1);
+					InfoManager.saveGame(InfoManager.NORMALSAVE);
 					InfoManager.SELECTED_SLOT = Integer.parseInt(s.substring(9,10)) - 1;
-					System.out.println("New Slot : " + InfoManager.SELECTED_SLOT);
 					Main.changeGameScreen(Main.SELECTSCREEN);
+					System.out.println("New Slot : " + InfoManager.SELECTED_SLOT);
 				}
 				else
 				{
 					int ans = JOptionPane.showConfirmDialog(null, "Are you sure do you want to override the save game " + s + " ?", "Dialog", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(ans == JOptionPane.YES_OPTION)
 					{
-						InfoManager.LEVEL_WEAPON[Integer.parseInt(s.substring(5,6)) - 1] = 0;
-						InfoManager.LEVEL_ARMOR[Integer.parseInt(s.substring(5,6)) - 1] = 0;
-						InfoManager.LEVEL_POTION[Integer.parseInt(s.substring(5,6)) - 1] = 0;
-						InfoManager.MAX_LEVEL_COMPLETE[Integer.parseInt(s.substring(5,6)) - 1] = 0;
-						InfoManager.recalculateStat(Integer.parseInt(s.substring(5,6)) - 1);
+						InfoManager.initialize(Integer.parseInt(s.substring(5,6)) - 1);
+						InfoManager.saveGame(InfoManager.NORMALSAVE);
 						InfoManager.SELECTED_SLOT = Integer.parseInt(s.substring(5,6)) - 1;
 						Main.changeGameScreen(Main.SELECTSCREEN);
+						System.out.println("Override Slot : " + InfoManager.SELECTED_SLOT);
 					}
 					
 				}

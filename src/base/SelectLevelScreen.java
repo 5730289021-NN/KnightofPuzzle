@@ -12,8 +12,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
+import Data.InfoManager;
 import input.InputUtility;
 import main.Main;
 import render.AnimationManager;
@@ -125,7 +125,7 @@ public class SelectLevelScreen extends JComponent{
 //							JOptionPane.showMessageDialog(getContext(), "You are going to play Level " + (meLocation +1));
 //						}
 					}
-					if(direction != 0)
+					if(direction != 0 && meLocation < InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT])
 					{
 						try{
 						percent = percent + 0.01;
@@ -186,8 +186,9 @@ public class SelectLevelScreen extends JComponent{
 		g2.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		g2.drawImage(Resource.get("starbg").getCurrentBufferedImage(), 0, 0, GameScreen.WIDTH,GameScreen.HEIGHT,null);
 		g2.setColor(Color.YELLOW);
-		g2.drawPolyline(xpos_, ypos_, 5);
-		for(int i = 0;i<5;i++)
+		int drawLevel = InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] + 1;
+		g2.drawPolyline(xpos_, ypos_, drawLevel);
+		for(int i = 0;i<drawLevel;i++)
 		{
 			g2.setColor(Color.RED);
 			g2.fillOval(xpos_[i] - 10, ypos_[i] - 10, 20, 20);

@@ -51,6 +51,10 @@ public class AnimationManager {
 	public boolean isFinish() {
 		return isFinish;
 	}
+	
+	public void setFinish(boolean finish) {
+		this.isFinish = finish;
+	}
 
 	public void update() {
 		if(++speed < 4) return ;

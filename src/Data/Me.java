@@ -5,11 +5,11 @@ import res.Resource;
 
 public class Me extends Monster {
 	private AnimationManager me;
-	private AnimationManager ame;
+	private AnimationManager ame; 
 	private boolean stand;
 
 	public Me() {
-		super(600, 80, 100, 0);
+		super(600, 80, 60, 0);
 		me = Resource.get("me");
 		ame = Resource.get("attackme");
 		stand = true;

@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ import render.AnimationManager;
 import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
+import Data.MiniMaxwell;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
 import base.GameScreen;
@@ -33,20 +35,25 @@ public class PlayFrame extends JComponent {
 	private AnimationManager[] puzzleItem = new AnimationManager[4];
 	private AnimationManager bg, me, enemy, attackme, attackenemy;
 	private int state;
-	private int seperateHeight = 368;
-	private int puzzleSize = 400;
-	private PlayLogic logic;
+	private boolean isPause = false;
+	
+	private Image buffer;
 	
 	private int currentMiniPosY = 0;
+	private int seperateHeight = 368;
+	private int puzzleSize = 400;
 	
-	Puzzle puzzle;
+	private Puzzle puzzle;
+	private PlayLogic logic;
 	private JButton menuButton;
 	
+	private int[] combineStat;
 	
 	public PlayFrame() {
 		logic = new PlayLogic(this);
 		
 		state = START_STATE;
+		buffer = new BufferedImage(GameScreen.WIDTH, GameScreen.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		
 		puzzleItem[0] = Resource.get("smallpotion");
 		puzzleItem[1] = Resource.get("largepotion");
@@ -56,10 +63,13 @@ public class PlayFrame extends JComponent {
 		bg = Resource.get("underwaterbg");
 		me = Resource.get("me");
 		me.loop();
-		enemy = Resource.get("minimaxwell");
-		enemy.loop();
 		attackme = Resource.get("attackme");
+		
+		// Change these 3 lines for change monster
 		attackenemy = Resource.get("attackminimaxwell");
+		enemy = Resource.get("minimaxwell");
+		logic.setMonster(new MiniMaxwell());
+		enemy.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
 		currentMiniPosY = 0;
@@ -81,12 +91,14 @@ public class PlayFrame extends JComponent {
 	private void showOptionDialog() {
 		//TODO pause?
 		String[] options = {"Resume","Restart","Quit"};
+		isPause = true;
 		int choice = JOptionPane.showOptionDialog(this, "Choose your choice", "Menu", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-		System.out.println(options[choice]);
+		//System.out.println(options[choice]);
 		switch(choice)
 		{
 			case 0:
 			{
+				isPause = false;
 				return;
 			}
 			case 1:
@@ -121,6 +133,10 @@ public class PlayFrame extends JComponent {
 		state = MINI_FINISH;
 		attackme.play();
 		attackenemy.play();
+		combineStat = puzzle.calculateCombineStat();
+		System.out.println(combineStat[1]+" "+combineStat[2]+" "+combineStat[3]+" "+combineStat[4]);
+		System.out.println(logic.calculateDecreaseHpMonster(combineStat[Puzzle.sw], combineStat[Puzzle.sh]));
+		System.out.println(logic.calculateDecreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]));
 	}
 
 	private void restart() {
@@ -146,7 +162,18 @@ public class PlayFrame extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		Graphics screengc = g;
+		
+		if(isPause) {
+			screengc.drawImage(buffer, 0, 0, null);
+			return ;
+		}
+		
+		g = buffer.getGraphics();
 		Graphics2D g2 = (Graphics2D) g;
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		
 		g.setColor(new Color(20, 20, 20));
 		g.fillRect((GameScreen.WIDTH - puzzleSize) / 2, seperateHeight, puzzleSize, puzzleSize);
@@ -167,10 +194,17 @@ public class PlayFrame extends JComponent {
 			currentMiniPosY = seperateHeight;
 			state = PLAYER_TURN;
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
-		
+			
 		} else if(state == PLAYER_TURN) {
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
-			if(attackme.isFinish()) state = MONSTER_TURN;
+			if(attackme.isFinish()) {
+				state = MONSTER_TURN;
+				logic.decreaseHpMonster(
+					combineStat[Puzzle.sw], 
+					combineStat[Puzzle.sh]
+				);
+				System.out.println("Monster hp :"+logic.getHpMonster());
+			}
 			
 		} else if(state == MONSTER_TURN) {
 			currentMiniPosY += 10;
@@ -182,6 +216,12 @@ public class PlayFrame extends JComponent {
 			if(attackenemy.isFinish() && currentMiniPosY >= GameScreen.HEIGHT) {
 				state = START_STATE;
 				currentMiniPosY = 0;
+				
+				logic.increaseFury();
+				logic.decreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]);
+				System.out.println("Me hp :"+logic.getHpMe());
+				//logic.increaseHpMe(combineStat[Puzzle.lp], 1);
+				//logic.increaseHpMe(combineStat[Puzzle.sp], 2);
 			}
 		}
 		
@@ -192,6 +232,8 @@ public class PlayFrame extends JComponent {
 		
 		drawTime(g2, logic.getTimeCounter());
 		drawStatus(g2);
+		
+		screengc.drawImage(buffer, 0, 0, null);
 		
 		update();
 	}
@@ -206,9 +248,9 @@ public class PlayFrame extends JComponent {
 	}
 	
 	public void drawStatus(Graphics2D g){
-		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, 100);
-		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, 100);
-		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, 100);
+		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, logic.getHpMePercentage());
+		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, logic.getFuryPercentage());
+		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, logic.getHpMonsterPercentage());
 	}
 	
 	public void drawTime(Graphics2D g, int time) {
