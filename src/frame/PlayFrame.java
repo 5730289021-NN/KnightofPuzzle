@@ -19,6 +19,7 @@ import render.AnimationManager;
 import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
+import Data.InfoManager;
 import Data.MiniMaxwell;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
@@ -55,10 +56,10 @@ public class PlayFrame extends JComponent {
 		state = START_STATE;
 		buffer = new BufferedImage(GameScreen.WIDTH, GameScreen.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		
+		
 		puzzleItem[0] = Resource.get("smallpotion");
 		puzzleItem[1] = Resource.get("largepotion");
-		puzzleItem[2] = Resource.get("sword");
-		puzzleItem[3] = Resource.get("shield");
+		preGame();
 		
 		bg = Resource.get("underwaterbg");
 		me = Resource.get("me");
@@ -316,8 +317,42 @@ public class PlayFrame extends JComponent {
 		puzzle.draw(g, (GameScreen.WIDTH - size) / 2, y, size);
 	}
 	
-	public static void showDialog()
-	{
-		
+	public void preGame(){
+		switch(InfoManager.SWORDEQUIP[InfoManager.SELECTED_SLOT])
+		{
+			case 1:
+			{
+				puzzleItem[2] = Resource.get("sword");
+				break;
+			}
+			case 2:
+			{
+				puzzleItem[2] = Resource.get("sword1");
+				break;
+			}
+			case 3:
+			{
+				puzzleItem[2] = Resource.get("sword2");
+				break;
+			}
+		}
+		switch(InfoManager.ARMOREQUIP[InfoManager.SELECTED_SLOT])
+		{
+			case 1:
+			{
+				puzzleItem[3] = Resource.get("shield");
+				break;
+			}
+			case 2:
+			{
+				puzzleItem[3] = Resource.get("shield1");
+				break;
+			}
+			case 3:
+			{
+				puzzleItem[3] = Resource.get("shield2");
+				break;
+			}
+		}
 	}
 }

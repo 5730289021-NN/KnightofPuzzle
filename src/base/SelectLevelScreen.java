@@ -20,8 +20,8 @@ import render.AnimationManager;
 import res.Resource;
 
 public class SelectLevelScreen extends JComponent{
-	private static final double[] xpos = {0.1,0.3,0.4,0.5,0.75};
-	private static final double[] ypos = {0.5,0.66,0.44,0.77,0.17};
+	private static final double[] xpos = {0.1,0.3,0.5,0.75};
+	private static final double[] ypos = {0.5,0.66,0.44,0.17};
 	private static int[] xpos_ = new int[5];
 	private static int[] ypos_ = new int[5];
 	private int meXPos, meYPos, meLocation;
@@ -33,7 +33,7 @@ public class SelectLevelScreen extends JComponent{
 	private AnimationManager me;
 	private AnimationManager maxwell;
 	static{
-		for(int i = 0;i<5;i++)
+		for(int i = 0;i<4;i++)
 		{
 			xpos_[i] = (int) (GameScreen.WIDTH * xpos[i]);
 			ypos_[i] = (int) (GameScreen.HEIGHT * ypos[i]);
@@ -206,7 +206,7 @@ public class SelectLevelScreen extends JComponent{
 			);
 		g2.drawImage(
 				maxwell.getCurrentBufferedImage(),
-				xpos_[4], ypos_[4] - maxwell.getHeight(),
+				xpos_[3], ypos_[3] - maxwell.getHeight(),
 				maxwell.getWidth(), maxwell.getHeight(),
 				null
 			);
