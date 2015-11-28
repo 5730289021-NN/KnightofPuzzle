@@ -28,7 +28,7 @@ public class InfoManager {
 	public static int[] LEVEL_ARMOR = new int[MAXSLOT]; //4 + 2 + 1 System
 	public static int[] LEVEL_SMALLPOTION = new int[MAXSLOT]; //Exact Number System
 	public static int[] LEVEL_LARGEPOTION = new int[MAXSLOT]; //Exact Number System
-	public static int[] EQUIP = new int[MAXSLOT]; //(X - X - X)3 System
+	public static int[] EQUIP = new int[MAXSLOT]; //(X - X)3 System
 	public static int[] MONEY = new int[MAXSLOT]; //Exact Number System
 	public static int[] MAX_LEVEL_COMPLETE = new int[MAXSLOT]; //Exact Number System
 	
@@ -84,18 +84,14 @@ public class InfoManager {
 		//TODO
 		MAXHP[slot] =  100 * (int) Math.pow(2, MAX_LEVEL_COMPLETE[slot]);
 		int equip = EQUIP[slot];
-		SWORDEQUIP[slot] = equip/1000;
-		equip %= 1000;
-		ARMOREQUIP[slot] = equip/100;
-		equip %= 100;
-		SMALLPOTIONEQUIP[slot] = equip/10;
+		SWORDEQUIP[slot] = equip/10;
 		equip %= 10;
-		LARGEPOTIONEQUIP[slot] = equip;
+		ARMOREQUIP[slot] = equip;
 	}
 	
 	public static void postCalculateStat(int slot){
 		//TODO
-		EQUIP[slot] = SWORDEQUIP[slot] * 1000 + ARMOREQUIP[slot] * 100 + SMALLPOTIONEQUIP[slot] * 10 + LARGEPOTIONEQUIP[slot];
+		EQUIP[slot] = SWORDEQUIP[slot] * 10 + ARMOREQUIP[slot] * 1;
 	}
 	
 	public static void saveGame(int mode){
@@ -142,7 +138,7 @@ public class InfoManager {
 		LEVEL_ARMOR[slot] = 1;
 		LEVEL_SMALLPOTION[slot] = 1;
 		LEVEL_LARGEPOTION[slot] = 1;
-		EQUIP[slot] = 1111;
+		EQUIP[slot] = 11;
 		MONEY[slot] = 0;
 		MAX_LEVEL_COMPLETE[slot] = 0;
 		preCalculateStat(slot);

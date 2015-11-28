@@ -18,7 +18,16 @@ public class UpgradableTag extends Tag{
 			if(InfoManager.MONEY[InfoManager.SELECTED_SLOT] >= price)
 			{
 				InfoManager.MONEY[InfoManager.SELECTED_SLOT] -= price;
+				rarity += 1;
 				price = rarity * 500;
+				if(rarity == GOLD)
+				{
+					tagimg = goldentag;
+				}
+				else if(rarity == SILVER)
+				{
+					tagimg = silvertag;
+				}
 				return 1;//Bought
 			}
 			else

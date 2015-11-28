@@ -142,6 +142,10 @@ public class ShopScreen extends JComponent{
 										{
 											if(tag2 instanceof InventoryTag && tag2.getType() == tag.getType() && tag2.getRarity() == tag.getRarity())
 											{
+												if(tag2.getType() == Tag.SWORD)
+													InfoManager.LEVEL_WEAPON[InfoManager.SELECTED_SLOT] += Math.pow(2, tag2.getRarity()-1);
+												else if(tag2.getType() == Tag.SHIELD)
+													InfoManager.LEVEL_ARMOR[InfoManager.SELECTED_SLOT] += Math.pow(2, tag2.getRarity()-1);
 												((InventoryTag) tag2).unlock();
 												InfoManager.saveGame(InfoManager.NORMALSAVE);
 											}
@@ -165,6 +169,7 @@ public class ShopScreen extends JComponent{
 								}
 								((InventoryTag) tag).setEquipped(true);
 								InfoManager.SWORDEQUIP[InfoManager.SELECTED_SLOT] = ((InventoryTag) tag).getRarity();
+								InfoManager.ARMOREQUIP[InfoManager.SELECTED_SLOT] = ((InventoryTag) tag).getRarity();
 								InfoManager.saveGame(InfoManager.NORMALSAVE);
 							}
 						}else if(tag instanceof UpgradableTag)
@@ -197,7 +202,7 @@ public class ShopScreen extends JComponent{
 								JOptionPane.showMessageDialog(null, "Sorry, Insufficient Money");
 								break;
 							case -1:
-								JOptionPane.showMessageDialog(null, "You already have maximum money");
+								JOptionPane.showMessageDialog(null, "You already have Maximum Potion Level");
 								break;
 							}
 						}
@@ -262,12 +267,12 @@ public class ShopScreen extends JComponent{
 		rem = InfoManager.LEVEL_WEAPON[InfoManager.SELECTED_SLOT];
 		for(int i = 4;i<7;i++)
 		{
-			System.out.println(rem);
 			if(rem%2 == 1)
 				((InventoryTag) tags[i]).unlock();
 			rem /= 2;
-		}
-		((InventoryTag)tags[3+InfoManager.LEVEL_WEAPON[InfoManager.SELECTED_SLOT]]).setEquipped(true); 
+		}//One Hot
+		((InventoryTag)tags[3 + InfoManager.SWORDEQUIP[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+		
 		//SHIELD
 		tags[7] = new InventoryTag(Tag.SHIELD,Tag.COPPER, 11, 7);
 		tags[8] = new InventoryTag(Tag.SHIELD,Tag.SILVER, 15, 7);
@@ -275,58 +280,18 @@ public class ShopScreen extends JComponent{
 		rem = InfoManager.LEVEL_ARMOR[InfoManager.SELECTED_SLOT];
 		for(int i = 7;i<10;i++)
 		{
-			System.out.println(rem);
+			//System.out.println(rem);
 			if(rem%2 == 1)
 				((InventoryTag) tags[i]).unlock();
 			rem /= 2;
-		}
-		((InventoryTag)tags[6+InfoManager.LEVEL_ARMOR[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+		}//One Hot
+		((InventoryTag)tags[6+InfoManager.ARMOREQUIP[InfoManager.SELECTED_SLOT]]).setEquipped(true);
 		
 		//UPGRADABLE
 		//SMALL POTION
 		tags[10] = new UpgradableTag(Tag.SMALLPOTION,InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT], 11, 10);
-		tags[11] = new UpgradableTag(Tag.LARGEPOTION,InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT], 11, 10);
+		tags[11] = new UpgradableTag(Tag.LARGEPOTION,InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT], 11, 13);
 		
-//		tags[11] = new InventoryTag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
-//		tags[12] = new InventoryTag(Tag.SMALLPOTION,Tag.GOLD, 19, 10);
-//		switch(InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT])
-//		{
-//		case 1:
-//			((InventoryTag) tags[10]).unlock();
-//			break;
-//		case 2:
-//			((InventoryTag) tags[10]).unlock();
-//			((InventoryTag) tags[11]).unlock();
-//			break;
-//		case 3:
-//			((InventoryTag) tags[10]).unlock();
-//			((InventoryTag) tags[11]).unlock();
-//			((InventoryTag) tags[12]).unlock();
-//			break;
-//		}
-//		((InventoryTag)tags[9+InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
-//		
-//		//LARGE POTION
-//		tags[13] = new InventoryTag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
-//		tags[14] = new InventoryTag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
-//		tags[15] = new InventoryTag(Tag.LARGEPOTION,Tag.GOLD, 19, 13);
-//		switch(InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT])
-//		{
-//		case 1:
-//			((InventoryTag) tags[13]).unlock();
-//			break;
-//		case 2:
-//			((InventoryTag) tags[13]).unlock();
-//			((InventoryTag) tags[14]).unlock();
-//			break;
-//		case 3:
-//			((InventoryTag) tags[13]).unlock();
-//			((InventoryTag) tags[14]).unlock();
-//			((InventoryTag) tags[15]).unlock();
-//			break;
-//		}
-//		((InventoryTag)tags[12+InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
-//		
 		//SHOP
 		//SWORD
 		tags[0] = new ShopTag(Tag.SWORD,Tag.SILVER, 0, 4, 800);
@@ -341,9 +306,9 @@ public class ShopScreen extends JComponent{
 		//SHIELD
 		tags[2] = new ShopTag(Tag.SHIELD,Tag.SILVER, 0, 7, 400);
 		tags[3] = new ShopTag(Tag.SHIELD,Tag.GOLD, 5, 7, 1500);
-		for(int i = 0; i<2;i++)
+		for(int i = 2; i<4;i++)
 		{
-			if(((InventoryTag) tags[i+8]).isUnlocked())
+			if(((InventoryTag) tags[i+5]).isUnlocked())
 			{
 				((ShopTag) tags[i]).setAlreadyBought();
 			}
