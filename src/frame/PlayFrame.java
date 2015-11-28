@@ -14,15 +14,15 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
+import Data.Burny;
+import LogicGame.PlayLogic;
+import LogicGame.Puzzle;
+import base.GameScreen;
 import main.Main;
 import render.AnimationManager;
 import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
-import Data.MiniMaxwell;
-import LogicGame.PlayLogic;
-import LogicGame.Puzzle;
-import base.GameScreen;
 
 public class PlayFrame extends JComponent {
 
@@ -66,9 +66,9 @@ public class PlayFrame extends JComponent {
 		attackme = Resource.get("attackme");
 		
 		// Change these 3 lines for change monster
-		attackenemy = Resource.get("attackminimaxwell");
-		enemy = Resource.get("minimaxwell");
-		logic.setMonster(new MiniMaxwell());
+		attackenemy = Resource.get("attackburny");
+		enemy = Resource.get("burny");
+		logic.setMonster(new Burny());
 		enemy.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
