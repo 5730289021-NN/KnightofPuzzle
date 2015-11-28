@@ -38,7 +38,12 @@ public class Puzzle {
 		
 		int[] rand = new int[d+1];
 		
-		for(int i=0; i<d; i++) rand[i] = i/(d/4) + 1; 
+		for(int i=0; i<d; i++) {
+			if(i < 9) rand[i] = sw;
+			else if(i < 16) rand[i] = sh;
+			else if(i < 21) rand[i] = lp;
+			else rand[i] = sp; 
+		}
 		for(int i=0; i<100; i++) {
 			int a = Randomul.rand(0, d-1);
 			int b = Randomul.rand(0, d-1);
@@ -60,22 +65,42 @@ public class Puzzle {
 	
 	public int[] calculateCombineStat() {
 		int[] r = new int[5];
+		boolean[][] mark = new boolean[tableSize][tableSize];
 		int[][] dir = {{0,1},{1,0},{-1,0},{0,-1}};
 		int size = tableSize;
 		
 		for(int i=0; i<size; i++) {
 			for(int j=0; j<size; j++) {
 				
+//				for(int k=0; k<dir.length; k++) {
+//					int x = j + dir[k][0];
+//					int y = i + dir[k][1];
+//					
+//					if(x < 0 || x >= size || y < 0 || y >= size) continue;
+//					if(table[i][j] == table[y][x]) {
+//						r[table[i][j]]++;
+//						break;
+//					}
+//				}
+				
+				int count = 1;
 				for(int k=0; k<dir.length; k++) {
-					int x = j + dir[k][0];
-					int y = i + dir[k][1];
-					
-					
-					if(x < 0 || x >= size || y < 0 || y >= size) continue;
-					if(table[i][j] == table[y][x]) {
-						r[table[i][j]]++;
-						break;
+					int x = j;
+					int y = i;
+					mark[i][j] = true;
+					while(true) {
+						x += dir[k][0];
+						y += dir[k][1];
+						
+						if(x < 0 || x >= size || y < 0 || y >= size) break;
+						if(table[i][j] != table[y][x]) break;
+						if(mark[y][x]) break;
+						mark[y][x] = true;
+						count++;
 					}
+				}
+				if(count > 1) {
+					r[table[i][j]] += count * count;
 				}
 			}
 		}

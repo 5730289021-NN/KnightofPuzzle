@@ -7,7 +7,7 @@ import frame.PlayFrame;
 
 public class PlayLogic {
 
-	private static final int GAME_TIME_DURATION = 15;
+	private static final int GAME_TIME_DURATION = 25;
 
 	private int timeCounter;
 	private int timeStamp = 0;
@@ -66,12 +66,12 @@ public class PlayLogic {
 		return hpMonster;
 	}
 	
-	public int calculateDecreaseHpMe(int shield) {
-		return Math.max(0 , monster.getAt() - (me.getDef() + 25 * shield));
+	public int calculateDecreaseHpMe(int sword, int shield) {
+		return Math.max(1 , monster.getAt() + (10 * (sword / 2)) - (me.getDef() + 8 * shield));
 	}
 	
-	public void decreaseHpMe(int shield) {
-		hpMe -= calculateDecreaseHpMe(shield);
+	public void decreaseHpMe(int sword, int shield) {
+		hpMe -= calculateDecreaseHpMe(sword, shield);
 	}
 	
 	public int getHpMonsterPercentage() {
@@ -79,7 +79,7 @@ public class PlayLogic {
 	}
 	
 	public int calculateDecreaseHpMonster(int sword, int shield) {
-		return Math.max(0, me.getAt() + 10 * sword - (monster.getDef()));
+		return Math.max(1, me.getAt() + 10 * sword - (monster.getDef() + 15 * (shield / 2)));
 	}
 	
 	public void decreaseHpMonster(int sword, int shield) {

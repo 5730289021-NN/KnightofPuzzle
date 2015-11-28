@@ -19,7 +19,7 @@ import render.AnimationManager;
 import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
-import Data.Burny;
+import Data.MiniMaxwell;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
 import base.GameScreen;
@@ -66,9 +66,9 @@ public class PlayFrame extends JComponent {
 		attackme = Resource.get("attackme");
 		
 		// Change these 3 lines for change monster
-		attackenemy = Resource.get("attackburny");
-		enemy = Resource.get("burny");
-		logic.setMonster(new Burny());
+		attackenemy = Resource.get("attackminimaxwell");
+		enemy = Resource.get("minimaxwell");
+		logic.setMonster(new MiniMaxwell());
 		enemy.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
@@ -136,7 +136,7 @@ public class PlayFrame extends JComponent {
 		combineStat = puzzle.calculateCombineStat();
 		System.out.println(combineStat[1]+" "+combineStat[2]+" "+combineStat[3]+" "+combineStat[4]);
 		System.out.println(logic.calculateDecreaseHpMonster(combineStat[Puzzle.sw], combineStat[Puzzle.sh]));
-		System.out.println(logic.calculateDecreaseHpMe(combineStat[Puzzle.sh]));
+		System.out.println(logic.calculateDecreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]));
 	}
 
 	private void restart() {
@@ -218,7 +218,7 @@ public class PlayFrame extends JComponent {
 				currentMiniPosY = 0;
 				
 				logic.increaseFury();
-				logic.decreaseHpMe(combineStat[Puzzle.sh]);
+				logic.decreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]);
 				System.out.println("Me hp :"+logic.getHpMe());
 				//logic.increaseHpMe(combineStat[Puzzle.lp], 1);
 				//logic.increaseHpMe(combineStat[Puzzle.sp], 2);
