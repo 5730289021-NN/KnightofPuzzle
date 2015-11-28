@@ -46,6 +46,7 @@ public class InfoManager {
 			try {
 				file.createNewFile();
 				saveGame(EMPTYSAVE);
+				System.exit(0);
 			} catch (IOException e1) {
 				JOptionPane.showMessageDialog(null,"Please create a folder called KnightofPuzzle in C:\\ ");
 				e1.printStackTrace();
@@ -96,12 +97,12 @@ public class InfoManager {
 			{
 				for(int i=0;i<MAXSLOT;i++)
 				{
-					writer.write(LEVEL_WEAPON[i]);
-					writer.write(LEVEL_ARMOR[i]);
-					writer.write(LEVEL_SMALLPOTION[i]);
-					writer.write(LEVEL_LARGEPOTION[i]);
-					writer.write(MONEY[i]);
-					writer.write(MAX_LEVEL_COMPLETE[i]);
+					writer.write(LEVEL_WEAPON[i] + " ");
+					writer.write(LEVEL_ARMOR[i] + " ");
+					writer.write(LEVEL_SMALLPOTION[i] + " ");
+					writer.write(LEVEL_LARGEPOTION[i] + " ");
+					writer.write(MONEY[i] + " ");
+					writer.write(MAX_LEVEL_COMPLETE[i] + " ");
 				}
 			}
 			writer.flush();
