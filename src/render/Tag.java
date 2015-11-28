@@ -29,7 +29,7 @@ public abstract class Tag {
 	public static final int SMALLPOTION = 3;
 	public static final int LARGEPOTION = 4;
 	protected static int deltax = ShopScreen.deltax_;
-	
+	protected static int deltay = ShopScreen.deltay_;
 	
 	protected int X;
 	protected int Y;

@@ -11,7 +11,6 @@ public class InventoryTag extends Tag{
 	
 	public InventoryTag(int type, int rarity, int x, int y) {
 		super(type, rarity, x, y);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void drawTag(Graphics2D g2)
@@ -31,6 +30,16 @@ public class InventoryTag extends Tag{
 		}
 		g2.drawImage(tagimg, realX, realY, tagWidth, tagHeight, null);
 		g2.drawImage(accimg, realX, realY, tagWidth/2, accimg.getHeight() * 2 * deltax/accimg.getWidth(), null);
+		if(getType() == SWORD)
+		{
+			g2.drawString("Atk + " , realX + (2 * deltax), realY + deltay);
+			g2.drawString(String.valueOf(getRarity()*47), realX + (2 * deltax), realY + 2 * deltay - 5);
+		}
+		else if(getType() == SHIELD)
+		{
+			g2.drawString("Def + ", realX + (2 * deltax), realY + deltay);
+			g2.drawString(String.valueOf(getRarity()*8), realX + (2 * deltax), realY + 2 * deltay - 5);
+		}
 		g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	}
 	
@@ -48,5 +57,4 @@ public class InventoryTag extends Tag{
 	public boolean isUnlocked() {
 		return isUnlocked;
 	}
-
 }

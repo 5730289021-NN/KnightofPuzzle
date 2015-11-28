@@ -1,5 +1,7 @@
 package render;
 
+import java.awt.Graphics2D;
+
 import Data.InfoManager;
 
 public class UpgradableTag extends Tag{
@@ -35,5 +37,11 @@ public class UpgradableTag extends Tag{
 		}
 		else
 			return -1;//Already Max Level
+	}
+	
+	@Override
+	public void drawTag(Graphics2D g2) {
+		super.drawTag(g2);
+		g2.drawString("Level " + rarity, realX + (2 * deltax), realY + deltay);
 	}
 }
