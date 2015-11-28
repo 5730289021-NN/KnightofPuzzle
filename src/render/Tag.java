@@ -35,8 +35,8 @@ public abstract class Tag {
 	private int Y;
 	protected int realX;
 	protected int realY;
-	private int type;
-	private int rarity;
+	protected int type;
+	protected int rarity;
 	protected BufferedImage tagimg;
 	protected BufferedImage accimg;
 	protected int tagWidth;

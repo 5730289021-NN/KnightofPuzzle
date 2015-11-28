@@ -25,6 +25,7 @@ import main.Main;
 import render.InventoryTag;
 import render.ShopTag;
 import render.Tag;
+import render.UpgradableTag;
 import res.Resource;
 
 public class ShopScreen extends JComponent{
@@ -38,7 +39,7 @@ public class ShopScreen extends JComponent{
 	public static int deltax_;
 	public static int deltay_;
 	
-	private static Tag[] tags = new Tag[16];
+	private static Tag[] tags = new Tag[12];
 	
 	private static JButton backButton;
 	private static final Font boldfont = new Font("Tahoma", Font.BOLD, 30);
@@ -151,6 +152,9 @@ public class ShopScreen extends JComponent{
 									}
 								}
 							}
+						}else//InventoryTag
+						{
+							
 						}
 					}
 					
@@ -231,48 +235,52 @@ public class ShopScreen extends JComponent{
 			rem /= 2;
 		}
 		((InventoryTag)tags[6+InfoManager.LEVEL_ARMOR[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+		
+		//UPGRADABLE
 		//SMALL POTION
-		tags[10] = new InventoryTag(Tag.SMALLPOTION,Tag.COPPER, 11, 10);
-		tags[11] = new InventoryTag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
-		tags[12] = new InventoryTag(Tag.SMALLPOTION,Tag.GOLD, 19, 10);
-		switch(InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT])
-		{
-		case 1:
-			((InventoryTag) tags[10]).unlock();
-			break;
-		case 2:
-			((InventoryTag) tags[10]).unlock();
-			((InventoryTag) tags[11]).unlock();
-			break;
-		case 3:
-			((InventoryTag) tags[10]).unlock();
-			((InventoryTag) tags[11]).unlock();
-			((InventoryTag) tags[12]).unlock();
-			break;
-		}
-		((InventoryTag)tags[9+InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+		tags[10] = new UpgradableTag(Tag.SMALLPOTION,InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT], 11, 10);
+		tags[11] = new UpgradableTag(Tag.LARGEPOTION,InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT], 11, 10);
 		
-		//LARGE POTION
-		tags[13] = new InventoryTag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
-		tags[14] = new InventoryTag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
-		tags[15] = new InventoryTag(Tag.LARGEPOTION,Tag.GOLD, 19, 13);
-		switch(InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT])
-		{
-		case 1:
-			((InventoryTag) tags[13]).unlock();
-			break;
-		case 2:
-			((InventoryTag) tags[13]).unlock();
-			((InventoryTag) tags[14]).unlock();
-			break;
-		case 3:
-			((InventoryTag) tags[13]).unlock();
-			((InventoryTag) tags[14]).unlock();
-			((InventoryTag) tags[15]).unlock();
-			break;
-		}
-		((InventoryTag)tags[12+InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
-		
+//		tags[11] = new InventoryTag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
+//		tags[12] = new InventoryTag(Tag.SMALLPOTION,Tag.GOLD, 19, 10);
+//		switch(InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT])
+//		{
+//		case 1:
+//			((InventoryTag) tags[10]).unlock();
+//			break;
+//		case 2:
+//			((InventoryTag) tags[10]).unlock();
+//			((InventoryTag) tags[11]).unlock();
+//			break;
+//		case 3:
+//			((InventoryTag) tags[10]).unlock();
+//			((InventoryTag) tags[11]).unlock();
+//			((InventoryTag) tags[12]).unlock();
+//			break;
+//		}
+//		((InventoryTag)tags[9+InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+//		
+//		//LARGE POTION
+//		tags[13] = new InventoryTag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
+//		tags[14] = new InventoryTag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
+//		tags[15] = new InventoryTag(Tag.LARGEPOTION,Tag.GOLD, 19, 13);
+//		switch(InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT])
+//		{
+//		case 1:
+//			((InventoryTag) tags[13]).unlock();
+//			break;
+//		case 2:
+//			((InventoryTag) tags[13]).unlock();
+//			((InventoryTag) tags[14]).unlock();
+//			break;
+//		case 3:
+//			((InventoryTag) tags[13]).unlock();
+//			((InventoryTag) tags[14]).unlock();
+//			((InventoryTag) tags[15]).unlock();
+//			break;
+//		}
+//		((InventoryTag)tags[12+InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+//		
 		//SHOP
 		//SWORD
 		tags[0] = new ShopTag(Tag.SWORD,Tag.SILVER, 0, 4, 800);
