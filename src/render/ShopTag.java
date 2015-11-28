@@ -9,6 +9,8 @@ import base.GameScreen;
 import res.Resource;
 
 public class ShopTag extends Tag{
+
+
 	private boolean isBuyable;
 	private int price;
 	
@@ -21,6 +23,10 @@ public class ShopTag extends Tag{
 	public boolean isBuyable()
 	{
 		return isBuyable;
+	}
+	
+	public int getPrice() {
+		return price;
 	}
 	
 	public void setAlreadyBought()

@@ -152,9 +152,55 @@ public class ShopScreen extends JComponent{
 									}
 								}
 							}
-						}else//InventoryTag
+						}else if(tag instanceof InventoryTag)
 						{
+							if(((InventoryTag) tag).isUnlocked())
+							{
+								for(Tag tag2 : tags)
+								{
+									if(tag2 instanceof InventoryTag && tag2.getType() == tag.getType())
+									{
+										((InventoryTag) tag2).setEquipped(false);
+									}
+								}
+								((InventoryTag) tag).setEquipped(true);
+								InfoManager.SWORDEQUIP[InfoManager.SELECTED_SLOT] = ((InventoryTag) tag).getRarity();
+								InfoManager.saveGame(InfoManager.NORMALSAVE);
+							}
+						}else if(tag instanceof UpgradableTag)
+						{
+							String name = "";
+							switch(tag.getType())
+							{
+							case Tag.SMALLPOTION:
+								name = "Small Potion";
+								break;
+							case Tag.LARGEPOTION:
+								name = "Large Potion";
+								break;
+							}
+							int choice = JOptionPane.showConfirmDialog(null,"Are you sure that you are going to upgrade it?", name ,JOptionPane.YES_NO_OPTION);
+							if(choice == JOptionPane.YES_OPTION)
+							{
+							int situation = ((UpgradableTag) tag).upgrade();
 							
+							switch(situation)
+							{
+							case 1:
+								if(tag.getType() == Tag.SMALLPOTION)
+								InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT] = tag.getRarity();
+								else if(tag.getType() == Tag.LARGEPOTION)
+								InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT] = tag.getRarity();
+								InfoManager.saveGame(InfoManager.NORMALSAVE);
+								break;
+							case 0:
+								JOptionPane.showMessageDialog(null, "Sorry, Insufficient Money");
+								break;
+							case -1:
+								JOptionPane.showMessageDialog(null, "You already have maximum money");
+								break;
+							}
+						}
 						}
 					}
 					
