@@ -111,6 +111,7 @@ public class Main {
 				System.out.println("Select");
 				currentScreen = sls;
 				bgm = Resource.getAudio("thebeat");
+				sls.requestFocus();
 				bgm.play();
 				break;
 			}
@@ -126,6 +127,7 @@ public class Main {
 			case GAMESCREEN:
 			{
 				System.out.println("Game");
+				g.preGame();
 				currentScreen = g;
 				break;
 			}

@@ -168,8 +168,13 @@ public class ShopScreen extends JComponent{
 									}
 								}
 								((InventoryTag) tag).setEquipped(true);
-								InfoManager.SWORDEQUIP[InfoManager.SELECTED_SLOT] = ((InventoryTag) tag).getRarity();
-								InfoManager.ARMOREQUIP[InfoManager.SELECTED_SLOT] = ((InventoryTag) tag).getRarity();
+								if(tag.getType() == Tag.SWORD)
+								{
+									InfoManager.SWORDEQUIP[InfoManager.SELECTED_SLOT] = ((InventoryTag) tag).getRarity();
+								}else if(tag.getType() == Tag.SHIELD)
+								{
+									InfoManager.ARMOREQUIP[InfoManager.SELECTED_SLOT] = ((InventoryTag) tag).getRarity();
+								}
 								InfoManager.saveGame(InfoManager.NORMALSAVE);
 							}
 						}else if(tag instanceof UpgradableTag)
