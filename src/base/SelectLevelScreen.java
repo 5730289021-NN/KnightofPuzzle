@@ -125,7 +125,7 @@ public class SelectLevelScreen extends JComponent{
 //							JOptionPane.showMessageDialog(getContext(), "You are going to play Level " + (meLocation +1));
 //						}
 					}
-					if(direction != 0 && meLocation <= InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT])
+					if(direction != 0 && meLocation < InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT])
 					{
 						try{
 						percent = percent + 0.01;

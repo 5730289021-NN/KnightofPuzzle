@@ -50,11 +50,12 @@ public class ShopTag extends Tag{
 	{
 		if(!isBuyable)
 		{
-			g2.setColor(Color.BLACK);
 			g2.setComposite(AlphaComposite.SrcOver.derive(0.5f));
 		}
+		g2.setColor(Color.BLACK);
 		g2.drawImage(tagimg, realX, realY, tagWidth, tagHeight, null);
 		g2.drawImage(accimg, realX, realY, tagWidth/2, accimg.getHeight() * 2 * deltax/accimg.getWidth(), null);
+		g2.drawString(price + " B", realX + (2 * deltax), realY + deltay);
 		g2.setComposite(AlphaComposite.SrcOver.derive(1f));
 	}
 }

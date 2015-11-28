@@ -308,9 +308,10 @@ public class ShopScreen extends JComponent{
 		tags[3] = new ShopTag(Tag.SHIELD,Tag.GOLD, 5, 7, 1500);
 		for(int i = 2; i<4;i++)
 		{
-			if(((InventoryTag) tags[i+5]).isUnlocked())
+			if(((InventoryTag) tags[i+6]).isUnlocked())
 			{
 				((ShopTag) tags[i]).setAlreadyBought();
+				System.out.println("Bought");
 			}
 		}
 	}
