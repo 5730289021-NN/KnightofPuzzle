@@ -14,8 +14,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Data.InfoManager;
@@ -103,7 +105,56 @@ public class ShopScreen extends JComponent{
 					if(tag.isWithin(arg0.getX(), arg0.getY()))
 					{
 						System.out.println("Tag Type: " + tag.getType() + " Tag Rarity: " + tag.getRarity() + " is pointed.");
+						if(tag instanceof ShopTag)
+						{
+							if(((ShopTag) tag).isBuyable())
+							{
+								String name = "";
+								switch(tag.getRarity())
+								{
+									case Tag.GOLD:
+										name += "Golden ";
+										break;
+									case Tag.SILVER:
+										name += "Silver ";
+										break;
+									case Tag.COPPER:
+										name += "Copper ";
+										break;
+								}
+								
+								switch(tag.getType())
+								{
+									case Tag.SWORD:
+										name += "Sword";
+										break;
+									case Tag.SHIELD:
+										name += "Shield";
+										break;
+								}
+								int choice = JOptionPane.showConfirmDialog(null,"Are you sure that you are going to buy it?", name ,JOptionPane.YES_NO_OPTION);
+								if(choice == JOptionPane.YES_OPTION)
+								{
+									if(((ShopTag) tag).buyTag())
+									{
+										for(Tag tag2 : tags)
+										{
+											if(tag2 instanceof InventoryTag && tag2.getType() == tag.getType() && tag2.getRarity() == tag.getRarity())
+											{
+												((InventoryTag) tag2).unlock();
+												InfoManager.saveGame(InfoManager.NORMALSAVE);
+											}
+										}
+									}else
+									{
+										JOptionPane.showMessageDialog(null, "Sorry, Insufficient Money");
+									}
+								}
+							}
+						}
 					}
+					
+					
 				}
 			}
 		});
@@ -135,6 +186,7 @@ public class ShopScreen extends JComponent{
 		drawWord("Potion", 11, 10, g2);
 		drawWord("Small", 9, 11, g2);
 		drawWord("Large", 9, 14, g2);
+		drawWord("Money : " + InfoManager.MONEY[InfoManager.SELECTED_SLOT], 1, 11, g2);
 
 		for(Tag tag : tags)
 		{
@@ -165,6 +217,7 @@ public class ShopScreen extends JComponent{
 				((InventoryTag) tags[i]).unlock();
 			rem /= 2;
 		}
+		((InventoryTag)tags[3+InfoManager.LEVEL_WEAPON[InfoManager.SELECTED_SLOT]]).setEquipped(true); 
 		//SHIELD
 		tags[7] = new InventoryTag(Tag.SHIELD,Tag.COPPER, 11, 7);
 		tags[8] = new InventoryTag(Tag.SHIELD,Tag.SILVER, 15, 7);
@@ -177,6 +230,7 @@ public class ShopScreen extends JComponent{
 				((InventoryTag) tags[i]).unlock();
 			rem /= 2;
 		}
+		((InventoryTag)tags[6+InfoManager.LEVEL_ARMOR[InfoManager.SELECTED_SLOT]]).setEquipped(true);
 		//SMALL POTION
 		tags[10] = new InventoryTag(Tag.SMALLPOTION,Tag.COPPER, 11, 10);
 		tags[11] = new InventoryTag(Tag.SMALLPOTION,Tag.SILVER, 15, 10);
@@ -196,6 +250,8 @@ public class ShopScreen extends JComponent{
 			((InventoryTag) tags[12]).unlock();
 			break;
 		}
+		((InventoryTag)tags[9+InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+		
 		//LARGE POTION
 		tags[13] = new InventoryTag(Tag.LARGEPOTION,Tag.COPPER, 11, 13);
 		tags[14] = new InventoryTag(Tag.LARGEPOTION,Tag.SILVER, 15, 13);
@@ -215,6 +271,8 @@ public class ShopScreen extends JComponent{
 			((InventoryTag) tags[15]).unlock();
 			break;
 		}
+		((InventoryTag)tags[12+InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT]]).setEquipped(true);
+		
 		//SHOP
 		//SWORD
 		tags[0] = new ShopTag(Tag.SWORD,Tag.SILVER, 0, 4, 800);
@@ -236,13 +294,5 @@ public class ShopScreen extends JComponent{
 				((ShopTag) tags[i]).setAlreadyBought();
 			}
 		}
-		
-//		for(int i = 0; i<tags.length;i++)
-//		{
-//			if(tags[i] instanceof InventoryTag)
-//			{
-//				System.out.println(((InventoryTag) tags[i]).isUnlocked());
-//			}
-//		}
 	}
 }

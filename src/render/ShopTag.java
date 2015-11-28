@@ -18,16 +18,21 @@ public class ShopTag extends Tag{
 		this.price = price;
 	}
 	
+	public boolean isBuyable()
+	{
+		return isBuyable;
+	}
+	
 	public void setAlreadyBought()
 	{
 		this.isBuyable = false;
 	}
 	
 	public boolean buyTag(){
-		this.isBuyable = false;
 		if(InfoManager.MONEY[InfoManager.SELECTED_SLOT] >= price)
 		{
 			InfoManager.MONEY[InfoManager.SELECTED_SLOT] -= price;
+			this.isBuyable = false;
 			return true;
 		}
 		else
