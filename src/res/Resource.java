@@ -48,7 +48,7 @@ public class Resource {
 		rs.put("underwaterbg", read("pic/bg/underwaterbg.jpg"));
 		rs.put("deemobg", read("pic/bg/deemobg.jpg"));
 		rs.put("inventorybg", read("pic/bg/inventorybg.png"));
-		rs.put("missioncomplete", read("pic/bg/missioncomplete.png"));
+		rs.put("missioncomplete", read("pic/bg/missioncomplete.jpg"));
 		rs.put("gameover", read("pic/bg/gameover.png"));
 
 		
