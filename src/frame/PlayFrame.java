@@ -66,7 +66,7 @@ public class PlayFrame extends JComponent {
 		preGame();
 		
 		bg = Resource.get("underwaterbg");
-		me = Resource.get("me");
+		me = new AnimationManager(Resource.get("me").getAllImage());
 		me.loop();
 		attackme = Resource.get("attackme");
 		
@@ -147,7 +147,7 @@ public class PlayFrame extends JComponent {
 		
 	}
 
-	public void update() {
+	public synchronized void update() {
 		
 		if(state == PLAY_STATE) {
 			puzzle.update();
@@ -162,7 +162,7 @@ public class PlayFrame extends JComponent {
 	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected synchronized void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		Graphics screengc = g;

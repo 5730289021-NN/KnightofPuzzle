@@ -212,7 +212,7 @@ public class SelectLevelScreen extends JComponent{
 				
 			}
 		});
-		//meThread.start();
+		meThread.start();
 		
 	}
 	protected void paintComponent(Graphics g){

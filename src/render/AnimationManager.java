@@ -1,6 +1,5 @@
 package render;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class AnimationManager {
@@ -58,7 +57,7 @@ public class AnimationManager {
 		this.isFinish = finish;
 	}
 
-	public void update() {
+	public synchronized void update() {
 		if(++speed < 4) return ;
 		speed = 0;
 		if (isLoop || isPlay) {
@@ -69,6 +68,10 @@ public class AnimationManager {
 				frame = 0;
 			}
 		}
+	}
+	
+	public ImageData[] getAllImage() {
+		return img;
 	}
 	
 	public ImageData getCurrentImageData() {
@@ -83,4 +86,8 @@ public class AnimationManager {
 		return img[frameNo].getImg();
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
 }
