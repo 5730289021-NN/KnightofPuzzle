@@ -316,7 +316,7 @@ public class ShopScreen extends JComponent{
 			if(((InventoryTag) tags[i+6]).isUnlocked())
 			{
 				((ShopTag) tags[i]).setAlreadyBought();
-				System.out.println("Bought");
+				//System.out.println("Bought");
 			}
 		}
 	}

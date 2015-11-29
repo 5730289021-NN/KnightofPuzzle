@@ -110,6 +110,7 @@ public class SelectLevelScreen extends JComponent{
 						synchronized(this)
 						{
 							direction = 1;
+							System.out.println("Right");
 						}
 					}
 					if(InputUtility.getKeyPressed(KeyEvent.VK_LEFT))
@@ -117,6 +118,7 @@ public class SelectLevelScreen extends JComponent{
 						synchronized(this)
 						{
 							direction = -1;
+							System.out.println("Left");
 						}
 					}
 					if(InputUtility.getKeyPressed(KeyEvent.VK_ENTER))
@@ -156,7 +158,7 @@ public class SelectLevelScreen extends JComponent{
 							meXPos = xpos_[meLocation] - me.getWidth()/2;
 							meYPos = ypos_[meLocation] - me.getHeight();
 							playButton.setText("Fight Level : " + (meLocation + 1));
-							if(meLocation == 4)
+							if(meLocation == 3)
 								playButton.setText("FIGHT THE BOSS");
 							direction = 0;
 							percent = 0;
