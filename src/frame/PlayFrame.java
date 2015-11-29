@@ -105,7 +105,6 @@ public class PlayFrame extends JComponent {
 		{
 			case 0:
 			{
-				isPause = false;
 				return;
 			}
 			case 1:
@@ -131,7 +130,7 @@ public class PlayFrame extends JComponent {
 				break;
 			}
 		}
-		
+		isPause = false;
 		
 	}
 	

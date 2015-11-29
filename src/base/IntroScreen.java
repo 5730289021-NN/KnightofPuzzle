@@ -57,7 +57,10 @@ public class IntroScreen extends JComponent{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Close the window
+				closeFrame.setVisible(false);
 				closeFrame.dispatchEvent(new WindowEvent(closeFrame, WindowEvent.WINDOW_CLOSING));
+				closeFrame.dispose();
+				System.exit(0);
 			}
 		});
 		add(playButton);
