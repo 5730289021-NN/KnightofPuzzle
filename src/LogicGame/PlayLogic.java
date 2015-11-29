@@ -1,9 +1,11 @@
 package LogicGame;
 
+import render.InventoryTag;
 import main.Main;
 import Data.Burny;
 import Data.Duel1;
 import Data.Gunner;
+import Data.InfoManager;
 import Data.Me;
 import Data.MiniMaxwell;
 import Data.Monster;
@@ -22,6 +24,7 @@ public class PlayLogic {
 	private Monster me;
 	private int hpMe, hpMonster;
 	private int furyCounting;
+	private int currentGold;
 
 	private int level, wave;
 	
@@ -30,6 +33,7 @@ public class PlayLogic {
 		timeCounter = GAME_TIME_DURATION;
 		this.game = game;
 		furyCounting = 0;
+		currentGold = 0;
 		
 		level = wave = 1;
 		
@@ -106,6 +110,15 @@ public class PlayLogic {
 	
 	public void decreaseHpMonster(int sword, int shield) {
 		hpMonster -= calculateDecreaseHpMonster(sword, shield);
+	}
+	
+	public int getGold() {
+		return currentGold;
+	}
+	
+	public void increaseGold() {
+		currentGold += monster.getGold();
+		InfoManager.MONEY[InfoManager.SELECTED_SLOT] += monster.getGold();
 	}
 	
 	public boolean isMonsterDie() {

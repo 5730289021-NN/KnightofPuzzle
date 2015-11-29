@@ -210,6 +210,7 @@ public class PlayFrame extends JComponent {
 				
 				if(logic.isMonsterDie()) {
 					state = WAVE_COMPLETE;
+					logic.increaseGold();
 					currentMiniPosY = seperateHeight;
 				}
 				System.out.println("Monster hp :"+logic.getHpMonster());
@@ -245,7 +246,7 @@ public class PlayFrame extends JComponent {
 				logic.increaseWave();
 				
 				if(logic.isWaveComplete()) {
-					//state = GAME_FINISH;
+					state = GAME_FINISH;
 				} else {
 					String monsterName = logic.getCurrentMonsterName();
 					
@@ -284,6 +285,10 @@ public class PlayFrame extends JComponent {
 		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, logic.getHpMePercentage());
 		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, logic.getFuryPercentage());
 		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, logic.getHpMonsterPercentage());
+		
+		g.setColor(Color.YELLOW);
+		g.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		g.drawString("Gold : " + logic.getGold(), GameScreen.WIDTH - 110, 20 );
 	}
 	
 	public void drawTime(Graphics2D g, int time) {

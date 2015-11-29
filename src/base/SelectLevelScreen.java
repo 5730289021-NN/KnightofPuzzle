@@ -146,10 +146,10 @@ public class SelectLevelScreen extends JComponent{
 						}
 						if(s.trim().toLowerCase().contains("iwannaeatbanana"))
 						{
-							System.out.println("Cheat: Add Money " + s.substring(16, s.trim().length()) + " B");
+							System.out.println("Cheat: Add Money " + s.substring(15, s.trim().length()) + " B");
 							try
 							{
-								int moneytoAdd = Integer.parseInt(s.substring(16, s.trim().length()));
+								int moneytoAdd = Integer.parseInt(s.substring(15, s.trim().length()));
 								InfoManager.MONEY[InfoManager.SELECTED_SLOT] += moneytoAdd;
 							} catch(NumberFormatException e)
 							{
