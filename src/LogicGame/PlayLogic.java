@@ -1,13 +1,17 @@
 package LogicGame;
 
 import main.Main;
+import Data.Burny;
+import Data.Duel1;
+import Data.Gunner;
 import Data.Me;
+import Data.MiniMaxwell;
 import Data.Monster;
 import frame.PlayFrame;
 
 public class PlayLogic {
 
-	private static final int GAME_TIME_DURATION = 25;
+	private static final int GAME_TIME_DURATION = 10;
 
 	private int timeCounter;
 	private int timeStamp = 0;
@@ -19,11 +23,15 @@ public class PlayLogic {
 	private int hpMe, hpMonster;
 	private int furyCounting;
 
+	private int level, wave;
+	
 	public PlayLogic(PlayFrame game) {
 		timeStamp = 0;
 		timeCounter = GAME_TIME_DURATION;
 		this.game = game;
 		furyCounting = 0;
+		
+		level = wave = 1;
 		
 		me = new Me(); 
 		hpMe = me.getHp();
@@ -52,6 +60,20 @@ public class PlayLogic {
 	public void setMonster(Monster monster) {
 		this.monster = monster;
 		this.hpMonster = monster.getHp();
+	}
+	
+	public void setMonster(String name) {
+		if(name.equals("burny")) {
+			setMonster(new Burny());
+		} else if(name.equals("gunner")) {
+			setMonster(new Gunner());
+		} else if(name.equals("duel")) {
+			setMonster(new Duel1());
+		} else if(name.equals("minimaxwell")) {
+			setMonster(new MiniMaxwell());
+		} else {
+			throw new RuntimeException("No name found in setMonster in PlayLogic");
+		}
 	}
 	
 	public int getHpMe() {
@@ -85,6 +107,20 @@ public class PlayLogic {
 	public void decreaseHpMonster(int sword, int shield) {
 		hpMonster -= calculateDecreaseHpMonster(sword, shield);
 	}
+	
+	public boolean isMonsterDie() {
+		return hpMonster <= 0;
+	}
+	
+	public String getCurrentMonsterName() {
+		if(level == 1) {
+			if(wave == 1) return "burny";
+			if(wave == 2) return "gunner";
+			if(wave == 3) return "duel";
+			if(wave == 4) return "minmaxwell";
+		}
+		return "burny";
+	}
 
 	public void increaseFury() {
 		if (++furyCounting > 7) {
@@ -95,6 +131,10 @@ public class PlayLogic {
 	public void increaseHpMe(int potion, int type) {
 		hpMe += potion * (type == 1 ? 10 : 15);
 		hpMe = Math.max(hpMe, me.getHp());
+	}
+	
+	public void increaseWave() {
+		wave += 1;
 	}
 	
 	public int getFuryPercentage() {

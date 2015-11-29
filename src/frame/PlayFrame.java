@@ -14,18 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import Data.Burny;
-import LogicGame.PlayLogic;
-import LogicGame.Puzzle;
-import base.GameScreen;
 import main.Main;
 import render.AnimationManager;
 import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
-
+import Data.Burny;
 import Data.InfoManager;
-import Data.MiniMaxwell;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
 import base.GameScreen;
@@ -38,6 +33,7 @@ public class PlayFrame extends JComponent {
 	private static final int MINI_FINISH = 2;
 	private static final int PLAYER_TURN = 3;
 	private static final int MONSTER_TURN = 4;
+	private static final int WAVE_COMPLETE = 5;
 	
 	private AnimationManager[] puzzleItem = new AnimationManager[4];
 	private AnimationManager bg, me, enemy, attackme, attackenemy;
@@ -54,14 +50,16 @@ public class PlayFrame extends JComponent {
 	private PlayLogic logic;
 	private JButton menuButton;
 	
+	private int currentTime, finishTime;
+	
 	private int[] combineStat;
 	
 	public PlayFrame() {
 		logic = new PlayLogic(this);
+		// Current level
 		
 		state = START_STATE;
 		buffer = new BufferedImage(GameScreen.WIDTH, GameScreen.HEIGHT, BufferedImage.TYPE_INT_RGB);
-		
 		
 		puzzleItem[0] = Resource.get("smallpotion");
 		puzzleItem[1] = Resource.get("largepotion");
@@ -91,8 +89,7 @@ public class PlayFrame extends JComponent {
 			}
 		});
 		
-		add(menuButton);
-		
+		add(menuButton);	
 	}
 	
 	private void showOptionDialog() {
@@ -209,6 +206,12 @@ public class PlayFrame extends JComponent {
 					combineStat[Puzzle.sw], 
 					combineStat[Puzzle.sh]
 				);
+				
+				if(logic.isMonsterDie()) {
+					System.out.println("monster die");
+					state = WAVE_COMPLETE;
+					currentMiniPosY = seperateHeight;
+				}
 				System.out.println("Monster hp :"+logic.getHpMonster());
 			}
 			
@@ -225,9 +228,26 @@ public class PlayFrame extends JComponent {
 				
 				logic.increaseFury();
 				logic.decreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]);
+				
 				System.out.println("Me hp :"+logic.getHpMe());
 				//logic.increaseHpMe(combineStat[Puzzle.lp], 1);
 				//logic.increaseHpMe(combineStat[Puzzle.sp], 2);
+			}
+		} else if(state == WAVE_COMPLETE) {
+			currentMiniPosY += 10;
+			drawPuzzle(g2, currentMiniPosY, puzzleSize);
+			if(currentMiniPosY >= GameScreen.HEIGHT) {
+				state = START_STATE;
+				currentMiniPosY = 0;
+				
+				puzzle = new Puzzle(puzzleItem);
+				
+				logic.increaseWave();
+				String monsterName = logic.getCurrentMonsterName();
+				
+				enemy = Resource.get(monsterName);
+				attackenemy = Resource.get("attack" + monsterName);
+				logic.setMonster(monsterName);
 			}
 		}
 		
@@ -297,24 +317,26 @@ public class PlayFrame extends JComponent {
 			);
 		}
 		
-		if(state == MONSTER_TURN) {
-			ImageData bf = attackenemy.getCurrentImageData();
-			RenderHelper.draw(
-				g,
-				bf.getImg(),
-				800 - bf.getOffsetX(), 220 - bf.getOffsetY(),
-				bf.getWidth()*2, bf.getHeight()*2,
-				RenderHelper.RIGHT | RenderHelper.BOTTOM
-			);
-		} else {		
-			BufferedImage bf = enemy.getCurrentBufferedImage();
-			RenderHelper.draw(
-				g,
-				bf,
-				800, 220,
-				bf.getWidth()*2, bf.getHeight()*2,
-				RenderHelper.RIGHT | RenderHelper.BOTTOM
-			);
+		if(state != WAVE_COMPLETE) {
+			if(state == MONSTER_TURN) {
+				ImageData bf = attackenemy.getCurrentImageData();
+				RenderHelper.draw(
+					g,
+					bf.getImg(),
+					800 - bf.getOffsetX(), 220 - bf.getOffsetY(),
+					bf.getWidth()*2, bf.getHeight()*2,
+					RenderHelper.RIGHT | RenderHelper.BOTTOM
+				);
+			} else {		
+				BufferedImage bf = enemy.getCurrentBufferedImage();
+				RenderHelper.draw(
+					g,
+					bf,
+					800, 220,
+					bf.getWidth()*2, bf.getHeight()*2,
+					RenderHelper.RIGHT | RenderHelper.BOTTOM
+				);
+			}
 		}
 	}
 	
