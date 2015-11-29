@@ -117,7 +117,7 @@ public class PlayLogic {
 			if(wave == 1) return "burny";
 			if(wave == 2) return "gunner";
 			if(wave == 3) return "duel";
-			if(wave == 4) return "minmaxwell";
+			if(wave == 4) return "minimaxwell";
 		}
 		return "burny";
 	}
