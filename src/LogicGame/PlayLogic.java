@@ -1,20 +1,26 @@
 package LogicGame;
 
-import render.InventoryTag;
 import main.Main;
 import Data.Burny;
 import Data.Duel1;
+import Data.Duel2;
 import Data.Gunner;
+import Data.Gunner2;
 import Data.InfoManager;
+import Data.KingBurny;
+import Data.Maxwell;
 import Data.Me;
+import Data.MegaBurny;
 import Data.MiniMaxwell;
 import Data.Monster;
+import Data.Sniper;
+import Data.Tilith;
 import frame.PlayFrame;
 
 public class PlayLogic {
 
 	private static final int GAME_TIME_DURATION = 5;
-	private static final int MAXIMUM_WAVE = 4;
+	private static final int[] MAXIMUM_WAVE = {0,4,4,5,7};
 
 	private int timeCounter;
 	private int timeStamp = 0;
@@ -77,6 +83,20 @@ public class PlayLogic {
 			setMonster(new Duel1());
 		} else if(name.equals("minimaxwell")) {
 			setMonster(new MiniMaxwell());
+		} else if(name.equals("tilith")) {
+			setMonster(new Tilith());
+		} else if(name.equals("kingburny")) {
+			setMonster(new KingBurny());
+		} else if(name.equals("sniper")) {
+			setMonster(new Sniper());
+		} else if(name.equals("duel2")) {
+			setMonster(new Duel2());
+		} else if(name.equals("megaburny")) {
+			setMonster(new MegaBurny());
+		} else if(name.equals("gunner2")) {
+			setMonster(new Gunner2());
+		} else if(name.equals("maxwell")) {
+			setMonster(new Maxwell());
 		} else {
 			throw new RuntimeException("No name found in setMonster in PlayLogic");
 		}
@@ -135,7 +155,7 @@ public class PlayLogic {
 	}
 	
 	public boolean isWaveComplete() {
-		return wave > MAXIMUM_WAVE;
+		return wave > MAXIMUM_WAVE[level];
 	}
 	
 	public String getCurrentMonsterName() {
@@ -144,6 +164,25 @@ public class PlayLogic {
 			if(wave == 2) return "gunner";
 			if(wave == 3) return "duel";
 			if(wave == 4) return "minimaxwell";
+		} else if(level == 2) {
+			if(wave == 1) return "burny";
+			if(wave == 2) return "gunner";
+			if(wave == 3) return "tilith";
+			if(wave == 4) return "minimaxwell";
+		} else if(level == 3) {
+			if(wave == 1) return "kingburny";
+			if(wave == 2) return "sniper";
+			if(wave == 3) return "tilith";
+			if(wave == 4) return "duel2";
+			if(wave == 5) return "minimaxwell";
+		} else if(level == 4) {
+			if(wave == 1) return "megaburny";
+			if(wave == 2) return "sniper";
+			if(wave == 3) return "tilith";
+			if(wave == 4) return "duel2";
+			if(wave == 5) return "gunner2";
+			if(wave == 6) return "minimaxwell";
+			if(wave == 7) return "maxwell";
 		}
 		return "burny";
 	}
