@@ -269,6 +269,7 @@ public class PlayFrame extends JComponent {
 			currentTime += Main.SleepTime;
 			if(currentTime >= finishTime) {
 				logic.updateGoldToInfo();
+				InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT]++;
 				Main.changeGameScreen(Main.SELECTSCREEN);
 			}
 		} else if(state == ME_DIE) {
