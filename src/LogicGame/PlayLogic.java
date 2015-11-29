@@ -14,6 +14,7 @@ import frame.PlayFrame;
 public class PlayLogic {
 
 	private static final int GAME_TIME_DURATION = 5;
+	private static final int MAXIMUM_WAVE = 4;
 
 	private int timeCounter;
 	private int timeStamp = 0;
@@ -28,14 +29,15 @@ public class PlayLogic {
 
 	private int level, wave;
 	
-	public PlayLogic(PlayFrame game) {
+	public PlayLogic(PlayFrame game, int level) {
 		timeStamp = 0;
 		timeCounter = GAME_TIME_DURATION;
 		this.game = game;
 		furyCounting = 0;
 		currentGold = 0;
 		
-		level = wave = 1;
+		this.level = level;
+		wave = 1;
 		
 		me = new Me(); 
 		hpMe = me.getHp();
@@ -126,7 +128,7 @@ public class PlayLogic {
 	}
 	
 	public boolean isWaveComplete() {
-		return wave > 4;
+		return wave > MAXIMUM_WAVE;
 	}
 	
 	public String getCurrentMonsterName() {

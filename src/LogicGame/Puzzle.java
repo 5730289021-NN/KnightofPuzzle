@@ -41,8 +41,8 @@ public class Puzzle {
 		for(int i=0; i<d; i++) {
 			if(i < 9) rand[i] = sw;
 			else if(i < 16) rand[i] = sh;
-			else if(i < 21) rand[i] = lp;
-			else rand[i] = sp; 
+			else if(i < 21) rand[i] = sp;
+			else rand[i] = lp; 
 		}
 		for(int i=0; i<100; i++) {
 			int a = Randomul.rand(0, d-1);

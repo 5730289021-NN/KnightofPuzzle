@@ -56,7 +56,7 @@ public class PlayFrame extends JComponent {
 	private int[] combineStat;
 	
 	public PlayFrame() {
-		logic = new PlayLogic(this);
+		logic = new PlayLogic(this, InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] + 1);
 		// Current level
 		
 		state = START_STATE;
@@ -72,9 +72,10 @@ public class PlayFrame extends JComponent {
 		attackme = new AnimationManager(Resource.get("attackme").getAllImage());
 		
 		// Change these 3 lines for change monster
-		attackenemy = Resource.get("attackburny");
-		enemy = Resource.get("burny");
-		logic.setMonster(new Burny());
+		String monsterName = logic.getCurrentMonsterName();
+		attackenemy = Resource.get("attack" + monsterName);
+		enemy = Resource.get(monsterName);
+		logic.setMonster(monsterName);
 		enemy.loop();
 		
 		puzzle = new Puzzle(puzzleItem);
@@ -247,6 +248,8 @@ public class PlayFrame extends JComponent {
 				
 				if(logic.isWaveComplete()) {
 					state = GAME_FINISH;
+					currentTime = 0;
+					finishTime = 2000;
 				} else {
 					String monsterName = logic.getCurrentMonsterName();
 					
@@ -256,7 +259,10 @@ public class PlayFrame extends JComponent {
 				}
 			}
 		} else if(state == GAME_FINISH) {
-			
+			currentTime += Main.SleepTime;
+			if(currentTime >= finishTime) {
+				Main.changeGameScreen(Main.SELECTSCREEN);
+			}
 		}
 		
 		drawStage(g2, seperateHeight);
@@ -266,6 +272,10 @@ public class PlayFrame extends JComponent {
 		
 		drawTime(g2, logic.getTimeCounter());
 		drawStatus(g2);
+		
+		if(state == GAME_FINISH) {
+			g.drawImage(Resource.get("missioncomplete").getCurrentBufferedImage(), 0, 0, GameScreen.WIDTH, GameScreen.HEIGHT, null);
+		}
 		
 		screengc.drawImage(buffer, 0, 0, null);
 		
