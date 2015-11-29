@@ -66,7 +66,6 @@ public class Main {
 			InputUtility.postUpdate();
 			currentScreen.repaint();
 			currentScreen.requestFocus();
-			frame.requestFocus();
 		}
 
 	}

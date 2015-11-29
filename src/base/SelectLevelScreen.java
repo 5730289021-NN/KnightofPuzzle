@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import Data.InfoManager;
 import input.InputUtility;
@@ -25,6 +26,7 @@ public class SelectLevelScreen extends JComponent{
 	private static int[] xpos_ = new int[5];
 	private static int[] ypos_ = new int[5];
 	private int meXPos, meYPos, meLocation;
+	
 	private JButton playButton;
 	private JButton shopButton;
 	private JButton backButton;
@@ -121,19 +123,47 @@ public class SelectLevelScreen extends JComponent{
 							System.out.println("Left");
 						}
 					}
-					if(InputUtility.getKeyPressed(KeyEvent.VK_ENTER))
+					if(InputUtility.getKeyTriggered(KeyEvent.VK_C))
 					{
-//						synchronized(this)
-//						{
-//							JOptionPane.showMessageDialog(getContext(), "You are going to play Level " + (meLocation +1));
-//						}
+						String s = JOptionPane.showInputDialog("Say :");
+						switch(s.toLowerCase().trim())
+						{
+							case "mynameisoak":
+							{
+								if(InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] <= 3)
+								{
+									InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] += 1;
+									System.out.println("Cheat: Level + 1");
+								}
+								break;
+							}
+							case "exit":
+							{
+								System.exit(0);
+								break;
+							}
+						}
+						if(s.trim().toLowerCase().contains("iwannaeatbanana"))
+						{
+							System.out.println("Cheat: Add Money " + s.substring(16, s.trim().length()) + " B");
+							try
+							{
+								int moneytoAdd = Integer.parseInt(s.substring(16, s.trim().length()));
+								InfoManager.MONEY[InfoManager.SELECTED_SLOT] += moneytoAdd;
+							} catch(NumberFormatException e)
+							{
+								InfoManager.MONEY[InfoManager.SELECTED_SLOT] += 10;
+							}
+						}
 					}
-					if(direction != 0 && meLocation < InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT])
+					
+					if(direction != 0 && (meLocation + direction) <= InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT])
 					{
+						System.out.println("In case");
 						try{
 						percent = percent + 0.01;
 						//System.out.println(percent);
-						if(!(direction == -1 && meLocation == 0) || !(direction == 1 && meLocation == 4))
+						if(!(direction == -1 && meLocation == 0) || !(direction == 1 && meLocation == 3))
 						{
 							meXPos = (int) (xpos_[meLocation] * (1 - percent) + (xpos_[meLocation + direction] * percent) - me.getWidth()/2);
 							meYPos = (int) (ypos_[meLocation] * (1 - percent) + (ypos_[meLocation + direction] * percent) - me.getHeight());
