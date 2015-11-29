@@ -34,6 +34,7 @@ public class PlayFrame extends JComponent {
 	private static final int PLAYER_TURN = 3;
 	private static final int MONSTER_TURN = 4;
 	private static final int WAVE_COMPLETE = 5;
+	private static final int GAME_FINISH = 6;
 	
 	private AnimationManager[] puzzleItem = new AnimationManager[4];
 	private AnimationManager bg, me, enemy, attackme, attackenemy;
@@ -68,7 +69,7 @@ public class PlayFrame extends JComponent {
 		bg = Resource.get("underwaterbg");
 		me = new AnimationManager(Resource.get("me").getAllImage());
 		me.loop();
-		attackme = Resource.get("attackme");
+		attackme = new AnimationManager(Resource.get("attackme").getAllImage());
 		
 		// Change these 3 lines for change monster
 		attackenemy = Resource.get("attackburny");
@@ -242,11 +243,16 @@ public class PlayFrame extends JComponent {
 				puzzle = new Puzzle(puzzleItem);
 				
 				logic.increaseWave();
-				String monsterName = logic.getCurrentMonsterName();
 				
-				enemy = Resource.get(monsterName);
-				attackenemy = Resource.get("attack" + monsterName);
-				logic.setMonster(monsterName);
+				if(logic.isWaveComplete()) {
+					//state = GAME_FINISH;
+				} else {
+					String monsterName = logic.getCurrentMonsterName();
+					
+					enemy = Resource.get(monsterName);
+					attackenemy = Resource.get("attack" + monsterName);
+					logic.setMonster(monsterName);
+				}
 			}
 		}
 		
