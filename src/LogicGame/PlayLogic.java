@@ -130,7 +130,7 @@ public class PlayLogic {
 	
 	public void increaseHpMe(int potion, int type) {
 		hpMe += potion * (type == 1 ? 10 : 15);
-		hpMe = Math.max(hpMe, me.getHp());
+		hpMe = Math.min(hpMe, me.getHp());
 	}
 	
 	public void increaseWave() {
