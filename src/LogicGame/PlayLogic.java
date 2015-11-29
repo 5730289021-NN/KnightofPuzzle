@@ -120,11 +120,18 @@ public class PlayLogic {
 	
 	public void increaseGold() {
 		currentGold += monster.getGold();
-		InfoManager.MONEY[InfoManager.SELECTED_SLOT] += monster.getGold();
+	}
+	
+	public void updateGoldToInfo() {
+		InfoManager.MONEY[InfoManager.SELECTED_SLOT] += currentGold;
 	}
 	
 	public boolean isMonsterDie() {
 		return hpMonster <= 0;
+	}
+	
+	public boolean isMeDie() {
+		return hpMe <= 0;
 	}
 	
 	public boolean isWaveComplete() {

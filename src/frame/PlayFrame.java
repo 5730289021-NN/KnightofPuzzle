@@ -35,6 +35,7 @@ public class PlayFrame extends JComponent {
 	private static final int MONSTER_TURN = 4;
 	private static final int WAVE_COMPLETE = 5;
 	private static final int GAME_FINISH = 6;
+	private static final int ME_DIE = 7;
 	
 	private AnimationManager[] puzzleItem = new AnimationManager[4];
 	private AnimationManager bg, me, enemy, attackme, attackenemy;
@@ -231,9 +232,15 @@ public class PlayFrame extends JComponent {
 				logic.increaseFury();
 				logic.decreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]);
 				
-				System.out.println("Me hp :"+logic.getHpMe());
-				logic.increaseHpMe(combineStat[Puzzle.lp], 1);
-				logic.increaseHpMe(combineStat[Puzzle.sp], 2);
+				if(logic.isMeDie()) {
+					state = ME_DIE;
+					currentTime = 0;
+					finishTime = 2000;
+				} else {
+					System.out.println("Me hp :"+logic.getHpMe());
+					logic.increaseHpMe(combineStat[Puzzle.lp], 1);
+					logic.increaseHpMe(combineStat[Puzzle.sp], 2);
+				}
 			}
 		} else if(state == WAVE_COMPLETE) {
 			currentMiniPosY += 10;
@@ -259,6 +266,12 @@ public class PlayFrame extends JComponent {
 				}
 			}
 		} else if(state == GAME_FINISH) {
+			currentTime += Main.SleepTime;
+			if(currentTime >= finishTime) {
+				logic.updateGoldToInfo();
+				Main.changeGameScreen(Main.SELECTSCREEN);
+			}
+		} else if(state == ME_DIE) {
 			currentTime += Main.SleepTime;
 			if(currentTime >= finishTime) {
 				Main.changeGameScreen(Main.SELECTSCREEN);
