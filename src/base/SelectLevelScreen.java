@@ -165,10 +165,10 @@ public class SelectLevelScreen extends JComponent{
 						//System.out.println(percent);
 						if(!(direction == -1 && meLocation == 0) || !(direction == 1 && meLocation == 3))
 						{
-							me = Resource.get("merun");
+							me = new AnimationManager(Resource.get("merun").getAllImage());
 							if(percent >= 0.7)
 							{
-								me = Resource.get("attackme");
+								me = new AnimationManager(Resource.get("attackme").getAllImage());
 								me.loop();
 								me.update();
 							}
@@ -178,7 +178,7 @@ public class SelectLevelScreen extends JComponent{
 						}
 						if(percent >= 1)
 						{
-							me = Resource.get("me");
+							me = new AnimationManager(Resource.get("me").getAllImage());
 							synchronized (this) {
 							//System.out.println("direction=" + direction + "meLocation=" + meLocation);
 							if(!(direction != -1 && meLocation == 0) || !(direction == 1 && meLocation == 4))
