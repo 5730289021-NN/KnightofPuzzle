@@ -34,12 +34,14 @@ public class AnimationManager {
 	public void play() {
 		isPlay = true;
 		isLoop = isFinish = false;
+		frame = 0;
 	}
 
 	public void loop() {
 		isPlay = false;
 		isLoop = true;
 		isFinish = false;
+		frame = 0;
 	}
 
 	public void stop() {

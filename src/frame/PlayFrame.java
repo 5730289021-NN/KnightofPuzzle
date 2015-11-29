@@ -208,7 +208,6 @@ public class PlayFrame extends JComponent {
 				);
 				
 				if(logic.isMonsterDie()) {
-					System.out.println("monster die");
 					state = WAVE_COMPLETE;
 					currentMiniPosY = seperateHeight;
 				}
@@ -230,8 +229,8 @@ public class PlayFrame extends JComponent {
 				logic.decreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]);
 				
 				System.out.println("Me hp :"+logic.getHpMe());
-				//logic.increaseHpMe(combineStat[Puzzle.lp], 1);
-				//logic.increaseHpMe(combineStat[Puzzle.sp], 2);
+				logic.increaseHpMe(combineStat[Puzzle.lp], 1);
+				logic.increaseHpMe(combineStat[Puzzle.sp], 2);
 			}
 		} else if(state == WAVE_COMPLETE) {
 			currentMiniPosY += 10;
