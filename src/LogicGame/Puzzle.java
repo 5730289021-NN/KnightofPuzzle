@@ -72,35 +72,37 @@ public class Puzzle {
 		for(int i=0; i<size; i++) {
 			for(int j=0; j<size; j++) {
 				
-//				for(int k=0; k<dir.length; k++) {
-//					int x = j + dir[k][0];
-//					int y = i + dir[k][1];
-//					
-//					if(x < 0 || x >= size || y < 0 || y >= size) continue;
-//					if(table[i][j] == table[y][x]) {
-//						r[table[i][j]]++;
-//						break;
-//					}
-//				}
-				
-				int count = 1;
-				for(int k=0; k<dir.length; k++) {
-					int x = j;
-					int y = i;
-					mark[i][j] = true;
-					while(true) {
-						x += dir[k][0];
-						y += dir[k][1];
+				if(table[i][j] == lp || table[i][j] == sp) {
+					for(int k=0; k<dir.length; k++) {
+						int x = j + dir[k][0];
+						int y = i + dir[k][1];
 						
-						if(x < 0 || x >= size || y < 0 || y >= size) break;
-						if(table[i][j] != table[y][x]) break;
-						if(mark[y][x]) break;
-						mark[y][x] = true;
-						count++;
+						if(x < 0 || x >= size || y < 0 || y >= size) continue;
+						if(table[i][j] == table[y][x]) {
+							r[table[i][j]]++;
+							break;
+						}
 					}
-				}
-				if(count > 1) {
-					r[table[i][j]] += count * count;
+				} else {
+					int count = 1;
+					for(int k=0; k<dir.length; k++) {
+						int x = j;
+						int y = i;
+						mark[i][j] = true;
+						while(true) {
+							x += dir[k][0];
+							y += dir[k][1];
+							
+							if(x < 0 || x >= size || y < 0 || y >= size) break;
+							if(table[i][j] != table[y][x]) break;
+							if(mark[y][x]) break;
+							mark[y][x] = true;
+							count++;
+						}
+					}
+					if(count > 1) {
+						r[table[i][j]] += count * count;
+					}
 				}
 			}
 		}
