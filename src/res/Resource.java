@@ -82,6 +82,7 @@ public class Resource {
 		rs.put("attacksniper", read("pic/anime/attacksniper.gif"));
 		rs.put("me", read("pic/anime/me.gif"));
 		rs.put("attackme", read("pic/anime/attackme.gif"));
+		rs.put("merun", read("pic/anime/runme.gif"));
 
 		
 		rs.put("goldentag", read("pic/etc/goldtag.png"));

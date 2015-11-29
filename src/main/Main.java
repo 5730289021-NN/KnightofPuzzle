@@ -103,6 +103,7 @@ public class Main {
 				currentScreen = i;
 				bgm = Resource.getAudio("birdSound");
 				bgm.play();
+				
 				break;
 			}
 			case SELECTSCREEN:

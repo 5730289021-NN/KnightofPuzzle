@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -34,6 +35,7 @@ public class SelectLevelScreen extends JComponent{
 	
 	private AnimationManager me;
 	private AnimationManager maxwell;
+	private int direction = 0;
 	static{
 		for(int i = 0;i<4;i++)
 		{
@@ -99,7 +101,6 @@ public class SelectLevelScreen extends JComponent{
 			@Override
 			public void run() {
 				double percent = 0;
-				int direction = 0;
 				while(true)
 				{
 					try {
@@ -159,20 +160,21 @@ public class SelectLevelScreen extends JComponent{
 					
 					if(direction != 0 && (meLocation + direction) <= InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT])
 					{
-						System.out.println("In case");
 						try{
 						percent = percent + 0.01;
 						//System.out.println(percent);
 						if(!(direction == -1 && meLocation == 0) || !(direction == 1 && meLocation == 3))
 						{
-							meXPos = (int) (xpos_[meLocation] * (1 - percent) + (xpos_[meLocation + direction] * percent) - me.getWidth()/2);
-							meYPos = (int) (ypos_[meLocation] * (1 - percent) + (ypos_[meLocation + direction] * percent) - me.getHeight());
+							me = Resource.get("merun");
 							if(percent >= 0.7)
 							{
 								me = Resource.get("attackme");
 								me.loop();
 								me.update();
 							}
+							meXPos = (int) (xpos_[meLocation] * (1 - percent) + (xpos_[meLocation + direction] * percent) - me.getWidth()/2);
+							meYPos = (int) (ypos_[meLocation] * (1 - percent) + (ypos_[meLocation + direction] * percent) - me.getHeight());
+							
 						}
 						if(percent >= 1)
 						{
@@ -230,12 +232,26 @@ public class SelectLevelScreen extends JComponent{
 		}
 		me.update();
 		maxwell.update();
-		g2.drawImage(
-				me.getCurrentBufferedImage(),
-				meXPos, meYPos,
-				me.getWidth(), me.getHeight(),
-				null
-			);
+		
+		if(direction == 0 || direction == 1)
+		{
+			g2.drawImage(
+					me.getCurrentBufferedImage(),
+					meXPos, meYPos,
+					me.getWidth(), me.getHeight(),
+					null
+				);
+		}else
+		{
+			g2.drawImage(
+					me.getCurrentBufferedImage(),
+					meXPos + me.getWidth(), meYPos,
+					- me.getWidth(), me.getHeight(),
+					null
+				);
+		}
+		
+		
 		g2.drawImage(
 				maxwell.getCurrentBufferedImage(),
 				xpos_[3], ypos_[3] - maxwell.getHeight(),
