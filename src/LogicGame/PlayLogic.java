@@ -11,7 +11,7 @@ import frame.PlayFrame;
 
 public class PlayLogic {
 
-	private static final int GAME_TIME_DURATION = 10;
+	private static final int GAME_TIME_DURATION = 5;
 
 	private int timeCounter;
 	private int timeStamp = 0;
@@ -110,6 +110,10 @@ public class PlayLogic {
 	
 	public boolean isMonsterDie() {
 		return hpMonster <= 0;
+	}
+	
+	public boolean isWaveComplete() {
+		return wave > 4;
 	}
 	
 	public String getCurrentMonsterName() {

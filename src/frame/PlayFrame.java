@@ -254,6 +254,8 @@ public class PlayFrame extends JComponent {
 					logic.setMonster(monsterName);
 				}
 			}
+		} else if(state == GAME_FINISH) {
+			
 		}
 		
 		drawStage(g2, seperateHeight);
