@@ -262,6 +262,7 @@ public class PlayFrame extends JComponent {
 					
 					enemy = Resource.get(monsterName);
 					attackenemy = Resource.get("attack" + monsterName);
+					enemy.loop();
 					logic.setMonster(monsterName);
 				}
 			}

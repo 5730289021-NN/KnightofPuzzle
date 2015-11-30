@@ -39,7 +39,7 @@ public class Puzzle {
 		int[] rand = new int[d+1];
 		
 		for(int i=0; i<d; i++) {
-			if(i < 9) rand[i] = sw;
+			if(i < 10) rand[i] = sw;
 			else if(i < 16) rand[i] = sh;
 			else if(i < 21) rand[i] = sp;
 			else rand[i] = lp; 

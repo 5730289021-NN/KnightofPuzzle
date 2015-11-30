@@ -45,7 +45,8 @@ public class PlayLogic {
 		this.level = level;
 		wave = 1;
 		
-		me = new Me(); 
+		me = new Me();
+		me.increseStat(level);
 		hpMe = me.getHp();
 	}
 
@@ -71,6 +72,7 @@ public class PlayLogic {
 	
 	public void setMonster(Monster monster) {
 		this.monster = monster;
+		this.monster.increseStat(level);
 		this.hpMonster = monster.getHp();
 	}
 	
@@ -115,7 +117,17 @@ public class PlayLogic {
 	}
 	
 	public int calculateDecreaseHpMe(int sword, int shield) {
-		return Math.max(1 , monster.getAt() + (10 * (sword / 2)) - (me.getDef() + 8 * shield));
+		
+		int def = 0;
+		int armorEquip = InfoManager.ARMOREQUIP[InfoManager.SELECTED_SLOT];
+		
+		switch(armorEquip) {
+		case 1 : def = 47; break;
+		case 2 : def = 94; break;
+		case 3 : def = 141; break;
+		}
+		
+		return Math.max(1 , monster.getAt() + (10 * (sword / 2)) - (me.getDef() + def));
 	}
 	
 	public void decreaseHpMe(int sword, int shield) {
@@ -127,7 +139,17 @@ public class PlayLogic {
 	}
 	
 	public int calculateDecreaseHpMonster(int sword, int shield) {
-		return Math.max(1, me.getAt() + 10 * sword - (monster.getDef() + 15 * (shield / 2)));
+		
+		int swordEquip = InfoManager.SWORDEQUIP[InfoManager.SELECTED_SLOT];
+		int attack = 0;
+		
+		switch(swordEquip) {
+		case 1 : attack = 8; break;
+		case 2 : attack = 16; break;
+		case 3 : attack = 24; break;
+		}
+		
+		return Math.max(1, me.getAt() + attack + 10 * sword - monster.getDef());
 	}
 	
 	public void decreaseHpMonster(int sword, int shield) {
@@ -194,7 +216,11 @@ public class PlayLogic {
 	}
 	
 	public void increaseHpMe(int potion, int type) {
-		hpMe += potion * (type == 1 ? 10 : 15);
+		
+		int sp = 20 * InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT];
+		int lp = 40 * InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT];
+		
+		hpMe += potion * (type == 1 ? sp : lp);
 		hpMe = Math.min(hpMe, me.getHp());
 	}
 	

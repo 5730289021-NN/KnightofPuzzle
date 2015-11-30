@@ -74,6 +74,7 @@ public class IntroScreen extends JComponent{
 		//g.fillRect(0, 0, GameScreen.WIDTH, GameScreen.HEIGHT);
 		//introbg.update();
 		g.drawImage(introbg.getCurrentBufferedImage(),0,0,GameScreen.WIDTH,GameScreen.HEIGHT,null);
+		introbg.update();
 	}
 	
 	private void showDialog(boolean mode){
