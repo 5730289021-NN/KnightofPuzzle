@@ -24,6 +24,7 @@ import Data.InfoManager;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
 import base.GameScreen;
+import base.SelectLevelScreen;
 
 
 public class PlayFrame extends JComponent {
@@ -57,8 +58,10 @@ public class PlayFrame extends JComponent {
 	private int[] combineStat;
 	
 	public PlayFrame() {
-		logic = new PlayLogic(this, InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] + 1);
+		
 		// Current level
+		int level = SelectLevelScreen.meLocation + 1;
+		logic = new PlayLogic(this, level);
 		
 		state = START_STATE;
 		buffer = new BufferedImage(GameScreen.WIDTH, GameScreen.HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -68,6 +71,13 @@ public class PlayFrame extends JComponent {
 		preGame();
 		
 		bg = Resource.get("underwaterbg");
+		switch(level) {
+		case 1 : bg = Resource.get("underwaterbg"); break;
+		case 2 : bg = Resource.get("earthbg"); break;
+		case 3 : bg = Resource.get("deemobg"); break;
+		case 4 : bg = Resource.get("heavenbg"); break;
+		}
+		
 		me = new AnimationManager(Resource.get("me").getAllImage());
 		me.loop();
 		attackme = new AnimationManager(Resource.get("attackme").getAllImage());

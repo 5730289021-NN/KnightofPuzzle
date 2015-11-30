@@ -26,7 +26,8 @@ public class SelectLevelScreen extends JComponent{
 	private static final double[] ypos = {0.5,0.66,0.44,0.17};
 	private static int[] xpos_ = new int[5];
 	private static int[] ypos_ = new int[5];
-	private int meXPos, meYPos, meLocation;
+	private int meXPos, meYPos;
+	public static int meLocation;
 	
 	private JButton playButton;
 	private JButton shopButton;
