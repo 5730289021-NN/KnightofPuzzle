@@ -1,5 +1,7 @@
 package main;
 
+import input.InputUtility;
+
 import java.applet.AudioClip;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -8,14 +10,13 @@ import java.awt.event.KeyListener;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import res.Resource;
 import Data.InfoManager;
 import base.GameScreen;
 import base.IntroScreen;
 import base.SelectLevelScreen;
 import base.ShopScreen;
 import frame.PlayFrame;
-import input.InputUtility;
-import res.Resource;
 
 public class Main {
 	private static JComponent currentScreen;
@@ -129,6 +130,7 @@ public class Main {
 			case GAMESCREEN:
 			{
 				System.out.println("Game");
+				g = new PlayFrame();
 				g.preGame();
 				currentScreen = g;
 				break;
