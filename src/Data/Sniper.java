@@ -20,7 +20,7 @@ public class Sniper extends Monster {
 	@Override
 	public void increseStat(int level) {
 		if(level == 4){
-			this.hp += 300;
+			this.hp += 400;
 			this.at += 30;
 			this.def += 40;
 			this.gold += 50;

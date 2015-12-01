@@ -11,7 +11,7 @@ public class Maxwell extends Monster {
 	private boolean check = false;
 
 	public Maxwell() {
-		super(5000, 350, 250, 600);
+		super(5000, 400, 300, 650);
 		mw = Resource.get("maxwell");
 		amw = Resource.get("attackmaxwell");
 		stand = true;

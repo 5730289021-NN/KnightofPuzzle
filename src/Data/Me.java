@@ -30,9 +30,9 @@ public class Me extends Monster {
 			this.def += 70;
 			this.gold += 0;
 		} else if (level == 4) {
-			this.hp += 3400;
+			this.hp += 3300;
 			this.at += 160;
-			this.def += 100;
+			this.def += 90;
 			this.gold += 0;
 
 		}

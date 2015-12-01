@@ -25,8 +25,8 @@ public class Tilith extends Monster{
 			this.gold += 40;
 		}
 		else if(level ==4){
-			this.hp += 600;
-			this.at += 60;
+			this.hp += 800;
+			this.at += 70;
 			this.def += 70;
 			this.gold += 40;
 		}

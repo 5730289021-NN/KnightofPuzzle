@@ -33,7 +33,7 @@ public class MiniMaxwell extends Monster {
 		} else if (level == 4) {
 			this.hp += 1800;
 			this.at += 140;
-			this.def += 70;
+			this.def += 80;
 			this.gold += 200;
 
 		}

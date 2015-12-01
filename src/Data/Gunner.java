@@ -19,7 +19,7 @@ public class Gunner extends Monster{
 	public void increseStat(int level) {
 		if(level == 2){
 			this.hp += 300;
-			this.at += 40;
+			this.at += 45;
 			this.def += 60;
 			this.gold += 50;
 		}

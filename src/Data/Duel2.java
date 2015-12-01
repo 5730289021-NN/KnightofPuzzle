@@ -20,7 +20,7 @@ public class Duel2 extends Monster{
 	@Override
 	public void increseStat(int level) {
 		if(level ==4){
-		this.hp += 600;
+		this.hp += 700;
 		this.at += 60;
 		this.def += 60;
 		this.gold += 50;
