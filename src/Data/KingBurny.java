@@ -9,7 +9,7 @@ public class KingBurny extends Monster {
 	private  boolean stand;
 	
 	public KingBurny(){
-		super(600,90,120,25);
+		super(650,140,180,130);
 		kb = Resource.get("kingburny");
 		akb = Resource.get("attackkingburny");
 		stand = true;

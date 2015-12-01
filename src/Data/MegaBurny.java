@@ -9,7 +9,7 @@ public class MegaBurny extends Monster {
 	private boolean stand;
 	
 	public MegaBurny(){
-		super(1000,140,180,40);
+		super(1300,190,180,140);
 		mb = Resource.get("megaburny");
 		amb = Resource.get("attackmegaburny");
 		stand = true;

@@ -9,7 +9,7 @@ public class Gunner2 extends Monster{
 	private boolean stand;
 	
 	public Gunner2(){
-		super(2500,270,210,150);
+		super(2500,300,230,200);
 		gn2 = Resource.get("gunner2");
 		agn2 = Resource.get("attackgunner2");
 		stand = true;

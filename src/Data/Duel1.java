@@ -9,7 +9,7 @@ public class Duel1 extends Monster {
 	private boolean stand;
 	
 	public Duel1(){
-		super(900,95,99,30);
+		super(900,120,110,50);
 		d1 = Resource.get("duel");
 		ad1 = Resource.get("attackduel");
 		stand = true;

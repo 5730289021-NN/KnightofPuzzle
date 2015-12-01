@@ -9,7 +9,7 @@ public class Duel2 extends Monster{
 	private boolean stand;
 	
 	public Duel2(){
-		super(1600,190,150,100);
+		super(1600,210,160,130);
 		d2 = Resource.get("duel2");
 		ad2 = Resource.get("attackduel2");
 		stand = true;
@@ -21,9 +21,9 @@ public class Duel2 extends Monster{
 	public void increseStat(int level) {
 		if(level ==4){
 		this.hp += 600;
-		this.at += 40;
-		this.def += 50;
-		this.gold += 20;
+		this.at += 60;
+		this.def += 60;
+		this.gold += 50;
 		}
 		
 	}

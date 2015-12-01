@@ -9,7 +9,7 @@ public class MiniMaxwell extends Monster {
 	private boolean stand;
 
 	public MiniMaxwell() {
-		super(2000, 110, 140, 50);
+		super(2000, 160, 150, 100);
 		mnmw = Resource.get("minimaxwell");
 		amnmw = Resource.get("attackminimaxwell");
 		stand = true;
@@ -22,19 +22,19 @@ public class MiniMaxwell extends Monster {
 	public void increseStat(int level) {
 		if (level == 2) {
 			this.hp += 1000;
-			this.at += 50;
-			this.def += 10;
+			this.at += 70;
+			this.def += 30;
 			this.gold += 30;
 		} else if (level == 3) {
 			this.hp += 1500;
-			this.at += 110;
-			this.def += 40;
-			this.gold += 70;
+			this.at += 120;
+			this.def += 50;
+			this.gold += 100;
 		} else if (level == 4) {
 			this.hp += 1800;
-			this.at += 120;
-			this.def += 60;
-			this.gold += 150;
+			this.at += 140;
+			this.def += 70;
+			this.gold += 200;
 
 		}
 

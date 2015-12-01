@@ -10,7 +10,7 @@ public class Burny extends Monster{
 	private boolean stand;
 	
 	public Burny(){
-		super(300,50,50,10);
+		super(400,90,70,30);
 		bn = Resource.get("burny");
 		abn = Resource.get("attackburny");
 		stand = true;
@@ -19,6 +19,12 @@ public class Burny extends Monster{
 
 	@Override
 	public void increseStat(int level) {
+		if(level ==2){
+			this.hp += 200;
+			this.at += 50;
+			this.def += 70;
+			this.gold += 20;
+		}
 	}
 
 	

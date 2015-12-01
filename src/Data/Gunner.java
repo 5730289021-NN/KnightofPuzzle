@@ -9,7 +9,7 @@ public class Gunner extends Monster{
 	private boolean stand;
 	
 	public Gunner(){
-		super(500,60,80,20);
+		super(600,90,100,90);
 		gn = Resource.get("gunner");
 		agn = Resource.get("attackgunner");
 		stand = true;
@@ -18,10 +18,10 @@ public class Gunner extends Monster{
 	@Override
 	public void increseStat(int level) {
 		if(level == 2){
-			this.hp += 200;
-			this.at += 20;
-			this.def += 20;
-			this.gold += 5;
+			this.hp += 300;
+			this.at += 40;
+			this.def += 60;
+			this.gold += 50;
 		}
 		
 	}

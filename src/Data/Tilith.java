@@ -9,7 +9,7 @@ public class Tilith extends Monster{
 	private boolean stand;
 	
 	public Tilith(){
-		super(1200,150,90,40);
+		super(1200,170,130,80);
 		tl = Resource.get("tilith");
 		atl = Resource.get("attacktilith");
 		stand = true;
@@ -20,15 +20,15 @@ public class Tilith extends Monster{
 	public void increseStat(int level) {
 		if(level ==3){
 			this.hp += 200;
-			this.at += 20;
-			this.def += 30;
-			this.gold += 20;
+			this.at += 40;
+			this.def += 60;
+			this.gold += 40;
 		}
 		else if(level ==4){
 			this.hp += 600;
-			this.at += 40;
-			this.def += 60;
-			this.gold += 30;
+			this.at += 60;
+			this.def += 70;
+			this.gold += 40;
 		}
 		
 	}

@@ -10,7 +10,7 @@ public class Sniper extends Monster {
 	private boolean stand;
 	
 	public Sniper(){
-		super(1300,250,100,40);
+		super(1400,290,130,110);
 		sp = Resource.get("megaburny");
 		asp = Resource.get("attacksniper");
 		stand = true;
@@ -20,10 +20,10 @@ public class Sniper extends Monster {
 	@Override
 	public void increseStat(int level) {
 		if(level == 4){
-			this.hp += 200;
-			this.at += 20;
-			this.def += 30;
-			this.gold += 20;
+			this.hp += 300;
+			this.at += 30;
+			this.def += 40;
+			this.gold += 50;
 			
 		}
 			
