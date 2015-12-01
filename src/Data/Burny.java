@@ -10,6 +10,7 @@ public class Burny extends Monster{
 	private boolean stand;
 	
 	public Burny(){
+
 		super(400,80,70,30);
 		bn = Resource.get("burny");
 		abn = Resource.get("attackburny");
