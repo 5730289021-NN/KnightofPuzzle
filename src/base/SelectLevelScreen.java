@@ -114,7 +114,7 @@ public class SelectLevelScreen extends JComponent{
 						synchronized(this)
 						{
 							direction = 1;
-							System.out.println("Right");
+							//System.out.println("Right");
 						}
 					}
 					if(InputUtility.getKeyPressed(KeyEvent.VK_LEFT))
@@ -122,7 +122,7 @@ public class SelectLevelScreen extends JComponent{
 						synchronized(this)
 						{
 							direction = -1;
-							System.out.println("Left");
+							//System.out.println("Left");
 						}
 					}
 					if(InputUtility.getKeyTriggered(KeyEvent.VK_C))

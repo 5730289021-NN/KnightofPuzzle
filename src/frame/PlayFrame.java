@@ -1,5 +1,7 @@
 package frame;
 
+import input.InputUtility;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -13,6 +15,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+
+import com.sun.glass.events.KeyEvent;
 
 import main.Main;
 import render.AnimationManager;
@@ -167,6 +171,10 @@ public class PlayFrame extends JComponent {
 			attackme.update();
 		} else if(state == MONSTER_TURN) {
 			attackenemy.update();
+		}
+		
+		if(InputUtility.getKeyPressed(KeyEvent.VK_SPACE)) {
+			logic.setUseFury();
 		}
 		
 		me.update();
@@ -329,7 +337,12 @@ public class PlayFrame extends JComponent {
 	
 	public void drawStatus(Graphics2D g){
 		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, logic.getHpMePercentage());
-		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
+		
+		if(logic.isUseFury()) {
+			drawLineStatus(g, Color.BLUE, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
+		} else {
+			drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
+		}
 		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, logic.getHpMonsterPercentage());
 		
 		g.setColor(Color.BLACK);
