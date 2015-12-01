@@ -156,8 +156,7 @@ public class PlayFrame extends JComponent {
 	}
 
 	private void restart() {
-		// TODO Auto-generated method stub
-		
+		Main.changeGameScreen(Main.GAMESCREEN);
 	}
 
 	public synchronized void update() {
@@ -322,13 +321,13 @@ public class PlayFrame extends JComponent {
 		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, logic.getHpMonsterPercentage());
 		
 		g.setColor(Color.YELLOW);
-		g.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		g.drawString("Gold : " + logic.getGold(), GameScreen.WIDTH - 110, 20 );
+		g.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		g.drawString("Gold : " + logic.getGold(), GameScreen.WIDTH - 110, 25 );
 	}
 	
 	public void drawTime(Graphics2D g, int time) {
 		String txt = time + "";
-		g.setColor(Color.YELLOW);
+		g.setColor(new Color(255, 191, 0));
 		g.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		int width = g.getFontMetrics().stringWidth(txt);
 		g.drawString(txt, (GameScreen.WIDTH - width)/2, 50);
