@@ -19,7 +19,8 @@ import frame.PlayFrame;
 
 public class PlayLogic {
 
-	private static final int GAME_TIME_DURATION = 12;
+	private static final int GAME_TIME_DURATION = 5;
+	private static final int MAXIMUM_FURY = 1;
 	private static final int[] MAXIMUM_WAVE = {0,4,4,5,7};
 
 	private int timeCounter;
@@ -31,6 +32,7 @@ public class PlayLogic {
 	private Monster me;
 	private int hpMe, hpMonster;
 	private int furyCounting;
+	private boolean useFury;
 	private int currentGold;
 
 	private int level, wave;
@@ -41,6 +43,7 @@ public class PlayLogic {
 		this.game = game;
 		furyCounting = 0;
 		currentGold = 0;
+		useFury = false;
 		
 		this.level = level;
 		wave = 1;
@@ -157,10 +160,20 @@ public class PlayLogic {
 		case 3 : attack = 24; break;
 		}
 		
-		return Math.max(1, me.getAt() + attack + 10 * sword - monster.getDef());
+		int fury = 0;
+		if(useFury) {
+			fury = 500;
+		}
+		
+		return Math.max(1, me.getAt() + fury + attack + 10 * sword - monster.getDef());
 	}
 	
 	public void decreaseHpMonster(int sword, int shield) {
+		
+		if(useFury) {
+			furyCounting = 0;
+		}
+		
 		hpMonster -= calculateDecreaseHpMonster(sword, shield);
 	}
 	
@@ -186,6 +199,16 @@ public class PlayLogic {
 	
 	public boolean isWaveComplete() {
 		return wave > MAXIMUM_WAVE[level];
+	}
+	
+	public void setUseFury() {
+		if(furyCounting == MAXIMUM_FURY) {
+			useFury = true;
+		}
+	}
+	
+	public boolean isUseFury() {
+		return useFury;
 	}
 	
 	public String getCurrentMonsterName() {
@@ -218,8 +241,8 @@ public class PlayLogic {
 	}
 
 	public void increaseFury() {
-		if (++furyCounting > 7) {
-			furyCounting = 7;
+		if (++furyCounting > MAXIMUM_FURY) {
+			furyCounting = MAXIMUM_FURY;
 		}
 	}
 	
@@ -237,7 +260,7 @@ public class PlayLogic {
 	}
 	
 	public int getFuryPercentage() {
-		return furyCounting * 100 / 7;
+		return furyCounting * 100 / MAXIMUM_FURY;
 	}
 
 	public int getFury() {
