@@ -47,7 +47,7 @@ public class PlayLogic {
 		
 		me = new Me();
 		me.increseStat(level);
-		hpMe = me.getHp();
+		this.hpMe = me.getHp();
 	}
 
 	public void updateTimeStamp() {
@@ -105,7 +105,11 @@ public class PlayLogic {
 	}
 	
 	public int getHpMe() {
-		return hpMe;
+		return Math.max(0, hpMe);
+	}
+	
+	public int getFullHpMe() {
+		return me.getHp();
 	}
 	
 	public int getHpMePercentage() {
@@ -113,7 +117,11 @@ public class PlayLogic {
 	}
 	
 	public int getHpMonster() {
-		return hpMonster;
+		return Math.max(0, hpMonster);
+	}
+	
+	public int getFullHpMonster() {
+		return monster.getHp();
 	}
 	
 	public int calculateDecreaseHpMe(int sword, int shield) {
@@ -217,8 +225,8 @@ public class PlayLogic {
 	
 	public void increaseHpMe(int potion, int type) {
 		
-		int sp = 20 * InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT];
-		int lp = 40 * InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT];
+		int sp = 15 * InfoManager.LEVEL_SMALLPOTION[InfoManager.SELECTED_SLOT];
+		int lp = 30 * InfoManager.LEVEL_LARGEPOTION[InfoManager.SELECTED_SLOT];
 		
 		hpMe += potion * (type == 1 ? sp : lp);
 		hpMe = Math.min(hpMe, me.getHp());

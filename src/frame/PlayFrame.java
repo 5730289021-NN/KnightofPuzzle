@@ -223,11 +223,15 @@ public class PlayFrame extends JComponent {
 					state = WAVE_COMPLETE;
 					logic.increaseGold();
 					currentMiniPosY = seperateHeight;
+					
+					currentTime = 0;
+					finishTime = 2000;
 				}
 				System.out.println("Monster hp :"+logic.getHpMonster());
 			}
 			
 		} else if(state == MONSTER_TURN) {
+			
 			currentMiniPosY += 10;
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
 			if(currentMiniPosY >= GameScreen.HEIGHT) {
@@ -246,15 +250,20 @@ public class PlayFrame extends JComponent {
 					currentTime = 0;
 					finishTime = 2000;
 				} else {
-					System.out.println("Me hp :"+logic.getHpMe());
 					logic.increaseHpMe(combineStat[Puzzle.lp], 1);
 					logic.increaseHpMe(combineStat[Puzzle.sp], 2);
+					System.out.println("Me hp :"+logic.getHpMe());
 				}
 			}
 		} else if(state == WAVE_COMPLETE) {
-			currentMiniPosY += 10;
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
+			currentMiniPosY += 10;
 			if(currentMiniPosY >= GameScreen.HEIGHT) {
+				currentMiniPosY = GameScreen.HEIGHT;
+			}
+			
+			currentTime += Main.SleepTime;
+			if(currentMiniPosY >= GameScreen.HEIGHT && currentTime > finishTime) {
 				state = START_STATE;
 				currentMiniPosY = 0;
 				
@@ -265,7 +274,7 @@ public class PlayFrame extends JComponent {
 				if(logic.isWaveComplete()) {
 					state = GAME_FINISH;
 					currentTime = 0;
-					finishTime = 2000;
+					finishTime = 4000;
 				} else {
 					String monsterName = logic.getCurrentMonsterName();
 					
@@ -300,6 +309,9 @@ public class PlayFrame extends JComponent {
 		if(state == GAME_FINISH) {
 			g.drawImage(Resource.get("missioncomplete").getCurrentBufferedImage(), 0, 0, GameScreen.WIDTH, GameScreen.HEIGHT, null);
 		}
+		if(state == ME_DIE) {
+			g.drawImage(Resource.get("gameover").getCurrentBufferedImage(), 0, 0, GameScreen.WIDTH, GameScreen.HEIGHT, null);
+		}
 		
 		screengc.drawImage(buffer, 0, 0, null);
 		
@@ -317,8 +329,12 @@ public class PlayFrame extends JComponent {
 	
 	public void drawStatus(Graphics2D g){
 		drawLineStatus(g, Color.RED, "HP", 15, seperateHeight + 10, logic.getHpMePercentage());
-		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 50, logic.getFuryPercentage());
+		drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
 		drawLineStatus(g, Color.RED, "HP", 720, seperateHeight + 10, logic.getHpMonsterPercentage());
+		
+		g.setColor(Color.BLACK);
+		g.drawString(logic.getHpMe() + "/" + logic.getFullHpMe(), 65, seperateHeight + 55);
+		g.drawString(logic.getHpMonster() + "/" + logic.getFullHpMonster(), 770, seperateHeight + 55);
 		
 		g.setColor(Color.YELLOW);
 		g.setFont(new Font("Tahoma", Font.PLAIN, 20));
