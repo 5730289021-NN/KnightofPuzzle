@@ -18,8 +18,6 @@ public class Maxwell extends Monster {
 		if (this.hp <= 0)
 			stand = false;
 
-		if (this.hp <= 0)
-			stand = false;
 
 		if (this.hp <= 500) {
 			check = false;
