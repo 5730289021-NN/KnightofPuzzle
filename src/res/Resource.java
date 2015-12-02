@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import base.IntroScreen;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import render.AnimationManager;
 import render.ImageData;
 import render.ImageReader;
@@ -22,6 +24,7 @@ public class Resource {
 	private static HashMap<String,AnimationManager> rs = new HashMap<>();
 	private static HashMap<String,AudioClip> audio = new HashMap<>();
 	private static GraphicsEnvironment ge;
+
 	
 	public AnimationManager read(String url){
 		return new AnimationManager(ImageReader.get(url));
@@ -31,7 +34,6 @@ public class Resource {
 		audio.put("birdSound", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/bird.wav")));
 		audio.put("thebeat", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/thebeat.wav")));
 		audio.put("doorbell", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/doorbell2.wav")));
-		
 		
 		rs.put("sword", read("pic/acc/sword.png"));
 		rs.put("sword1" , read("pic/acc/sword1.png"));
