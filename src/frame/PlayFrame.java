@@ -2,6 +2,7 @@ package frame;
 
 import input.InputUtility;
 
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -42,6 +43,8 @@ public class PlayFrame extends JComponent {
 	private static final int GAME_FINISH = 6;
 	private static final int ME_DIE = 7;
 	
+	
+	private static AudioClip soundEffect;
 	private AnimationManager[] puzzleItem = new AnimationManager[4];
 	private AnimationManager bg, me, enemy, attackme, attackenemy;
 	private int state;
@@ -157,6 +160,7 @@ public class PlayFrame extends JComponent {
 		System.out.println(combineStat[1]+" "+combineStat[2]+" "+combineStat[3]+" "+combineStat[4]);
 		System.out.println(logic.calculateDecreaseHpMonster(combineStat[Puzzle.sw], combineStat[Puzzle.sh]));
 		System.out.println(logic.calculateDecreaseHpMe(combineStat[Puzzle.sw], combineStat[Puzzle.sh]));
+		soundSword();
 	}
 
 	private void restart() {
@@ -264,6 +268,7 @@ public class PlayFrame extends JComponent {
 				}
 			}
 		} else if(state == WAVE_COMPLETE) {
+			soundDeath();
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
 			currentMiniPosY += 10;
 			if(currentMiniPosY >= GameScreen.HEIGHT) {
@@ -302,6 +307,8 @@ public class PlayFrame extends JComponent {
 		} else if(state == ME_DIE) {
 			currentTime += Main.SleepTime;
 			if(currentTime >= finishTime) {
+				
+				
 				Main.changeGameScreen(Main.SELECTSCREEN);
 			}
 		}
@@ -456,5 +463,16 @@ public class PlayFrame extends JComponent {
 				break;
 			}
 		}
+	}
+	
+	public void soundSword()
+	{
+		soundEffect = Resource.getAudio("sword");
+		soundEffect.play();
+	}
+	public void soundDeath()
+	{
+		soundEffect = Resource.getAudio("zombiedeath");
+		soundEffect.play();
 	}
 }

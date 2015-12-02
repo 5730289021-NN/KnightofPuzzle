@@ -24,8 +24,8 @@ import res.Resource;
 public class SelectLevelScreen extends JComponent{
 	private static final double[] xpos = {0.1,0.3,0.5,0.75};
 	private static final double[] ypos = {0.5,0.66,0.44,0.17};
-	private static int[] xpos_ = new int[5];
-	private static int[] ypos_ = new int[5];
+	private static int[] xpos_ = new int[4];
+	private static int[] ypos_ = new int[4];
 	private int meXPos, meYPos;
 	public static int meLocation;
 	
