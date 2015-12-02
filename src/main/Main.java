@@ -132,6 +132,8 @@ public class Main {
 				System.out.println("Game");
 				g = new PlayFrame();
 				g.preGame();
+				bgm = Resource.getAudio("gamebgm");
+				bgm.play();
 				currentScreen = g;
 				break;
 			}

@@ -34,6 +34,10 @@ public class Resource {
 		audio.put("birdSound", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/bird.wav")));
 		audio.put("thebeat", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/thebeat.wav")));
 		audio.put("doorbell", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/doorbell2.wav")));
+		audio.put("sword", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/sword.wav")));
+		audio.put("gamebgm", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/Intense Battle Music.wav")));
+		audio.put("zombiedeath", Applet.newAudioClip(IntroScreen.class.getClassLoader().getResource("sound/zombiedeath.wav")));
+		
 		
 		rs.put("sword", read("pic/acc/sword.png"));
 		rs.put("sword1" , read("pic/acc/sword1.png"));
