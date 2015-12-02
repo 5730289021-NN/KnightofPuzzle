@@ -58,7 +58,7 @@ public class AnimationManager {
 	}
 
 	public synchronized void update() {
-		if(++speed < 4) return ;
+		if(++speed < 3) return ;
 		speed = 0;
 		if (isLoop || isPlay) {
 			frame++;

@@ -4,51 +4,41 @@ import render.AnimationManager;
 import res.Resource;
 
 public class Maxwell extends Monster {
-	private AnimationManager mw;
-	private AnimationManager amw;
-	private boolean stand;
-	private int count = 0;
-	private boolean check = false;
+	
+	private int currentState = 1;
 
+	private static int defaultHp = 5000;
+	private static int defaultAttack = 400;
+	private static int defaultDefense = 300;
+	
+	
 	public Maxwell() {
-		super(5000, 400, 300, 650);
-		mw = Resource.get("maxwell");
-		amw = Resource.get("attackmaxwell");
-		stand = true;
-		if (this.hp <= 0)
-			stand = false;
-
-
-		if (this.hp <= 500) {
-			check = false;
-			this.at = 1500;
-			count++;
-			if (count == 1) {
-				this.at = 260;
-				check = true;
-				count = 0;
+		super(defaultHp, defaultAttack, defaultDefense, 650);
+	}
+	
+	public void updateStat(int hp) {
+		if(hp <= 500) {
+			if(currentState != 4) {
+				currentState = 4;
+				at = 1700;
+			} else {
+				at = defaultAttack;
 			}
-		} else if (this.hp <= 2500) {
-			count = 0;
-			check = false;
-			this.at = 500;
-			count++;
-			if (count == 1) {
-				this.at = 260;
-				check = true;
-
+		} else if(hp <= 2500) {
+			if(currentState != 3) {
+				currentState = 3;
+				at = 500;
+			} else {
+				at = defaultAttack;
 			}
-		} else if (this.hp <= 3500) {
-			count = 0;
-			check = false;
-			this.def = 500;
-			count++;
-			if (count == 4) {
-				this.def = 250;
-				check = true;
+		} else if(hp <= 3500) {
+			if(currentState != 2) {
+				currentState = 2;
+				def = 500;
+			} else {
+				def = defaultDefense;
 			}
 		}
-
 	}
 
 	@Override
