@@ -235,7 +235,7 @@ public class PlayLogic {
 			if(wave == 4) return "duel2";
 			if(wave == 5) return "minimaxwell";
 		} else if(level == 4) {
-			if(wave == 1) return "maxwell";
+			if(wave == 1) return "megaburny";
 			if(wave == 2) return "sniper";
 			if(wave == 3) return "tilith";
 			if(wave == 4) return "duel2";
