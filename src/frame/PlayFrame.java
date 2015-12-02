@@ -236,6 +236,8 @@ public class PlayFrame extends JComponent {
 					logic.increaseGold();
 					currentMiniPosY = seperateHeight;
 					
+					soundDeath();
+					
 					currentTime = 0;
 					finishTime = 2000;
 				}
@@ -246,6 +248,7 @@ public class PlayFrame extends JComponent {
 			
 			currentMiniPosY += 10;
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
+			
 			if(currentMiniPosY >= GameScreen.HEIGHT) {
 				currentMiniPosY = GameScreen.HEIGHT;
 				puzzle = new Puzzle(puzzleItem);
@@ -301,7 +304,10 @@ public class PlayFrame extends JComponent {
 			currentTime += Main.SleepTime;
 			if(currentTime >= finishTime) {
 				logic.updateGoldToInfo();
-				InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT]++;
+				InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] = Math.max(
+					4,
+					InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] + 1
+				);
 				Main.changeGameScreen(Main.SELECTSCREEN);
 			}
 		} else if(state == ME_DIE) {
