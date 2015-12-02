@@ -364,9 +364,9 @@ public class PlayFrame extends JComponent {
 	public void drawTime(Graphics2D g, int time) {
 		String txt = time + "";
 		g.setColor(new Color(255, 191, 0));
-		g.setFont(new Font("Tahoma", Font.PLAIN, 40));
+		g.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		int width = g.getFontMetrics().stringWidth(txt);
-		g.drawString(txt, (GameScreen.WIDTH - width)/2, 50);
+		g.drawString(txt, (GameScreen.WIDTH - width)/2, 55);
 	}
 	
 	public void drawStage(Graphics2D g, int height) {
