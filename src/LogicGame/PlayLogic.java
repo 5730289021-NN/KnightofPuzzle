@@ -19,6 +19,7 @@ import frame.PlayFrame;
 
 public class PlayLogic {
 
+	// new commit
 	private static final int GAME_TIME_DURATION = 12;
 	private static final int MAXIMUM_FURY = 7;
 	private static final int[] MAXIMUM_WAVE = {0,4,4,5,7};
