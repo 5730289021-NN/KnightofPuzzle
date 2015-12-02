@@ -268,7 +268,7 @@ public class PlayFrame extends JComponent {
 				}
 			}
 		} else if(state == WAVE_COMPLETE) {
-			soundDeath();
+			
 			drawPuzzle(g2, currentMiniPosY, puzzleSize);
 			currentMiniPosY += 10;
 			if(currentMiniPosY >= GameScreen.HEIGHT) {
@@ -470,7 +470,7 @@ public class PlayFrame extends JComponent {
 		soundEffect = Resource.getAudio("sword");
 		soundEffect.play();
 	}
-	public void soundDeath()
+	public synchronized void soundDeath()
 	{
 		soundEffect = Resource.getAudio("zombiedeath");
 		soundEffect.play();

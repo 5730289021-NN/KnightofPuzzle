@@ -132,7 +132,7 @@ public class SelectLevelScreen extends JComponent{
 						{
 							case "mynameisoak":
 							{
-								if(InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] <= 3)
+								if(InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] < 3)
 								{
 									InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] += 1;
 									System.out.println("Cheat: Level + 1");
