@@ -19,8 +19,9 @@ import frame.PlayFrame;
 
 public class PlayLogic {
 
+	// new commit
 	private static final int GAME_TIME_DURATION = 12;
-	private static final int MAXIMUM_FURY = 1;
+	private static final int MAXIMUM_FURY = 7;
 	private static final int[] MAXIMUM_WAVE = {0,4,4,5,7};
 
 	private int timeCounter;
@@ -235,7 +236,7 @@ public class PlayLogic {
 			if(wave == 4) return "duel2";
 			if(wave == 5) return "minimaxwell";
 		} else if(level == 4) {
-			if(wave == 1) return "maxwell";
+			if(wave == 1) return "megaburny";
 			if(wave == 2) return "sniper";
 			if(wave == 3) return "tilith";
 			if(wave == 4) return "duel2";

@@ -18,23 +18,26 @@ public class Maxwell extends Monster {
 	
 	public void updateStat(int hp) {
 		if(hp <= 500) {
-			if(currentState != 4) {
-				currentState = 4;
-				at = 1700;
+			if(currentState != 5) {
+				currentState = 5;
+				at = 2000;
 			} else {
 				at = defaultAttack;
 			}
 		} else if(hp <= 2500) {
-			if(currentState != 3) {
-				currentState = 3;
-				at = 500;
+			if(currentState != 4) {
+				currentState = 4;
+				at = 1200;
 			} else {
 				at = defaultAttack;
 			}
 		} else if(hp <= 3500) {
 			if(currentState != 2) {
 				currentState = 2;
-				def = 500;
+				def = 800;
+			} else if(currentState != 3) {
+				currentState = 3;
+				def = 800;
 			} else {
 				def = defaultDefense;
 			}
