@@ -35,6 +35,7 @@ public class PlayLogic {
 	private int furyCounting;
 	private boolean useFury;
 	private int currentGold;
+	
 
 	private int level, wave;
 	

@@ -55,6 +55,7 @@ public class PlayFrame extends JComponent {
 	private int currentMiniPosY = 0;
 	private int seperateHeight = 368;
 	private int puzzleSize = 400;
+	public static int counterMonsterDie =0;
 	
 	private Puzzle puzzle;
 	private PlayLogic logic;
@@ -237,6 +238,7 @@ public class PlayFrame extends JComponent {
 					currentMiniPosY = seperateHeight;
 					
 					soundDeath();
+					counterMonsterDie++;
 					
 					currentTime = 0;
 					finishTime = 2000;
