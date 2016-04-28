@@ -57,6 +57,7 @@ public class PlayFrame extends JComponent {
 	private int puzzleSize = 400;
 	public static int counterMonsterDie =0;
 	
+	
 	private Puzzle puzzle;
 	private PlayLogic logic;
 	private JButton menuButton;

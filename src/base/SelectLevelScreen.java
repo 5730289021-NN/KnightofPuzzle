@@ -1,6 +1,7 @@
 package base;
 
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -11,8 +12,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import Data.InfoManager;
@@ -87,8 +90,14 @@ public class SelectLevelScreen extends JComponent{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Main.changeGameScreen(Main.QUEST);
-				// TODO 
+				System.out.println("Quest");
+				QuestScreen d1 = new QuestScreen();
+				d1.setSize(new Dimension(600, 400));
+				d1.setModal(true);
+				;
+				d1.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+				d1.setVisible(true);
+				
 				
 			}
 		});
