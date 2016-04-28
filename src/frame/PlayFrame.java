@@ -56,6 +56,8 @@ public class PlayFrame extends JComponent {
 	private int seperateHeight = 368;
 	private int puzzleSize = 400;
 	public static int counterMonsterDie =0;
+	public static int counterMyLose = 0;
+	public static int counterGameFinish = 0;
 	
 	
 	private Puzzle puzzle;
@@ -236,6 +238,7 @@ public class PlayFrame extends JComponent {
 				if(logic.isMonsterDie()) {
 					state = WAVE_COMPLETE;
 					logic.increaseGold();
+					counterMonsterDie++;
 					currentMiniPosY = seperateHeight;
 					
 					soundDeath();
@@ -311,13 +314,14 @@ public class PlayFrame extends JComponent {
 					4,
 					InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] + 1
 				);
+				counterGameFinish++;
 				Main.changeGameScreen(Main.SELECTSCREEN);
 			}
 		} else if(state == ME_DIE) {
 			currentTime += Main.SleepTime;
 			if(currentTime >= finishTime) {
 				
-				
+				counterMyLose++;
 				Main.changeGameScreen(Main.SELECTSCREEN);
 			}
 		}

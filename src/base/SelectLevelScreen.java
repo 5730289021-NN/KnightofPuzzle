@@ -91,7 +91,7 @@ public class SelectLevelScreen extends JComponent{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Quest");
-				QuestScreen d1 = new QuestScreen();
+				AchievementScreen d1 = new AchievementScreen();
 				d1.setSize(new Dimension(600, 400));
 				d1.setModal(true);
 				;

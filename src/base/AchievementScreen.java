@@ -21,34 +21,37 @@ import frame.PlayFrame;
 import javafx.scene.control.ProgressBar;
 import main.Main;
 
-public class QuestScreen extends JDialog {
+public class AchievementScreen extends JDialog {
 	private JProgressBar pb;
 	private int money;
 	private int reward;
 	private int RewardComplete;
 	private int ValueProgress;
-	private int n1,n2,n3,n4;
+	private int n1,n2,n3,n4,n5;
 	private boolean isDone = false;
 	private ArrayList<String> ListQuest = new ArrayList<String>();
 	private JList<JPanel> jl;
-	public QuestScreen(){
+	public AchievementScreen(){
 		super();
-		int x =1;
-		JLabel l1 = new JLabel("Rank "+ x + "                                                                Reward "+ reward);
-		pb = new JProgressBar(ValueProgress);
 		JPanel Panel = new JPanel();
 		Panel.setLayout(new BoxLayout(Panel, BoxLayout.Y_AXIS));
 		JPanel sub1 = new JPanel();
-		JLabel s1 = new JLabel("Kill " + n1 +" enemies"+"  Reward "+RewardComplete);
+		JLabel s1 = new JLabel("Kill 50 enemies");
 		sub1.add(s1);
 		JPanel sub2 = new JPanel();
-		JLabel s2 = new JLabel("Use fury "+ n2+"  Reward "+RewardComplete);
+		JLabel s2 = new JLabel("Use fury 40 times");
 		sub2.add(s2);
 		JPanel sub3 = new JPanel();
-		JLabel s3 = new JLabel("Kill boss "+ n3+"  Reward "+RewardComplete);
+		JLabel s3 = new JLabel("Buy and upgrad all assets");
 		sub3.add(s3);
 		JPanel sub4 = new JPanel();
-		JLabel s4 = new JLabel("Total kill "+ n4+"  Reward "+RewardComplete);
+		JLabel s4 = new JLabel("You kill totally 100 times");
+		JPanel sub5 = new JPanel();
+		JLabel s5 = new JLabel("You lose 20 times");
+		sub5.add(s5);
+		JPanel sub6 = new JPanel();
+		JLabel s6 = new JLabel("Complete games 30 times");
+		sub6.add(s6);
 		JPanel p1 = new JPanel();
 		p1.setLayout(new FlowLayout());
 		JDialog d1 = this;
@@ -63,29 +66,16 @@ public class QuestScreen extends JDialog {
 		});
 		p1.add(b1);
 		sub4.add(s4);
-		Panel.add(l1);
-		Panel.add(pb);
 		Panel.add(sub1);
 		Panel.add(sub2);
 		Panel.add(sub3);
 		Panel.add(sub4);
+		Panel.add(sub5);
+		Panel.add(sub6);
 		Panel.add(p1);
 		this.add(Panel);
 		
 		
 	}
 	
-	private void calculate(int x,double ValueProgress,int reward,int RewardComplete){
-		if(isDone == true){
-			ValueProgress += RewardComplete;
-			if(ValueProgress >=100) {
-				ValueProgress = ValueProgress - 100;
-				x++;
-				InfoManager.MONEY[InfoManager.SELECTED_SLOT] += reward;
-				reward += 150;
-				
-			}
-		}
-		
-	}
 }
