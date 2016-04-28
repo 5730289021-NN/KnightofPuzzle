@@ -32,7 +32,8 @@ public class SelectLevelScreen extends JComponent{
 	private JButton playButton;
 	private JButton shopButton;
 	private JButton backButton;
-	
+	private JButton quest;
+	private JButton mode;
 	
 	private AnimationManager me;
 	private AnimationManager maxwell;
@@ -81,8 +82,29 @@ public class SelectLevelScreen extends JComponent{
 				Main.changeGameScreen(Main.INTROSCREEN);
 			}
 		});
+		quest = new JButton("Quest");
+		quest.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.changeGameScreen(Main.QUEST);
+				// TODO 
+				
+			}
+		});
+		mode = new JButton("Mode");
+		mode.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.changeGameScreen(Main.MODE);
+				
+			}
+		});
 		add(playButton);
 		add(shopButton);
+		add(quest);
+		add(mode);
 		add(backButton);
 		
 		addKeyListener(new KeyListener() {
@@ -130,7 +152,7 @@ public class SelectLevelScreen extends JComponent{
 						String s = JOptionPane.showInputDialog("Say :");
 						switch(s.toLowerCase().trim())
 						{
-							case "mynameisoak":
+							case "secretlevel":
 							{
 								if(InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] < 3)
 								{
@@ -145,7 +167,7 @@ public class SelectLevelScreen extends JComponent{
 								break;
 							}
 						}
-						if(s.trim().toLowerCase().contains("iwannaeatbanana"))
+						if(s.trim().toLowerCase().contains("iwantmoney"))
 						{
 							System.out.println("Cheat: Add Money " + s.substring(15, s.trim().length()) + " B");
 							try

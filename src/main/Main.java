@@ -26,7 +26,9 @@ public class Main {
 	public static final int INTROSCREEN = 1;
 	public static final int SELECTSCREEN = 2;
 	public static final int SHOPSCREEN = 3;
-	public static final int GAMESCREEN = 5;
+	public static final int QUEST = 4;
+	public static final int MODE = 5;
+	public static final int GAMESCREEN = 6;
 	private static IntroScreen i;
 	private static SelectLevelScreen sls;
 	private static ShopScreen ss;
@@ -126,6 +128,11 @@ public class Main {
 				bgm = Resource.getAudio("doorbell");
 				bgm.play();
 				break;
+			}
+			case QUEST:
+			{
+				System.out.println("Quest");
+				
 			}
 			case GAMESCREEN:
 			{
