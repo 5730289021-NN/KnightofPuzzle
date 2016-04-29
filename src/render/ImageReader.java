@@ -9,10 +9,12 @@ import javax.imageio.stream.ImageInputStream;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import res.ResourceException;
+
 public class ImageReader {
 	private static ClassLoader cl = ImageReader.class.getClassLoader();
 
-	public static ImageData[] get(String url) {
+	public static ImageData[] get(String url) throws ResourceException {
 		
 		String extension = url.substring(url.length()-3,url.length());
 		
@@ -47,7 +49,7 @@ public class ImageReader {
 
 	
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				throw new ResourceException(ResourceException.IOException);
 			}
 			return frame;
 			
@@ -58,12 +60,11 @@ public class ImageReader {
 				image[0] = new ImageData(ImageIO.read(cl.getResource(url)));
 				return image;
 			} catch(IOException e) {
-				e.printStackTrace();
-				return null;
+				throw new ResourceException(ResourceException.IOException);
 			}
+		} else {
+			throw new ResourceException(ResourceException.IMAGE_EXTENSION_INCORRECT);
 		}
-		
-		return null;
 	}
 
 }
