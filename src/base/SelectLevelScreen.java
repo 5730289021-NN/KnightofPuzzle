@@ -35,7 +35,7 @@ public class SelectLevelScreen extends JComponent{
 	private JButton playButton;
 	private JButton shopButton;
 	private JButton backButton;
-	private JButton quest;
+	private JButton achievement;
 	private JButton mode;
 	
 	private AnimationManager me;
@@ -85,8 +85,8 @@ public class SelectLevelScreen extends JComponent{
 				Main.changeGameScreen(Main.INTROSCREEN);
 			}
 		});
-		quest = new JButton("Quest");
-		quest.addActionListener(new ActionListener() {
+		achievement = new JButton("Achievement");
+		achievement.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -112,7 +112,7 @@ public class SelectLevelScreen extends JComponent{
 		});
 		add(playButton);
 		add(shopButton);
-		add(quest);
+		add(achievement);
 		add(mode);
 		add(backButton);
 		

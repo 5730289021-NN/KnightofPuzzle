@@ -40,6 +40,7 @@ public class ShopScreen extends JComponent{
 	public static int deltay_;
 	
 	private static Tag[] tags = new Tag[12];
+	public static int counterBuyOrUpgrade =0;
 	
 	private static JButton backButton;
 	private static final Font boldfont = new Font("Tahoma", Font.BOLD, 30);
@@ -111,6 +112,7 @@ public class ShopScreen extends JComponent{
 							if(((ShopTag) tag).isBuyable())
 							{
 								String name = "";
+								counterBuyOrUpgrade++;
 								switch(tag.getRarity())
 								{
 									case Tag.GOLD:
@@ -138,6 +140,7 @@ public class ShopScreen extends JComponent{
 								{
 									if(((ShopTag) tag).buyTag())
 									{
+										counterBuyOrUpgrade++;
 										for(Tag tag2 : tags)
 										{
 											if(tag2 instanceof InventoryTag && tag2.getType() == tag.getType() && tag2.getRarity() == tag.getRarity())
@@ -146,7 +149,8 @@ public class ShopScreen extends JComponent{
 													InfoManager.LEVEL_WEAPON[InfoManager.SELECTED_SLOT] += Math.pow(2, tag2.getRarity()-1);
 												else if(tag2.getType() == Tag.SHIELD)
 													InfoManager.LEVEL_ARMOR[InfoManager.SELECTED_SLOT] += Math.pow(2, tag2.getRarity()-1);
-												((InventoryTag) tag2).unlock();
+												((InventoryTag) tag2).unlock();	
+												
 												InfoManager.saveGame(InfoManager.NORMALSAVE);
 											}
 										}

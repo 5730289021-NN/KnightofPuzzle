@@ -58,6 +58,7 @@ public class PlayFrame extends JComponent {
 	public static int counterMonsterDie =0;
 	public static int counterMyLose = 0;
 	public static int counterGameFinish = 0;
+	public static int counterUseFury = 0;
 	
 	
 	private Puzzle puzzle;
@@ -360,6 +361,7 @@ public class PlayFrame extends JComponent {
 		
 		if(logic.isUseFury()) {
 			drawLineStatus(g, Color.BLUE, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
+			counterUseFury++;
 		} else {
 			drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
 		}
