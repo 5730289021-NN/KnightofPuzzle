@@ -11,7 +11,7 @@ import render.AnimationManager;
 
 //test
 
-public class PuzzleTwist {
+public class PuzzleTwist implements MiniGame {
 	private final int tableSize = 5;
 
 	private int[][] table = new int[tableSize][tableSize];
@@ -31,7 +31,8 @@ public class PuzzleTwist {
 	private BoxSlider slider1, slider2, slider3, slider4;
 
 	private int yBoxX, yBoxY;
-	private int yBoxSize = 320;
+	private int yBoxSize = 160;
+	private int temp;
 
 	public PuzzleTwist(AnimationManager[] img) {
 
@@ -128,7 +129,7 @@ public class PuzzleTwist {
 		int w = data[0].length;
 
 		g.setColor(Color.YELLOW);
-		g.fillRect(xPos[yBoxX][yBoxY], yPos[yBoxX][yBoxY], yBoxSize, yBoxSize);
+		g.fillRect(xPos[yBoxY][yBoxX], yPos[yBoxY][yBoxX], yBoxSize, yBoxSize);
 
 		if (!isSliding) {
 
@@ -152,6 +153,12 @@ public class PuzzleTwist {
 					slider2 = null;
 					slider3 = null;
 					slider4 = null;
+					
+					temp = table[yBoxY][yBoxX+1];
+					table[yBoxY][yBoxX+1] = table[yBoxY][yBoxX];
+					table[yBoxY][yBoxX] = table[yBoxY+1][yBoxX];
+					table[yBoxY+1][yBoxX]= table[yBoxY+1][yBoxX+1];
+					table[yBoxY+1][yBoxX+1] = temp;
 					// table[emptyY][emptyX] = table[slideY][slideX];
 					// table[slideY][slideX] = 0;
 					// emptyX = slideX;
@@ -232,5 +239,7 @@ public class PuzzleTwist {
 		slider2 = new BoxSlider(posSX2, posSY2, posEX2, posEY2, imgSize, img[table[topY][topX + 1] - 1]);
 		slider3 = new BoxSlider(posSX3, posSY3, posEX3, posEY3, imgSize, img[table[topY + 1][topX + 1] - 1]);
 		slider4 = new BoxSlider(posSX4, posSY4, posEX4, posEY4, imgSize, img[table[topY + 1][topX] - 1]);
+		
+		
 	}
 }
