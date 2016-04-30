@@ -11,7 +11,7 @@ import Random.Randomul;
 
 import com.sun.glass.events.KeyEvent;
 
-public class Puzzle {
+public class Puzzle implements MiniGame {
 	
 	private final int tableSize = 5;
 	

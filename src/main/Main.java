@@ -26,7 +26,7 @@ public class Main {
 	public static final int INTROSCREEN = 1;
 	public static final int SELECTSCREEN = 2;
 	public static final int SHOPSCREEN = 3;
-	public static final int QUEST = 4;
+	public static final int ACHIEVEMENT = 4;
 	public static final int MODE = 5;
 	public static final int GAMESCREEN = 6;
 	private static IntroScreen i;
@@ -129,10 +129,14 @@ public class Main {
 				bgm.play();
 				break;
 			}
-			case QUEST:
+			case ACHIEVEMENT:
 			{
-				System.out.println("Quest");
+				System.out.println("Achievement");
 				
+			}
+			case MODE:
+			{
+				System.out.println("Mode");
 			}
 			case GAMESCREEN:
 			{

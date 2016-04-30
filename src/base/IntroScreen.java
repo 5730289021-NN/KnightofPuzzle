@@ -120,6 +120,7 @@ public class IntroScreen extends JComponent{
 				else
 				{
 					InfoManager.SELECTED_SLOT = Integer.parseInt(s.substring(5,6)) - 1;
+					System.out.println(InfoManager.SELECTED_SLOT+" "+InfoManager.MAX_LEVEL_COMPLETE.length);
 					System.out.println("Load Slot : " + InfoManager.SELECTED_SLOT);
 					Main.changeGameScreen(Main.SELECTSCREEN);
 				}

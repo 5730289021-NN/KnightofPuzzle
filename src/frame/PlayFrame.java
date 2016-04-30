@@ -1,7 +1,5 @@
 package frame;
 
-import input.InputUtility;
-
 import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -19,17 +17,19 @@ import javax.swing.JOptionPane;
 
 import com.sun.glass.events.KeyEvent;
 
+import Data.InfoManager;
+import LogicGame.MiniGame;
+import LogicGame.PlayLogic;
+import LogicGame.Puzzle;
+import base.GameScreen;
+import base.ModeScreen;
+import base.SelectLevelScreen;
+import input.InputUtility;
 import main.Main;
 import render.AnimationManager;
 import render.ImageData;
 import render.RenderHelper;
 import res.Resource;
-import Data.Burny;
-import Data.InfoManager;
-import LogicGame.PlayLogic;
-import LogicGame.Puzzle;
-import base.GameScreen;
-import base.SelectLevelScreen;
 
 
 public class PlayFrame extends JComponent {
@@ -56,9 +56,12 @@ public class PlayFrame extends JComponent {
 	private int seperateHeight = 368;
 	private int puzzleSize = 400;
 	public static int counterMonsterDie =0;
+	public static int counterMyLose = 0;
+	public static int counterGameFinish = 0;
+	public static int counterUseFury = 0;
 	
 	
-	private Puzzle puzzle;
+	private MiniGame puzzle;
 	private PlayLogic logic;
 	private JButton menuButton;
 	
@@ -98,7 +101,7 @@ public class PlayFrame extends JComponent {
 		logic.setMonster(monsterName);
 		enemy.loop();
 		
-		puzzle = new Puzzle(puzzleItem);
+		puzzle = createMiniPuzzle();
 		currentMiniPosY = 0;
 		
 		setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -187,6 +190,30 @@ public class PlayFrame extends JComponent {
 		enemy.update();
 	}
 	
+	private MiniGame createMiniPuzzle() {
+		String a = ModeScreen.s;
+		if(a == null) a = "Slide";
+		
+		switch(a){
+			case("Slide") :
+			{
+				return new Puzzle(puzzleItem);
+			}
+			case("Twist") :
+			{
+				//return new PuzzleTwist(puzzleItem);
+			}
+			case("Swap") :
+			{
+				//return new PuzzleSwap(puzzleItem);
+			}
+			default :
+			{
+				return new Puzzle(puzzleItem);
+			}
+		}
+	}
+	
 	@Override
 	protected synchronized void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -236,6 +263,7 @@ public class PlayFrame extends JComponent {
 				if(logic.isMonsterDie()) {
 					state = WAVE_COMPLETE;
 					logic.increaseGold();
+					counterMonsterDie++;
 					currentMiniPosY = seperateHeight;
 					
 					soundDeath();
@@ -254,7 +282,7 @@ public class PlayFrame extends JComponent {
 			
 			if(currentMiniPosY >= GameScreen.HEIGHT) {
 				currentMiniPosY = GameScreen.HEIGHT;
-				puzzle = new Puzzle(puzzleItem);
+				puzzle = createMiniPuzzle();
 			}
 			if(attackenemy.isFinish() && currentMiniPosY >= GameScreen.HEIGHT) {
 				state = START_STATE;
@@ -286,7 +314,7 @@ public class PlayFrame extends JComponent {
 				state = START_STATE;
 				currentMiniPosY = 0;
 				
-				puzzle = new Puzzle(puzzleItem);
+				puzzle = createMiniPuzzle();
 				
 				logic.increaseWave();
 				
@@ -307,17 +335,18 @@ public class PlayFrame extends JComponent {
 			currentTime += Main.SleepTime;
 			if(currentTime >= finishTime) {
 				logic.updateGoldToInfo();
-				InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] = Math.max(
+				InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] = Math.min(
 					4,
 					InfoManager.MAX_LEVEL_COMPLETE[InfoManager.SELECTED_SLOT] + 1
 				);
+				counterGameFinish++;
 				Main.changeGameScreen(Main.SELECTSCREEN);
 			}
 		} else if(state == ME_DIE) {
 			currentTime += Main.SleepTime;
 			if(currentTime >= finishTime) {
 				
-				
+				counterMyLose++;
 				Main.changeGameScreen(Main.SELECTSCREEN);
 			}
 		}
@@ -356,6 +385,7 @@ public class PlayFrame extends JComponent {
 		
 		if(logic.isUseFury()) {
 			drawLineStatus(g, Color.BLUE, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
+			counterUseFury++;
 		} else {
 			drawLineStatus(g, Color.GREEN, "Fury", 15, seperateHeight + 70, logic.getFuryPercentage());
 		}
