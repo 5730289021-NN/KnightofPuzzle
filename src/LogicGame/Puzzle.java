@@ -47,9 +47,11 @@ public class Puzzle implements MiniGame {
 		for(int i=0; i<100; i++) {
 			int a = Randomul.rand(0, d-1);
 			int b = Randomul.rand(0, d-1);
+			int c = Randomul.rand(0, d-1);
 			int tmp = rand[a];
 			rand[a] = rand[b];
-			rand[b] = tmp;
+			rand[b] = rand[c];
+			rand[c] = tmp;
 		}
 		
 		for (int i=0; i<tableSize;i++){
@@ -176,23 +178,39 @@ public class Puzzle implements MiniGame {
 		}
 	}
 	
+	public int pressDirection = 0;
+	
 	public void update() {
 		if(InputUtility.getKeyPressed(KeyEvent.VK_UP)) {
-			if(emptyY < tableSize - 1) {
-				slide(emptyX, emptyY + 1);
+			if(pressDirection != 1) {
+				if(emptyY < tableSize - 1) {
+					slide(emptyX, emptyY + 1);
+				}
+				pressDirection = 1;
 			}
 		} else if(InputUtility.getKeyPressed(KeyEvent.VK_DOWN)) {
-			if(emptyY > 0) {
-				slide(emptyX, emptyY - 1);
+			if(pressDirection != 2) {
+				if(emptyY > 0) {
+					slide(emptyX, emptyY - 1);
+				}
+				pressDirection = 2;
 			}
 		} else if(InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			if(emptyX < tableSize - 1) {
-				slide(emptyX + 1, emptyY);
+			if(pressDirection != 3) {
+				if(emptyX < tableSize - 1) {
+					slide(emptyX + 1, emptyY);
+				}
+				pressDirection = 3;
 			}
 		} else if(InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			if(emptyX > 0) {
-				slide(emptyX - 1, emptyY);
+			if(pressDirection != 4) {
+				if(emptyX > 0) {
+					slide(emptyX - 1, emptyY);
+				}
+				pressDirection = 4;
 			}
+		} else {
+			pressDirection = 0;
 		}
 	}
 	

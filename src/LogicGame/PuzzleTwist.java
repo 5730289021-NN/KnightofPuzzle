@@ -21,6 +21,7 @@ public class PuzzleTwist implements MiniGame {
 	public final static int lp = 2;
 	public final static int sw = 3;
 	public final static int sh = 4;
+	public int pressDirection = 0;
 
 	private AnimationManager[] img;
 	// private int emptyX, emptyY;
@@ -153,12 +154,12 @@ public class PuzzleTwist implements MiniGame {
 					slider2 = null;
 					slider3 = null;
 					slider4 = null;
-					
-					temp = table[yBoxY][yBoxX+1];
-					table[yBoxY][yBoxX+1] = table[yBoxY][yBoxX];
-					table[yBoxY][yBoxX] = table[yBoxY+1][yBoxX];
-					table[yBoxY+1][yBoxX]= table[yBoxY+1][yBoxX+1];
-					table[yBoxY+1][yBoxX+1] = temp;
+
+					temp = table[yBoxY][yBoxX + 1];
+					table[yBoxY][yBoxX + 1] = table[yBoxY][yBoxX];
+					table[yBoxY][yBoxX] = table[yBoxY + 1][yBoxX];
+					table[yBoxY + 1][yBoxX] = table[yBoxY + 1][yBoxX + 1];
+					table[yBoxY + 1][yBoxX + 1] = temp;
 					// table[emptyY][emptyX] = table[slideY][slideX];
 					// table[slideY][slideX] = 0;
 					// emptyX = slideX;
@@ -187,24 +188,37 @@ public class PuzzleTwist implements MiniGame {
 
 	public void update() {
 		if (InputUtility.getKeyPressed(KeyEvent.VK_UP)) {
-			if (yBoxY > 0) {
-				yBoxY--;
+			if (pressDirection != 1) {
+				if (yBoxY > 0) {
+					yBoxY--;
+				}
 			}
+			pressDirection = 1;
 		} else if (InputUtility.getKeyPressed(KeyEvent.VK_DOWN)) {
-			if (yBoxY < tableSize - 2) {
-				yBoxY++;
+			if (pressDirection != 2) {
+				if (yBoxY < tableSize - 2) {
+					yBoxY++;
+				}
 			}
+			pressDirection = 2;
 		} else if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			if (yBoxX > 0) {
-				yBoxX--;
+			if (pressDirection != 3) {
+				if (yBoxX > 0) {
+					yBoxX--;
+				}
 			}
+			pressDirection = 3;
 		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			if (yBoxX < tableSize - 2) {
-				yBoxX++;
+			if (pressDirection != 4) {
+				if (yBoxX < tableSize - 2) {
+					yBoxX++;
+				}
 			}
+			pressDirection = 4;
 		} else if (InputUtility.getKeyPressed(KeyEvent.VK_Z)) {
 			twist(yBoxX, yBoxY);
-		}
+		} else
+			pressDirection = 0;
 	}
 
 	public void twist(int x, int y) {
@@ -239,7 +253,6 @@ public class PuzzleTwist implements MiniGame {
 		slider2 = new BoxSlider(posSX2, posSY2, posEX2, posEY2, imgSize, img[table[topY][topX + 1] - 1]);
 		slider3 = new BoxSlider(posSX3, posSY3, posEX3, posEY3, imgSize, img[table[topY + 1][topX + 1] - 1]);
 		slider4 = new BoxSlider(posSX4, posSY4, posEX4, posEY4, imgSize, img[table[topY + 1][topX] - 1]);
-		
-		
+
 	}
 }
