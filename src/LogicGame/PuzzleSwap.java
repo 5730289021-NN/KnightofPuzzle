@@ -11,6 +11,7 @@ import render.AnimationManager;
 import Random.Randomul;
 
 import com.sun.glass.events.KeyEvent;
+import com.sun.org.apache.bcel.internal.generic.SWAP;
 
 public class PuzzleSwap implements MiniGame {
 
@@ -25,10 +26,14 @@ public class PuzzleSwap implements MiniGame {
 	public final static int sw = 3;
 	public final static int sh = 4;
 	public int pressDirection =0;
+	public int selectBox = 0;
+	private int getBluex;
+	private int getBlueY;
 
 	private int inBlueX;
 	private int inBlueY;
 	private int blueSize = 80;
+	private boolean isChoose;
 
 	private AnimationManager[] img;
 
@@ -130,6 +135,11 @@ public class PuzzleSwap implements MiniGame {
 		g.setColor(new Color(153, 255, 255));
 		g.fillRect(xPos[inBlueY][inBlueX], yPos[inBlueY][inBlueX], blueSize, blueSize);
 
+		if(isChoose) {
+			g.setColor(new Color(150, 250, 250));
+			g.fillRect(xPos[getBlueY][getBluex], yPos[getBlueY][getBluex], blueSize, blueSize);
+		}
+		
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
 
@@ -143,6 +153,7 @@ public class PuzzleSwap implements MiniGame {
 						size / w, size / h, null);
 			}
 		}
+		
 	}
 
 	public void update() {
@@ -175,8 +186,21 @@ public class PuzzleSwap implements MiniGame {
 			}
 			pressDirection = 4;
 		} else if (InputUtility.getKeyPressed(KeyEvent.VK_Z)) {
-			
-			
+			if(pressDirection != 5) {
+				if(selectBox ==1){
+					int temp = table[inBlueY][inBlueX];
+					table[inBlueY][inBlueX] = table[getBlueY][getBluex];
+					table[getBlueY][getBluex] = temp;
+					selectBox = 0;
+					isChoose = false;
+				} else {
+					getBluex = inBlueX;
+					getBlueY = inBlueY;
+					isChoose = true;
+					selectBox = 1;
+				}
+			}
+			pressDirection = 5;
 	} else pressDirection = 0;
 
 	}}
