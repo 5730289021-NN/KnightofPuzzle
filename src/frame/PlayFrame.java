@@ -21,6 +21,7 @@ import Data.InfoManager;
 import LogicGame.MiniGame;
 import LogicGame.PlayLogic;
 import LogicGame.Puzzle;
+import LogicGame.PuzzleSwap;
 import LogicGame.PuzzleTwist;
 import base.GameScreen;
 import base.ModeScreen;
@@ -206,7 +207,7 @@ public class PlayFrame extends JComponent {
 			}
 			case("Swap") :
 			{
-				//return new PuzzleSwap(puzzleItem);
+				return new PuzzleSwap(puzzleItem);
 			}
 			default :
 			{
