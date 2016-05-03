@@ -128,7 +128,7 @@ public class PlayFrame extends JComponent {
 		switch(choice)
 		{
 			case 0:
-			{
+			{	isPause = false;
 				return;
 			}
 			case 1:
@@ -172,6 +172,7 @@ public class PlayFrame extends JComponent {
 
 	private void restart() {
 		Main.changeGameScreen(Main.GAMESCREEN);
+		
 	}
 
 	public synchronized void update() {

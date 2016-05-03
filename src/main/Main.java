@@ -40,7 +40,6 @@ public class Main {
 		new Resource();
 		new InfoManager();
 		frame = new JFrame();
-		
 		i = new IntroScreen(frame);
 		sls = new SelectLevelScreen();
 		ss = new ShopScreen();
